@@ -1,4 +1,2 @@
-language: csharp
+﻿language: csharp
 solution: ./SimpleMVVMExample.sln
-script:
-- xbuild ./SimpleMVVMExample.sln
