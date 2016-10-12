@@ -4,49 +4,49 @@
     {
         #region Fields
 
-        private int _productId;
-        private string _productName;
-        private decimal _unitPrice;
+        private int _ticketId;
+        private string _ticketTitle;
+        private decimal _ticketDescription;
 
         #endregion // Fields
 
         #region Properties
 
-        public int ProductId
+        public int TicketId
         {
-            get { return _productId; }
+            get { return _ticketId; }
             set
             {
-                if (value != _productId)
+                if (value != _ticketId)
                 {
-                    _productId = value;
-                    OnPropertyChanged("ProductId");
+                    _ticketId = value;
+                    OnPropertyChanged("TicketId");
                 }
             }
         }
 
-        public string ProductName
+        public string TicketTitle
         {
-            get { return _productName; }
+            get { return _ticketTitle; }
             set
             {
-                if (value != _productName)
+                if (value != _ticketTitle)
                 {
-                    _productName = value;
-                    OnPropertyChanged("ProductName");
+                    _ticketTitle = value;
+                    OnPropertyChanged("TicketTitle");
                 }
             }
         }
 
-        public decimal UnitPrice
+        public decimal TicketDescription
         {
-            get { return _unitPrice; }
+            get { return _ticketDescription; }
             set
             {
-                if (value != _unitPrice)
+                if (value != _ticketDescription)
                 {
-                    _unitPrice = value;
-                    OnPropertyChanged("UnitPrice");
+                    _ticketDescription = value;
+                    OnPropertyChanged("TicketDescription");
                 }
             }
         }

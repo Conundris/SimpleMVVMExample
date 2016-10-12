@@ -1,2 +1,2 @@
 ﻿language: csharp
-solution: SimpleMVVMExample.sln
+solution: "./SimpleMVVMExample/SimpleMVVMExample.sln"
