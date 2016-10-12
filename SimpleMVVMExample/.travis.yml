@@ -1,6 +1,4 @@
-﻿language: csharp
-solution: "./SimpleMVVMExample/SimpleMVVMExample.sln"
-install:
-- travis_retry nuget restore -source "https://www.nuget.org/api/v2" ./SimpleMVVMExample/SimpleMVVMExample.sln
+language: csharp
+solution: ./SimpleMVVMExample.sln
 script:
-- xbuild ./SimpleMVVMExample/SimpleMVVMExample.sln
+- xbuild ./SimpleMVVMExample.sln
