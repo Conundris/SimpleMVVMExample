@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SimpleMVVMExample"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" Width="473.109">
     
     <UserControl.Resources>
         <!-- DataTemplate (View) for Product Model -->
@@ -40,7 +40,7 @@
         <DockPanel DockPanel.Dock="Top">
             <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Enter Product Id" VerticalAlignment="Center" />
 
-            <TextBox Margin="10,2" Width="50" VerticalAlignment="Center" Text="{Binding Path=ProductId, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Margin="10,2" Width="53" VerticalAlignment="Center" Text="{Binding Path=ProductId, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Content="Save Product" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
                         Command="{Binding Path=SaveProductCommand}" Width="100" />

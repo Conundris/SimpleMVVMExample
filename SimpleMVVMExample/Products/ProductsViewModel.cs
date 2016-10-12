@@ -28,7 +28,7 @@ namespace SimpleMVVMExample
                 if (value != _productId)
                 {
                     _productId = value;
-                    OnPropertyChanged("ProductId");
+                    OnPropertyChanged("TicketId");
                 }
             }
         }
@@ -85,9 +85,9 @@ namespace SimpleMVVMExample
             // Usually you'd get your Product from your datastore,
             // but for now we'll just return a new object
             ProductModel p = new ProductModel();
-            p.ProductId = ProductId;
-            p.ProductName = "Test Product";
-            p.UnitPrice = 10;
+            p.TicketId = ProductId;
+            p.TicketTitle = "Test Product";
+            p.TicketDescription = 10;
             CurrentProduct = p;
         }
 
