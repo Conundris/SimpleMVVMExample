@@ -36,8 +36,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MaterialMenu, Version=0.0.4.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialMenu.0.0.4.5\lib\net40\MaterialMenu.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialMenu.0.0.4.5\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,12 +69,15 @@
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Home\HomeViewModel.cs" />
-    <Compile Include="Products\ProductModel.cs" />
-    <Compile Include="Helper Classes\RelayCommand.cs" />
-    <Compile Include="Products\ProductsView.xaml.cs">
-      <DependentUpon>ProductsView.xaml</DependentUpon>
+    <Compile Include="Products\DetailTicketView.xaml.cs">
+      <DependentUpon>DetailTicketView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Products\ProductsViewModel.cs" />
+    <Compile Include="Products\TicketModel.cs" />
+    <Compile Include="Helper Classes\RelayCommand.cs" />
+    <Compile Include="Products\TicketsView.xaml.cs">
+      <DependentUpon>TicketsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\TicketViewModel.cs" />
     <Compile Include="IPageViewModel.cs" />
     <Page Include="Home\HomeView.xaml">
       <SubType>Designer</SubType>
@@ -84,7 +95,11 @@
       <DependentUpon>ApplicationView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Products\ProductsView.xaml">
+    <Page Include="Products\DetailTicketView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\TicketsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,6 +123,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include=".travis.yml" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

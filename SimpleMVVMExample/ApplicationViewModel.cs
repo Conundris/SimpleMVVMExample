@@ -19,7 +19,7 @@ namespace SimpleMVVMExample
         {
             // Add available pages
             PageViewModels.Add(new HomeViewModel());
-            PageViewModels.Add(new ProductsViewModel());
+            PageViewModels.Add(new TicketViewModel());
 
             // Set starting page
             CurrentPageViewModel = PageViewModels[0];

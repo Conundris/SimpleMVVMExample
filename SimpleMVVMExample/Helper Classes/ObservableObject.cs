@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Collections;
 using System.ComponentModel;
 
 namespace SimpleMVVMExample
@@ -23,9 +21,9 @@ namespace SimpleMVVMExample
             // public, instance property on this object.
             if (TypeDescriptor.GetProperties(this)[propertyName] == null)
             {
-                string msg = "Invalid property name: " + propertyName;
+                var msg = "Invalid property name: " + propertyName;
 
-                if (this.ThrowOnInvalidPropertyName)
+                if (ThrowOnInvalidPropertyName)
                     throw new Exception(msg);
                 else
                     Debug.Fail(msg);

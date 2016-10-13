@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace SimpleMVVMExample
 {
     /// <summary>
-    /// Interaction logic for ProductsView.xaml
+    /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class ProductsView : UserControl
+    public partial class Page1 : Page
     {
-        public ProductsView()
+        public Page1()
         {
             InitializeComponent();
         }

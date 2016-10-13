@@ -8,8 +8,8 @@
         <DataTemplate DataType="{x:Type local:HomeViewModel}">
             <local:HomeView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type local:ProductsViewModel}">
-            <local:ProductsView />
+        <DataTemplate DataType="{x:Type local:TicketViewModel}">
+            <local:TicketsView />
         </DataTemplate>
     </Window.Resources>
 

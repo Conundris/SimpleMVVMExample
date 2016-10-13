@@ -1,11 +1,12 @@
 ﻿namespace SimpleMVVMExample
 {
-    public class ProductModel : ObservableObject
+    public class TicketModel : ObservableObject
     {
         #region Fields
 
         private int _ticketId;
         private string _ticketTitle;
+        private string _assignedTo;
         private decimal _ticketDescription;
 
         #endregion // Fields
@@ -34,6 +35,19 @@
                 {
                     _ticketTitle = value;
                     OnPropertyChanged("TicketTitle");
+                }
+            }
+        }
+
+        public string AssignedTo
+        {
+            get { return _assignedTo; }
+            set
+            {
+                if (value != _assignedTo)
+                {
+                    _assignedTo = value;
+                    OnPropertyChanged("AssignedTo");
                 }
             }
         }

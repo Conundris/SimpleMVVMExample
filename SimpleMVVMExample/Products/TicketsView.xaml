@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="SimpleMVVMExample.TicketsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SimpleMVVMExample"
+             mc:Ignorable="d" MinWidth="473.109" MinHeight="300" d:DesignWidth="490.109" d:DesignHeight="313">
+    <!--**DataContext="{Binding Path=TagGridContext, RelativeSource={RelativeSource Self}}"**-->
+    <UserControl.Resources>
+    </UserControl.Resources>
+    
+    <DockPanel Margin="20">
+        <DockPanel DockPanel.Dock="Top">
+            <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Enter Product Id" VerticalAlignment="Stretch" />
+            <TextBox Margin="10,2" Width="53" VerticalAlignment="Stretch" Text="{Binding Path=ProductId, UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Right">
+            <GroupBox Header="Actions">
+                <StackPanel>
+                    <Button Content="New" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" Width="100" />
+                    <Button Content="Edit" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" Width="100" />
+                    <Button Content="Delete" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" Width="100" />
+                </StackPanel>
+            </GroupBox>
+        </DockPanel>
+                <!--<DockPanel DockPanel.Dock="Right">
+            <Button Content="Populate Tickets" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" Width="100" />
+            <Button Content="Save Product" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=SaveProductCommand}" Width="100" Height="20" />
+        </DockPanel>-->
+
+        <DataGrid Name="dgTickets" AutoGenerateColumns="False" ItemsSource="{Binding Tickets}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding TicketId}" Visibility="Hidden"/>
+                <DataGridTextColumn Width="150" Header="Title" Binding="{Binding TicketTitle}" />
+                <DataGridTextColumn Width="150" Header="Assigned to" Binding="{Binding AssignedTo}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--<ContentControl Margin="10" Content="{Binding Path=CurrentProduct}" />-->
+    </DockPanel>
+</UserControl>
