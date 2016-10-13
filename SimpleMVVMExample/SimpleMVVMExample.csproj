@@ -69,15 +69,19 @@
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Home\HomeViewModel.cs" />
-    <Compile Include="Products\DetailTicketView.xaml.cs">
+    <Compile Include="Ticket\DetailTicketView.xaml.cs">
       <DependentUpon>DetailTicketView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Products\TicketModel.cs" />
+    <Compile Include="Ticket\DetailTicketViewChild.xaml.cs">
+      <DependentUpon>DetailTicketViewChild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ticket\DetailTicketViewModel.cs" />
+    <Compile Include="Ticket\TicketModel.cs" />
     <Compile Include="Helper Classes\RelayCommand.cs" />
-    <Compile Include="Products\TicketsView.xaml.cs">
+    <Compile Include="Ticket\TicketsView.xaml.cs">
       <DependentUpon>TicketsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Products\TicketViewModel.cs" />
+    <Compile Include="Ticket\TicketViewModel.cs" />
     <Compile Include="IPageViewModel.cs" />
     <Page Include="Home\HomeView.xaml">
       <SubType>Designer</SubType>
@@ -95,11 +99,15 @@
       <DependentUpon>ApplicationView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Products\DetailTicketView.xaml">
+    <Page Include="Ticket\DetailTicketView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Products\TicketsView.xaml">
+    <Page Include="Ticket\DetailTicketViewChild.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ticket\TicketsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

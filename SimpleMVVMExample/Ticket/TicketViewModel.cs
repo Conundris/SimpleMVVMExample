@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows;
+using System.Diagnostics;
 using System.Windows.Input;
+using SimpleMVVMExample.Ticket;
 
 namespace SimpleMVVMExample
 {
@@ -10,8 +11,10 @@ namespace SimpleMVVMExample
 
         private int _ticketId;
         private ObservableCollection<TicketModel> _tickets = new ObservableCollection<TicketModel>();
+        private TicketModel _selectedItem;
         private ICommand _populateTicketsCommand;
         private ICommand _saveTicketCommand;
+        private ICommand _openDetailTicketCommand;
 
         #endregion
 
@@ -21,6 +24,20 @@ namespace SimpleMVVMExample
         }
 
         #region Properties/Commands
+
+        public TicketModel SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                if (value == _selectedItem || value == null) return;
+                _selectedItem = value;
+                OnPropertyChanged("SelectedItem");
+            }
+        }
 
         public ObservableCollection<TicketModel> Tickets
         {
@@ -35,7 +52,7 @@ namespace SimpleMVVMExample
             }
         }
 
-        public string Name => "Products";
+        public string Name => "Tickets";
 
         public int TicketId
         {
@@ -57,6 +74,21 @@ namespace SimpleMVVMExample
                 return _populateTicketsCommand ?? (_populateTicketsCommand = new RelayCommand(
                            param => InitializeCurrentTickets()
                        ));
+            }
+        }
+
+        public ICommand OpenDetailTicketCommand
+        {
+            get
+            {
+                if (_openDetailTicketCommand == null)
+                {
+                    _openDetailTicketCommand = new RelayCommand(
+                        param => ShowWindow(),
+                        param => (SelectedItem != null)
+                        );
+                }
+                return _openDetailTicketCommand;
             }
         }
 
@@ -113,10 +145,12 @@ namespace SimpleMVVMExample
             return theObject;
         }
 
-        private void ShowWindow(int i)
+        private void ShowWindow()
         {
             // Just as an exammple, here I just show a MessageBox
-            MessageBox.Show("You clicked on object " + i + "!!!");
+            Debug.WriteLine(SelectedItem);
+            var detailForm = new DetailTicketView(SelectedItem);
+            detailForm.ShowDialog();
         }
         #endregion
     }

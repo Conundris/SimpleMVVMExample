@@ -11,5 +11,10 @@ namespace SimpleMVVMExample
         {
             InitializeComponent();
         }
+
+        private void Menu_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
