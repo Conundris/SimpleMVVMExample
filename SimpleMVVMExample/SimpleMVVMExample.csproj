@@ -64,6 +64,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApplicationViewModel.cs" />
+    <Compile Include="Customers\CustomerModel.cs" />
+    <Compile Include="Customers\CustomerssView.xaml.cs">
+      <DependentUpon>CustomerssView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\CustomerViewModel.cs" />
+    <Compile Include="Customers\DetailCustomerView.xaml.cs">
+      <DependentUpon>DetailCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\CustomersView.xaml.cs">
+      <DependentUpon>CustomersView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper Classes\ObservableObject.cs" />
     <Compile Include="Home\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -71,9 +82,6 @@
     <Compile Include="Home\HomeViewModel.cs" />
     <Compile Include="Ticket\DetailTicketView.xaml.cs">
       <DependentUpon>DetailTicketView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ticket\DetailTicketViewChild.xaml.cs">
-      <DependentUpon>DetailTicketViewChild.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ticket\DetailTicketViewModel.cs" />
     <Compile Include="Ticket\TicketModel.cs" />
@@ -83,6 +91,18 @@
     </Compile>
     <Compile Include="Ticket\TicketViewModel.cs" />
     <Compile Include="IPageViewModel.cs" />
+    <Page Include="Customers\CustomerssView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Customers\DetailCustomerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Customers\CustomersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Home\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,10 +120,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Ticket\DetailTicketView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Ticket\DetailTicketViewChild.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

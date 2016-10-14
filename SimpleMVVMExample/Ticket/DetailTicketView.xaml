@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleMVVMExample.Ticket"
         mc:Ignorable="d"
-        Title="DetailTicketView" Height="300.892" Width="423.031">
-    <Grid>
+        Title="DetailTicketView" Height="302.484" Width="425.419" ResizeMode="NoResize">
+    <Grid Margin="0,0,-6,-1">
         <Label x:Name="lblTitle" Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
         <Label x:Name="lblAssignedTo" Content="Assigned To" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,146,0,0"/>
         <TextBox x:Name="txtTitle" Text="{Binding TicketId, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="316" Margin="88,13,0,0"/>

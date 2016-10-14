@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using SimpleMVVMExample.Customers;
 
 namespace SimpleMVVMExample
 {
@@ -20,6 +21,7 @@ namespace SimpleMVVMExample
             // Add available pages
             PageViewModels.Add(new HomeViewModel());
             PageViewModels.Add(new TicketViewModel());
+            PageViewModels.Add(new CustomerViewModel());
 
             // Set starting page
             CurrentPageViewModel = PageViewModels[0];

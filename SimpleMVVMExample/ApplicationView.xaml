@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SimpleMVVMExample"
         xmlns:materialMenu="clr-namespace:MaterialMenu;assembly=MaterialMenu"
-        Title="Simple MVVM Example with Navigation" Height="350" Width="525">
+        xmlns:customers="clr-namespace:SimpleMVVMExample.Customers"
+        Title="Simple MVVM Example with Navigation" Height="350" Width="525" MinHeight="450" MinWidth="600">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type local:HomeViewModel}">
@@ -11,6 +12,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:TicketViewModel}">
             <local:TicketsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type customers:CustomerViewModel}">
+            <local:CustomersView />
         </DataTemplate>
     </Window.Resources>
 
@@ -26,30 +30,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-
-            <!--<materialMenu:SideMenu DockPanel.Dock="Left" HorizontalAlignment="Left" x:Name="Menu"
-                               MenuWidth="150"
-                               Theme="Default"
-                               State="Hidden">
-                <materialMenu:SideMenu.Menu>
-                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                        <StackPanel Orientation="Vertical">
-                            <Border Background="#337AB5">
-                                <Grid Margin="10">
-                                    <TextBox Height="30" BorderThickness="0" Background="Transparent"
-                                    VerticalContentAlignment="Bottom" FontFamily="Calibri" FontSize="18"
-                                    Foreground="WhiteSmoke" FontWeight="Bold">Welcome</TextBox>
-                                </Grid>
-                            </Border>
-                            <materialMenu:MenuButton Text="Administration"></materialMenu:MenuButton>
-                            <materialMenu:MenuButton Text="Packing"></materialMenu:MenuButton>
-                            <materialMenu:MenuButton Text="Logistics"></materialMenu:MenuButton>
-                        </StackPanel>
-                    </ScrollViewer>
-                </materialMenu:SideMenu.Menu>
-            </materialMenu:SideMenu>-->
         </Border>
-
         <ContentControl Content="{Binding CurrentPageViewModel}" />
     </DockPanel>
 </Window>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 using SimpleMVVMExample.Ticket;
 
@@ -15,6 +16,7 @@ namespace SimpleMVVMExample
         private ICommand _populateTicketsCommand;
         private ICommand _saveTicketCommand;
         private ICommand _openDetailTicketCommand;
+        private ICommand _deleteTicketCommand;
 
         #endregion
 
@@ -106,6 +108,20 @@ namespace SimpleMVVMExample
             }
         }
 
+        public ICommand DeleteTicketCommand
+        {
+            get
+            {
+                if(_deleteTicketCommand == null)
+                {
+                    _deleteTicketCommand = new RelayCommand(
+                        param => DeleteTicket()
+                    );
+                }
+                return _deleteTicketCommand;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -125,6 +141,11 @@ namespace SimpleMVVMExample
         private void SaveTicket()
         {
             // You would implement your Product save here
+        }
+
+        private void DeleteTicket()
+        {
+            MessageBox.Show("Successfully deleted Ticket.");
         }
 
         private void InitializeCurrentTickets()

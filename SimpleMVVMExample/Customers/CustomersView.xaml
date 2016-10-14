@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SimpleMVVMExample.TicketsView"
+﻿<UserControl x:Class="SimpleMVVMExample.CustomersView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -42,16 +42,16 @@
 
     <DockPanel Margin="20" >
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-            <TextBlock Margin="0,2" DockPanel.Dock="Left" Text="Enter Ticket Title" VerticalAlignment="Stretch" />
+            <TextBlock Margin="0,2" DockPanel.Dock="Left" Text="Enter Customer ID" VerticalAlignment="Stretch" />
             <Button Content="Search" DockPanel.Dock="Right" Width="50"></Button>
-            <TextBox Margin="10,2" Width="Auto" VerticalAlignment="Stretch" Text="{Binding Path=ProductId, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Margin="10,2" Width="Auto" VerticalAlignment="Stretch" />
         </DockPanel>
         <DockPanel DockPanel.Dock="Right">
             <GroupBox x:Name="grpActions" Header="Actions" Margin="0,0,0,136" Width="120" Style="{StaticResource GroupBoxS}" VerticalAlignment="Top">
                 <StackPanel>
-                    <Button Content="New" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="Edit" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=OpenDetailTicketCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="Delete" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="New" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateCustomersCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="Edit" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=OpenDetailCustomerCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="Delete" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateCustomerCommand}" HorizontalAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
         </DockPanel>
@@ -60,11 +60,11 @@
             <Button Content="Save Product" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=SaveProductCommand}" Width="100" Height="20" />
         </DockPanel>-->
 
-        <DataGrid Name="dgTickets" AutoGenerateColumns="False" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch">
+        <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding TicketId}" Visibility="Hidden"/>
-                <DataGridTextColumn Width="150" Header="Title" Binding="{Binding TicketTitle}" />
-                <DataGridTextColumn Width="150" Header="Assigned to" Binding="{Binding AssignedTo}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding CustomerId}"/>
+                <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding Forename}" />
+                <DataGridTextColumn Width="Auto" Header="Surname" Binding="{Binding Surname}"/>
             </DataGrid.Columns>
         </DataGrid>
         <!--<ContentControl Margin="10" Content="{Binding Path=CurrentProduct}" />-->
