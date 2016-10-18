@@ -10,11 +10,11 @@ namespace SimpleMVVMExample.Customers
     {
         #region Fields
 
-        private int _ticketId;
+        private int _customerId;
         private ObservableCollection<CustomerModel> _customers = new ObservableCollection<CustomerModel>();
         private CustomerModel _selectedCustomer;
-        private ICommand _populateTicketsCommand;
-        private ICommand _saveCustomerCommand;
+        private ICommand _populateCustomersCommand;
+        private ICommand _createCustomerCommand;
         private ICommand _openDetailCustomerCommand;
         private ICommand _deleteCustomerCommand;
 
@@ -58,12 +58,12 @@ namespace SimpleMVVMExample.Customers
 
         public int CustomerId
         {
-            get { return _ticketId; }
+            get { return _customerId; }
             set
             {
-                if (value != _ticketId)
+                if (value != _customerId)
                 {
-                    _ticketId = value;
+                    _customerId = value;
                     OnPropertyChanged("CustomerId");
                 }
             }
@@ -73,7 +73,7 @@ namespace SimpleMVVMExample.Customers
         {
             get
             {
-                return _populateTicketsCommand ?? (_populateTicketsCommand = new RelayCommand(
+                return _populateCustomersCommand ?? (_populateCustomersCommand = new RelayCommand(
                            param => InitializeCurrentCustomers()
                        ));
             }
@@ -94,17 +94,17 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
-        public ICommand SaveCustomerCommand
+        public ICommand CreateCustomerCommand
         {
             get
             {
-                if (_saveCustomerCommand == null)
+                if (_createCustomerCommand == null)
                 {
-                    _saveCustomerCommand = new RelayCommand(
-                        param => SaveTicket()
+                    _createCustomerCommand = new RelayCommand(
+                        param => CreateCustomer()
                     );
                 }
-                return _saveCustomerCommand;
+                return _createCustomerCommand;
             }
         }
 
@@ -115,7 +115,8 @@ namespace SimpleMVVMExample.Customers
                 if (_deleteCustomerCommand == null)
                 {
                     _deleteCustomerCommand = new RelayCommand(
-                        param => DeleteTicket()
+                        param => DeleteCustomer(),
+                        param => (SelectedCustomer != null)
                     );
                 }
                 return _deleteCustomerCommand;
@@ -126,13 +127,17 @@ namespace SimpleMVVMExample.Customers
 
         #region Methods
 
-        private void SaveTicket()
+        private void CreateCustomer()
         {
-            // You would implement your Product save here
+            var detailForm = new DetailCustomerView();
+            detailForm.ShowDialog();
         }
 
-        private void DeleteTicket()
+        private void DeleteCustomer()
         {
+            if (SelectedCustomer == null) return;
+            Customers.Remove(SelectedCustomer);
+            SelectedCustomer = null;
             MessageBox.Show("Successfully deleted Customer.");
         }
 

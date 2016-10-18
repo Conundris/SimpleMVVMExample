@@ -6,7 +6,6 @@
              xmlns:materialMenu="clr-namespace:MaterialMenu;assembly=MaterialMenu"
              xmlns:local="clr-namespace:SimpleMVVMExample"
              mc:Ignorable="d" MinWidth="473.109" MinHeight="300" HorizontalAlignment="Stretch">
-    <!--**DataContext="{Binding Path=TagGridContext, RelativeSource={RelativeSource Self}}"**-->
     <UserControl.Resources>
         <ControlTemplate x:Key="GroupBoxStyle" TargetType="{x:Type GroupBox}">
             <Grid>
@@ -49,16 +48,13 @@
         <DockPanel DockPanel.Dock="Right">
             <GroupBox x:Name="grpActions" Header="Actions" Margin="0,0,0,136" Width="120" Style="{StaticResource GroupBoxS}" VerticalAlignment="Top">
                 <StackPanel>
-                    <Button Content="New" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateCustomersCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="Populate" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateCustomersCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="New" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=CreateCustomerCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="Edit" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=OpenDetailCustomerCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="Delete" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateCustomerCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="Delete" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=DeleteCustomerCommand}" HorizontalAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
         </DockPanel>
-        <!--<DockPanel DockPanel.Dock="Right">
-            <Button Content="Populate Tickets" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" Width="100" />
-            <Button Content="Save Product" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=SaveProductCommand}" Width="100" Height="20" />
-        </DockPanel>-->
 
         <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch">
             <DataGrid.Columns>
@@ -67,6 +63,5 @@
                 <DataGridTextColumn Width="Auto" Header="Surname" Binding="{Binding Surname}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <!--<ContentControl Margin="10" Content="{Binding Path=CurrentProduct}" />-->
     </DockPanel>
 </UserControl>
