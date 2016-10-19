@@ -8,13 +8,13 @@
         Title="Customer" Height="302.484" Width="425.419" ResizeMode="NoResize">
     <Grid Margin="0,0,-6,-1">
         <Label x:Name="lblTitle" Content="Forname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-        <TextBox x:Name="txtTitle" Text="{Binding TicketId, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="72,13,0,0"/>
+        <TextBox x:Name="txtTitle" Text="{Binding Forename, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="72,13,0,0"/>
         <Button x:Name="btnSave" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,242,0,0" Click="btnSave_Click">
             <Button.Content>Save &amp; Close</Button.Content>
         </Button>
         <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="329,242,0,0" Click="btnClose_Click" />
         <Label x:Name="lblSurname" Content="Surname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,41,0,0"/>
-        <TextBox x:Name="txtStatus_Copy" Text="{Binding TicketStatus, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="72,44,0,0"/>
+        <TextBox x:Name="txtSurname" Text="{Binding Surname, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="72,44,0,0"/>
         <Label x:Name="lblGender" Content="Gender" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,72,0,0"/>
         <Label x:Name="lblDoB" Content="Date of Birth" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblStreet" Content="Street" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top"/>
