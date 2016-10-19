@@ -9,6 +9,11 @@ namespace SimpleMVVMExample
         private int _customerId;
         private string _surname;
         private string _forename;
+        private string _gender;
+        private string _street;
+        private string _town;
+        private string _state;
+        private string _postcode;
         private DateTime _dateOfBirth;
 
         #endregion // Fields

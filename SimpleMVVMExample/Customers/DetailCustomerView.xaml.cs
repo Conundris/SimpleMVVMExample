@@ -9,6 +9,14 @@ namespace SimpleMVVMExample.Customers
     {
         private CustomerModel _customerModel;
 
+        // For creating new Customer
+        public DetailCustomerView()
+        {
+            InitializeComponent();
+            DataContext = new CustomerModel();
+        }
+
+        // For editing new Customer
         public DetailCustomerView(CustomerModel customerModel)
         {
             _customerModel = customerModel;
