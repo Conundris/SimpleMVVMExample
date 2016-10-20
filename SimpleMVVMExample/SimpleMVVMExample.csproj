@@ -72,9 +72,6 @@
     </ApplicationDefinition>
     <Compile Include="ApplicationViewModel.cs" />
     <Compile Include="Customers\CustomerModel.cs" />
-    <Compile Include="Customers\CustomerssView.xaml.cs">
-      <DependentUpon>CustomerssView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Customers\CustomerViewModel.cs" />
     <Compile Include="Customers\DetailCustomerView.xaml.cs">
       <DependentUpon>DetailCustomerView.xaml</DependentUpon>
@@ -98,10 +95,6 @@
     </Compile>
     <Compile Include="Ticket\TicketViewModel.cs" />
     <Compile Include="IPageViewModel.cs" />
-    <Page Include="Customers\CustomerssView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Customers\DetailCustomerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

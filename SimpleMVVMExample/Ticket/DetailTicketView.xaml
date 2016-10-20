@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleMVVMExample.Ticket"
         mc:Ignorable="d"
-        Title="DetailTicketView" Height="302.484" Width="425.419" ResizeMode="NoResize">
+        Title="Ticket" Height="311.337" Width="440.912" ResizeMode="NoResize">
     <Grid Margin="0,0,-6,-1">
         <Label x:Name="lblTitle" Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
         <Label x:Name="lblAssignedTo" Content="Assigned To" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,146,0,0"/>
-        <TextBox x:Name="txtTitle" Text="{Binding TicketId, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="316" Margin="88,13,0,0"/>
-        <TextBox x:Name="txtAssignedTo" Text="{Binding TicketTitle, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="88,149,0,0"/>
+        <TextBox x:Name="txtTitle" Text="{Binding TicketId, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="316" Margin="88,6,0,0"/>
+        <TextBox x:Name="txtAssignedTo" Text="{Binding TicketTitle, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="88,146,0,0"/>
         <Label x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,36,0,0"/>
         <RichTextBox x:Name="richTextBox" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="316" Margin="88,41,0,0">
             <FlowDocument>
@@ -19,14 +19,14 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Button x:Name="btnSave" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,242,0,0" Click="btnSave_Click">
+        <Button x:Name="btnSave" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="10,233,0,0" Click="btnSave_Click">
             <Button.Content>Save &amp; Close</Button.Content>
         </Button>
-        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="329,242,0,0" Click="btnClose_Click"/>
+        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="340,233,0,0" Click="btnClose_Click"/>
         <Label x:Name="lblStatus" Content="Status" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="213,146,0,0"/>
-        <TextBox x:Name="txtStatus" Text="{Binding TicketStatus, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Margin="260,149,0,0"/>
+        <TextBox x:Name="txtStatus" Text="{Binding TicketStatus, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Margin="260,146,0,0"/>
         <Label x:Name="lblCreatedBy" Content="Created by" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,174,0,0"/>
-        <TextBox x:Name="txtCreatedBy" Text="{Binding TicketTitle, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="88,177,0,0"/>
+        <TextBox x:Name="txtCreatedBy" Text="{Binding TicketTitle, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="88,174,0,0"/>
 
     </Grid>
 </Window>
