@@ -1,14 +1,16 @@
 ﻿namespace SimpleMVVMExample.Staff
 {
-    class StaffModel : ObservableObject
+    public class StaffModel : ObservableObject
     {
         #region Fields
 
         private int _staffID;
         private string _forename;
         private string _surname;
+        private string _username;
         private string _password;
         private string _email;
+        private bool _active;
 
         #endregion // Fields
 
@@ -53,6 +55,19 @@
             }
         }
 
+        public string Username
+        {
+            get { return _username; }
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
+                }
+            }
+        }
+
         public string Password
         {
             get { return _password; }
@@ -75,6 +90,19 @@
                 {
                     _email = value;
                     OnPropertyChanged("Email");
+                }
+            }
+        }
+
+        public bool Active
+        {
+            get { return _active; }
+            set
+            {
+                if (value != _active)
+                {
+                    _active = value;
+                    OnPropertyChanged("Active");
                 }
             }
         }

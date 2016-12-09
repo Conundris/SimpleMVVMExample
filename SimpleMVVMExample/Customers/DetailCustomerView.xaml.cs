@@ -29,12 +29,12 @@ namespace SimpleMVVMExample.Customers
             MessageBox.Show(_customerModel != null
                 ? "Entry has successfully been created."
                 : "Entry has Successfully been updated.");
-            this.Close();
+            Close();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

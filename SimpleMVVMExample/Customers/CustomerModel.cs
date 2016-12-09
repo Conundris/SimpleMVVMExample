@@ -9,12 +9,14 @@ namespace SimpleMVVMExample
         private int _customerId;
         private string _surname;
         private string _forename;
-        private string _gender;
+        private string _company;
         private string _street;
+        private string _phone;
         private string _town;
-        private string _state;
-        private string _postcode;
+        private string _county;
+        private string _country;
         private DateTime _dateOfBirth;
+        private bool _active;
 
         #endregion // Fields
 
@@ -58,6 +60,45 @@ namespace SimpleMVVMExample
             }
         }
 
+        public string Company
+        {
+            get { return _company; }
+            set
+            {
+                if (value != _company)
+                {
+                    _company = value;
+                    OnPropertyChanged("Company");
+                }
+            }
+        }
+
+        public string Street
+        {
+            get { return _street; }
+            set
+            {
+                if (value != _street)
+                {
+                    _street = value;
+                    OnPropertyChanged("Street");
+                }
+            }
+        }
+
+        public string Phone
+        {
+            get { return _phone; }
+            set
+            {
+                if (value != _phone)
+                {
+                    _phone = value;
+                    OnPropertyChanged("Phone");
+                }
+            }
+        }
+
         public DateTime DateOfBirth
         {
             get { return _dateOfBirth; }
@@ -70,6 +111,60 @@ namespace SimpleMVVMExample
                 }
             }
         }
+
+        public string Town
+        {
+            get { return _town; }
+            set
+            {
+                if (value != _town)
+                {
+                    _town = value;
+                    OnPropertyChanged("Town");
+                }
+            }
+        }
+
+        public string County
+        {
+            get { return _county; }
+            set
+            {
+                if (value != _county)
+                {
+                    _county = value;
+                    OnPropertyChanged("County");
+                }
+            }
+        }
+
+        public string Country
+        {
+            get { return _country; }
+            set
+            {
+                if (value != _country)
+                {
+                    _country = value;
+                    OnPropertyChanged("Country");
+                }
+            }
+        }
+
+        public bool Active
+        {
+            get { return _active; }
+            set
+            {
+                if (value != _active)
+                {
+                    _active = value;
+                    OnPropertyChanged("Active");
+                }
+            }
+        }
+
+
         #endregion // Properties
     }
 }

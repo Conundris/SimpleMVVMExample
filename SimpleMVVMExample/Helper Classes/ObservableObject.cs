@@ -8,11 +8,6 @@ namespace SimpleMVVMExample
     {
         #region Debugging Aides
 
-        /// <summary>
-        /// Warns the developer if this object does not have
-        /// a public property with the specified name. This 
-        /// method does not exist in a Release build.
-        /// </summary>
         [Conditional("DEBUG")]
         [DebuggerStepThrough]
         public virtual void VerifyPropertyName(string propertyName)

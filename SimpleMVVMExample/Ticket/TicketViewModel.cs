@@ -16,7 +16,7 @@ namespace SimpleMVVMExample
         private ICommand _populateTicketsCommand;
         private ICommand _saveTicketCommand;
         private ICommand _openDetailTicketCommand;
-        private ICommand _deleteTicketCommand;
+        private ICommand _closeTicketCommand;
 
         #endregion
 
@@ -108,17 +108,17 @@ namespace SimpleMVVMExample
             }
         }
 
-        public ICommand DeleteTicketCommand
+        public ICommand CloseTicketCommand
         {
             get
             {
-                if(_deleteTicketCommand == null)
+                if(_closeTicketCommand == null)
                 {
-                    _deleteTicketCommand = new RelayCommand(
+                    _closeTicketCommand = new RelayCommand(
                         param => DeleteTicket()
                     );
                 }
-                return _deleteTicketCommand;
+                return _closeTicketCommand;
             }
         }
 

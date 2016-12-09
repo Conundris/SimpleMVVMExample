@@ -15,12 +15,16 @@
             <Button Content="Search" DockPanel.Dock="Right" Width="75"></Button>
             <TextBox Margin="10,2" Width="Auto" VerticalAlignment="Stretch" Text="{Binding Path=ProductId, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+            <CheckBox Content="Open Tickets"/>
+        </DockPanel>
         <DockPanel DockPanel.Dock="Right">
             <GroupBox x:Name="grpActions" Header="Actions" Margin="0,0,0,136" Width="125" VerticalAlignment="Top">
                 <StackPanel>
                     <Button Content="New" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="Edit" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=OpenDetailTicketCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="Delete" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="Delete" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=DeleteTicketCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="Populate" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" HorizontalAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
         </DockPanel>
@@ -34,6 +38,7 @@
                 <DataGridTextColumn Header="ID" Binding="{Binding TicketId}" Visibility="Hidden"/>
                 <DataGridTextColumn Width="150" Header="Title" Binding="{Binding TicketTitle}" />
                 <DataGridTextColumn Width="150" Header="Assigned to" Binding="{Binding AssignedTo}"/>
+                <DataGridTextColumn Width="150" Header="Assigned to" Binding="{Binding CreateDate}"/>
             </DataGrid.Columns>
         </DataGrid>
         <!--<ContentControl Margin="10" Content="{Binding Path=CurrentProduct}" />-->

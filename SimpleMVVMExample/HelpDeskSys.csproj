@@ -53,6 +53,7 @@
       <HintPath>..\packages\MaterialMenu.0.0.4.5\lib\net40\System.Net.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -84,17 +85,30 @@
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Home\HomeViewModel.cs" />
+    <Compile Include="Staff\DetailStaffView.xaml.cs">
+      <DependentUpon>DetailStaffView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Staff\StaffModel.cs" />
     <Compile Include="Staff\StaffView.xaml.cs">
       <DependentUpon>StaffView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Staff\StaffViewModel.cs" />
+    <Compile Include="TicketAnalysis\TicketAnalysisView.xaml.cs">
+      <DependentUpon>TicketAnalysisView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TicketAnalysis\TicketAnalysisViewModel.cs" />
     <Compile Include="Ticket\DetailTicketView.xaml.cs">
       <DependentUpon>DetailTicketView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ticket\DetailTicketViewModel.cs" />
+    <Compile Include="Ticket\PaymentView.xaml.cs">
+      <DependentUpon>PaymentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ticket\TicketModel.cs" />
     <Compile Include="Helper Classes\RelayCommand.cs" />
+    <Compile Include="Ticket\TicketNoteView.xaml.cs">
+      <DependentUpon>TicketNoteView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ticket\TicketsView.xaml.cs">
       <DependentUpon>TicketsView.xaml</DependentUpon>
     </Compile>
@@ -124,11 +138,27 @@
       <DependentUpon>ApplicationView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Staff\DetailStaffView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Staff\StaffView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TicketAnalysis\TicketAnalysisView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ticket\DetailTicketView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ticket\PaymentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ticket\TicketNoteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +195,7 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

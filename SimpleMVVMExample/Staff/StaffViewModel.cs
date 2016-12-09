@@ -9,13 +9,13 @@ namespace SimpleMVVMExample.Staff
     {
         #region Fields
 
-        private int _ticketId;
+        private int _staffId;
         private ObservableCollection<StaffModel> _staffList = new ObservableCollection<StaffModel>();
         private StaffModel _selectedItem;
         private ICommand _populateStaffCommand;
         private ICommand _saveStaffCommand;
         private ICommand _openDetailStaffCommand;
-        private ICommand _deleteStaffCommand;
+        private ICommand _deactivateStaffCommand;
 
         #endregion
 
@@ -53,18 +53,16 @@ namespace SimpleMVVMExample.Staff
             }
         }
 
-        public string Name => "Tickets";
+        public string Name => "Staff";
 
-        public int TicketId
+        public int StaffId
         {
-            get { return _ticketId; }
+            get { return _staffId; }
             set
             {
-                if (value != _ticketId)
-                {
-                    _ticketId = value;
-                    OnPropertyChanged("TicketId");
-                }
+                if (value == _staffId) return;
+                _staffId = value;
+                OnPropertyChanged("StaffId");
             }
         }
 
@@ -73,7 +71,7 @@ namespace SimpleMVVMExample.Staff
             get
             {
                 return _populateStaffCommand ?? (_populateStaffCommand = new RelayCommand(
-                           param => InitializeCurrentTickets()
+                           param => InitializeCurrentStaff()
                        ));
             }
         }
@@ -107,17 +105,13 @@ namespace SimpleMVVMExample.Staff
             }
         }
 
-        public ICommand DeleteStaffCommand
+        public ICommand DeactivateStaffCommand
         {
             get
             {
-                if (_deleteStaffCommand == null)
-                {
-                    _deleteStaffCommand = new RelayCommand(
-                        param => DeleteTicket()
-                    );
-                }
-                return _deleteStaffCommand;
+                return _deactivateStaffCommand ?? (_deactivateStaffCommand = new RelayCommand(
+                           param => DeactivateStaff()
+                       ));
             }
         }
 
@@ -125,29 +119,17 @@ namespace SimpleMVVMExample.Staff
 
         #region Methods
 
-        private void GetStaff()
-        {
-            // Usually you'd get your Product from the database,
-            // but for now we'll just return a new object
-            var p = new TicketModel
-            {
-                TicketId = TicketId,
-                TicketTitle = "Test Product",
-                TicketDescription = 10
-            };
-        }
-
         private void SaveStaff()
         {
-            // You would implement your Product save here
+            MessageBox.Show("Successfully Saved Staff.");
         }
 
-        private void DeleteTicket()
+        private void DeactivateStaff()
         {
-            MessageBox.Show("Successfully deleted Ticket.");
+            MessageBox.Show("Successfully deactivated Staff.");
         }
 
-        private void InitializeCurrentTickets()
+        private void InitializeCurrentStaff()
         {
             for (var i = 0; i < 5; i++)
             {
@@ -159,7 +141,13 @@ namespace SimpleMVVMExample.Staff
         {
             var theObject = new StaffModel
             {
-                
+                StaffID = StaffId,
+                Forename = "Test" + i ,
+                Surname = "Person" + i,
+                Email = "test@test.ch",
+                Username = "TestUser" + i,
+                Password = "1234" + i,
+                Active = true
             };
             return theObject;
         }
@@ -168,8 +156,8 @@ namespace SimpleMVVMExample.Staff
         {
             // Just as an exammple, here I just show a MessageBox
             Debug.WriteLine(SelectedItem);
-            //var detailForm = new DetailTicketView(SelectedItem);
-            //detailForm.ShowDialog();
+            var detailForm = new DetailStaffView(SelectedItem);
+            detailForm.ShowDialog();
         }
         #endregion
     }

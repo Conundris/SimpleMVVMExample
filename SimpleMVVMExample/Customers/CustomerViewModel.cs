@@ -17,6 +17,7 @@ namespace SimpleMVVMExample.Customers
         private ICommand _createCustomerCommand;
         private ICommand _openDetailCustomerCommand;
         private ICommand _deleteCustomerCommand;
+        private ICommand _deRegisterCustomerCommand;
 
         #endregion
 
@@ -123,9 +124,31 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
+        public ICommand DeRegisterCustomerCommand
+        {
+            get
+            {
+                if (_deRegisterCustomerCommand == null)
+                {
+                    _deRegisterCustomerCommand = new RelayCommand(
+                        param => DeRegisterCustomer(),
+                        param => (SelectedCustomer != null)
+                    );
+                }
+                return _deRegisterCustomerCommand;
+            }
+        }
+
         #endregion
 
         #region Methods
+        
+        private void DeRegisterCustomer()
+        {
+            if (SelectedCustomer == null) return;
+            SelectedCustomer.Active = false;
+            MessageBox.Show("Customer has been successfully deregistered.");
+        }
 
         private void CreateCustomer()
         {
@@ -151,12 +174,19 @@ namespace SimpleMVVMExample.Customers
 
         private CustomerModel InitializeCustomer(int i)
         {
-            var theObject = new CustomerModel()
+            var theObject = new CustomerModel
             {
                 CustomerId = i,
                 Forename = "Test" + i,
                 Surname = "TestSurname" + i,
-                DateOfBirth = DateTime.Now
+                DateOfBirth = DateTime.Now,
+                Company = "TestCompany",
+                Active = true,
+                Country = "TestCountry",
+                County = "TestCounty",
+                Phone = "085676357",
+                Street = "TestStreet",
+                Town = "TestTown"
             };
             return theObject;
         }

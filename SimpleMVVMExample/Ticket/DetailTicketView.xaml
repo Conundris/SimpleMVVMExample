@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleMVVMExample.Ticket"
         mc:Ignorable="d"
-        Title="Ticket" Height="311.337" Width="440.912" ResizeMode="NoResize">
+        Title="Ticket" Height="449.337" Width="622.14" ResizeMode="NoResize">
     <Grid Margin="0,0,-6,-1">
         <Label x:Name="lblTitle" Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
         <Label x:Name="lblAssignedTo" Content="Assigned To" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,146,0,0"/>
@@ -19,14 +19,23 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Button x:Name="btnSave" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="10,233,0,0" Click="btnSave_Click">
-            <Button.Content>Save &amp; Close</Button.Content>
-        </Button>
-        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="340,233,0,0" Click="btnClose_Click"/>
+
         <Label x:Name="lblStatus" Content="Status" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="213,146,0,0"/>
-        <TextBox x:Name="txtStatus" Text="{Binding TicketStatus, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Margin="260,146,0,0"/>
+        <TextBox x:Name="txtStatus" Text="{Binding TicketStatus, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,146,0,0"/>
         <Label x:Name="lblCreatedBy" Content="Created by" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,174,0,0"/>
         <TextBox x:Name="txtCreatedBy" Text="{Binding TicketTitle, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="88,174,0,0"/>
-
+        <GroupBox x:Name="grpActions" Header="Actions" Margin="422,10,10,0" VerticalAlignment="Top" Height="229">
+            <StackPanel>
+                <Button Content="Save &amp; Close" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" HorizontalAlignment="Stretch" Click="btnSave_Click" />
+                <Button Content="Close Ticket" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=CloseTicketCommand}" HorizontalAlignment="Stretch" />
+                <Button x:Name="btnPayment" Content="Add Payment" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=AddPaymentCommand}" HorizontalAlignment="Stretch" Click="Payment_Click" />
+                <Button x:Name="btnTicketNote" Content="Add Ticket Note" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=AddTicketNoteCommand}" HorizontalAlignment="Stretch" Click="TicketNote_Click" />
+                <Button x:Name="btnPrintTicket" Content="Print" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PrintTicketCommand}" HorizontalAlignment="Stretch" Click="btnPrintTicket_Click" />
+            </StackPanel>
+        </GroupBox>
+        <Label x:Name="lblPaid" Content="Payment Received" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,213,0,0"/>
+        <TextBox x:Name="txtPaymentReceived" Text="0.0" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,209,0,0"/>
+        <Label x:Name="lblTicketNotes" Content="Ticket Notes" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,248,0,0"/>
+        <ListBox x:Name="lbTicketNotes" ItemsSource="{Binding Path=TicketNotes}" HorizontalAlignment="Left" Height="152" Margin="88,248,0,0" VerticalAlignment="Top" Width="316"/>
     </Grid>
 </Window>

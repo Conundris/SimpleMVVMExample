@@ -17,19 +17,20 @@
         <DockPanel DockPanel.Dock="Right">
             <GroupBox x:Name="grpActions" Header="Actions" Margin="0,0,0,136" Width="125" VerticalAlignment="Top">
                 <StackPanel>
-                    <Button Content="Populate" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=PopulateCustomersCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="New" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=CreateCustomerCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="Edit" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=OpenDetailCustomerCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="Delete" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=DeleteCustomerCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="Populate" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=PopulateStaffCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="New" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=CreateStaffCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="Edit" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=OpenDetailStaffCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="Deactivate" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=DeactivateStaffCommand}" HorizontalAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
         </DockPanel>
 
-        <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch">
+        <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding StaffList}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding CustomerId}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding StaffID}"/>
                 <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding Forename}" />
                 <DataGridTextColumn Width="Auto" Header="Surname" Binding="{Binding Surname}"/>
+                <DataGridTextColumn Width="Auto" Header="Email" Binding="{Binding Email}"/>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>

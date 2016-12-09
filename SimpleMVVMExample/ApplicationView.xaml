@@ -4,6 +4,8 @@
         xmlns:local="clr-namespace:SimpleMVVMExample"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:customers="clr-namespace:SimpleMVVMExample.Customers"
+        xmlns:staff="clr-namespace:SimpleMVVMExample.Staff"
+        xmlns:TicketAnalysis="clr-namespace:SimpleMVVMExample.TicketAnalysis"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -21,7 +23,13 @@
         <DataTemplate DataType="{x:Type customers:CustomerViewModel}">
             <local:CustomersView />
         </DataTemplate>
-        <ResourceDictionary x:Key="MaterialDesign">
+        <DataTemplate DataType="{x:Type staff:StaffViewModel }">
+            <staff:StaffView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type TicketAnalysis:TicketAnalysisViewModel}">
+            <TicketAnalysis:TicketAnalysisView/>
+        </DataTemplate>
+            <ResourceDictionary x:Key="MaterialDesign">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />

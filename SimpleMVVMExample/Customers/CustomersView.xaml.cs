@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using DetailCustomerView = SimpleMVVMExample.Customers.DetailCustomerView;
 
 namespace SimpleMVVMExample
@@ -21,6 +22,11 @@ namespace SimpleMVVMExample
             new DetailCustomerView(selectedTicket).ShowDialog();
 
             //MessageBox.Show($"The Person you double clicked on is - ID: {selectedTicket.TicketId}, Title: {selectedTicket.TicketTitle}");
+        }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MessageBox.Show("Printing List of Customers.");
         }
     }
 }

@@ -24,9 +24,21 @@ namespace SimpleMVVMExample.Ticket
             this.Close();
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void TicketNote_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            new TicketNoteView().ShowDialog();
+            lbTicketNotes.Items.Add("1930-01-01: Ticket Note Description");
+        }
+
+        private void Payment_Click(object sender, RoutedEventArgs e)
+        {
+            new PaymentView().ShowDialog();
+            txtPaymentReceived.Text = 45.ToString();
+        }
+
+        private void btnPrintTicket_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Printing Ticket.");
         }
     }
 }

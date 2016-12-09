@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Windows.Input;
 using SimpleMVVMExample.Customers;
+using SimpleMVVMExample.Staff;
+using SimpleMVVMExample.TicketAnalysis;
 
 namespace SimpleMVVMExample
 {
@@ -22,6 +24,8 @@ namespace SimpleMVVMExample
             PageViewModels.Add(new HomeViewModel());
             PageViewModels.Add(new TicketViewModel());
             PageViewModels.Add(new CustomerViewModel());
+            PageViewModels.Add(new StaffViewModel());
+            PageViewModels.Add(new TicketAnalysisViewModel());
 
             // Set starting page
             CurrentPageViewModel = PageViewModels[0];
