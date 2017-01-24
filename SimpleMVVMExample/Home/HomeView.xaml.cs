@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using SimpleMVVMExample.DB;
 
 namespace SimpleMVVMExample
 {
@@ -22,6 +14,25 @@ namespace SimpleMVVMExample
         public HomeView()
         {
             InitializeComponent();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            /*DC test = new DC();
+            test.test();*/
+            using (var ctx = new HelpdeskEntities())
+            {
+                Console.WriteLine("ConnectionState: " + ctx.Database.Connection.State);
+
+                var rst = from tbl in ctx.TBLCUSTOMER
+                          select tbl;
+
+                Console.WriteLine("LINQ Result: ");
+                foreach (var result in rst)
+                {
+                    Console.WriteLine("ID: " + result.INTCUSTOMERID + " Name: " + result.STRNAME);
+                }
+            }
         }
     }
 }

@@ -22,5 +22,16 @@ namespace SimpleMVVMExample.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("DATA SOURCE=helpdesksys.cqzld7hmi4qv.eu-west-1.rds.amazonaws.com:1521/ORCL;PASSWO" +
+            "RD=Crocket20;PERSIST SECURITY INFO=True;USER ID=JBR")]
+        public string ConnectionString {
+            get {
+                return ((string)(this["ConnectionString"]));
+            }
+        }
     }
 }

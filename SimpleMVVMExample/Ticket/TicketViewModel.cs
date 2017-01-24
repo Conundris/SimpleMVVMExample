@@ -69,58 +69,13 @@ namespace SimpleMVVMExample
             }
         }
 
-        public ICommand PopulateTicketsCommand
-        {
-            get
-            {
-                return _populateTicketsCommand ?? (_populateTicketsCommand = new RelayCommand(
-                           param => InitializeCurrentTickets()
-                       ));
-            }
-        }
+        public ICommand PopulateTicketsCommand => _populateTicketsCommand ?? (_populateTicketsCommand = new RelayCommand(param => InitializeCurrentTickets()));
 
-        public ICommand OpenDetailTicketCommand
-        {
-            get
-            {
-                if (_openDetailTicketCommand == null)
-                {
-                    _openDetailTicketCommand = new RelayCommand(
-                        param => ShowWindow(),
-                        param => (SelectedItem != null)
-                        );
-                }
-                return _openDetailTicketCommand;
-            }
-        }
+        public ICommand OpenDetailTicketCommand => _openDetailTicketCommand ?? (_openDetailTicketCommand = new RelayCommand(param => ShowWindow(), param => (SelectedItem != null)));
 
-        public ICommand SaveTicketCommand
-        {
-            get
-            {
-                if (_saveTicketCommand == null)
-                {
-                    _saveTicketCommand = new RelayCommand(
-                        param => SaveTicket()
-                    );
-                }
-                return _saveTicketCommand;
-            }
-        }
+        public ICommand SaveTicketCommand => _saveTicketCommand ?? (_saveTicketCommand = new RelayCommand(param => SaveTicket()));
 
-        public ICommand CloseTicketCommand
-        {
-            get
-            {
-                if(_closeTicketCommand == null)
-                {
-                    _closeTicketCommand = new RelayCommand(
-                        param => DeleteTicket()
-                    );
-                }
-                return _closeTicketCommand;
-            }
-        }
+        public ICommand CloseTicketCommand => _closeTicketCommand ?? (_closeTicketCommand = new RelayCommand(param => DeleteTicket()));
 
         #endregion
 
