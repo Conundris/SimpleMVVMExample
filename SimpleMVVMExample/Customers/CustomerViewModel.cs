@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using SimpleMVVMExample.DB;
+using SimpleMVVMExample.Utility;
 
 namespace SimpleMVVMExample.Customers
 {
@@ -24,6 +27,7 @@ namespace SimpleMVVMExample.Customers
         public CustomerViewModel()
         {
             Customers = new ObservableCollection<CustomerModel>();
+            getCustomers();
         }
 
         #region Properties/Commands
@@ -67,16 +71,6 @@ namespace SimpleMVVMExample.Customers
                     _customerId = value;
                     OnPropertyChanged("CustomerId");
                 }
-            }
-        }
-
-        public ICommand PopulateCustomersCommand
-        {
-            get
-            {
-                return _populateCustomersCommand ?? (_populateCustomersCommand = new RelayCommand(
-                           param => InitializeCurrentCustomers()
-                       ));
             }
         }
 
@@ -164,31 +158,20 @@ namespace SimpleMVVMExample.Customers
             MessageBox.Show("Successfully deleted Customer.");
         }
 
-        private void InitializeCurrentCustomers()
+        private void getCustomers()
         {
-            for (var i = 0; i < 5; i++)
+            using (var cmd = DC.getOpenConnection().CreateCommand())
             {
-                Customers.Add(InitializeCustomer(i));
-            }
-        }
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT * FROM frmCustomerView";
+                var dr = cmd.ExecuteReader();
 
-        private CustomerModel InitializeCustomer(int i)
-        {
-            var theObject = new CustomerModel
-            {
-                CustomerId = i,
-                Forename = "Test" + i,
-                Surname = "TestSurname" + i,
-                DateOfBirth = DateTime.Now,
-                Company = "TestCompany",
-                Active = true,
-                Country = "TestCountry",
-                County = "TestCounty",
-                Phone = "085676357",
-                Street = "TestStreet",
-                Town = "TestTown"
-            };
-            return theObject;
+                if (!dr.HasRows) return;
+                var dataReader = cmd.ExecuteReader();
+                var dataTable = new DataTable();
+                dataTable.Load(dataReader);
+                Customers = new ObservableCollection<CustomerModel>(dataTable.DataTableToList<CustomerModel>());
+            }
         }
 
         private void ShowWindow()
