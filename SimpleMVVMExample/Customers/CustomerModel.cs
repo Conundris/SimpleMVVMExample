@@ -1,4 +1,5 @@
 ﻿using System;
+// ReSharper disable InconsistentNaming
 
 namespace SimpleMVVMExample
 {
@@ -22,145 +23,123 @@ namespace SimpleMVVMExample
 
         #region Properties
 
-        public int CustomerId
+        public int INTCUSTOMERID
         {
             get { return _customerId; }
             set
             {
-                if (value != _customerId)
-                {
-                    _customerId = value;
-                    OnPropertyChanged("CustomerId");
-                }
+                if (value == _customerId) return;
+                _customerId = value;
+                OnPropertyChanged("INTCUSTOMERID");
             }
         }
 
-        public string Forename
+        public string STRFORENAME
         {
             get { return _forename; }
             set
             {
-                if (value != _forename)
-                {
-                    _forename = value;
-                    OnPropertyChanged("Forename");
-                }
+                if (value == _forename) return;
+                _forename = value;
+                OnPropertyChanged("STRFORENAME");
             }
         }
-        public string Surname
+        public string STRSURNAME
         {
             get { return _surname; }
             set
             {
-                if (value != _surname)
-                {
-                    _surname = value;
-                    OnPropertyChanged("Surname");
-                }
+                if (value == _surname) return;
+                _surname = value;
+                OnPropertyChanged("STRSURNAME");
             }
         }
 
-        public string Company
+        public string STRCOMPANY
         {
             get { return _company; }
             set
             {
-                if (value != _company)
-                {
-                    _company = value;
-                    OnPropertyChanged("Company");
-                }
+                if (value == _company) return;
+                _company = value;
+                OnPropertyChanged("STRCOMPANY");
             }
         }
 
-        public string Street
+        public string STRSTREET
         {
             get { return _street; }
             set
             {
-                if (value != _street)
-                {
-                    _street = value;
-                    OnPropertyChanged("Street");
-                }
+                if (value == _street) return;
+                _street = value;
+                OnPropertyChanged("STRSTREET");
             }
         }
 
-        public string Phone
+        public string STRPHONE
         {
             get { return _phone; }
             set
             {
-                if (value != _phone)
-                {
-                    _phone = value;
-                    OnPropertyChanged("Phone");
-                }
+                if (value == _phone) return;
+                _phone = value;
+                OnPropertyChanged("STRPHONE");
             }
         }
 
-        public DateTime DateOfBirth
+        public DateTime DATDATEOFBIRTH
         {
             get { return _dateOfBirth; }
             set
             {
-                if (value != _dateOfBirth)
-                {
-                    _dateOfBirth = value;
-                    OnPropertyChanged("DateOfBirth");
-                }
+                if (value == _dateOfBirth) return;
+                _dateOfBirth = value;
+                OnPropertyChanged("DATDATEOFBIRTH");
             }
         }
 
-        public string Town
+        public string STRTOWN
         {
             get { return _town; }
             set
             {
-                if (value != _town)
-                {
-                    _town = value;
-                    OnPropertyChanged("Town");
-                }
+                if (value == _town) return;
+                _town = value;
+                OnPropertyChanged("STRTOWN");
             }
         }
 
-        public string County
+        public string STRCOUNTY
         {
             get { return _county; }
             set
             {
-                if (value != _county)
-                {
-                    _county = value;
-                    OnPropertyChanged("County");
-                }
+                if (value == _county) return;
+                _county = value;
+                OnPropertyChanged("STRCOUNTY");
             }
         }
 
-        public string Country
+        public string STRCOUNTRY
         {
             get { return _country; }
             set
             {
-                if (value != _country)
-                {
-                    _country = value;
-                    OnPropertyChanged("Country");
-                }
+                if (value == _country) return;
+                _country = value;
+                OnPropertyChanged("STRCOUNTRY");
             }
         }
 
-        public bool Active
+        public bool BLNACTIVE
         {
             get { return _active; }
             set
             {
-                if (value != _active)
-                {
-                    _active = value;
-                    OnPropertyChanged("Active");
-                }
+                if (value == _active) return;
+                _active = value;
+                OnPropertyChanged("BLNACTIVE");
             }
         }
 

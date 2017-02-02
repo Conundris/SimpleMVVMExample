@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.Windows;
@@ -16,28 +15,24 @@ namespace SimpleMVVMExample.Customers
         private int _customerId;
         private ObservableCollection<CustomerModel> _customers = new ObservableCollection<CustomerModel>();
         private CustomerModel _selectedCustomer;
-        private ICommand _populateCustomersCommand;
         private ICommand _createCustomerCommand;
         private ICommand _openDetailCustomerCommand;
         private ICommand _deleteCustomerCommand;
         private ICommand _deRegisterCustomerCommand;
+        private ICommand _searchCustomersCommand;
 
         #endregion
 
         public CustomerViewModel()
         {
             Customers = new ObservableCollection<CustomerModel>();
-            getCustomers();
         }
 
         #region Properties/Commands
 
         public CustomerModel SelectedCustomer
         {
-            get
-            {
-                return _selectedCustomer;
-            }
+            get { return _selectedCustomer; }
             set
             {
                 if (value == _selectedCustomer || value == null) return;
@@ -51,11 +46,9 @@ namespace SimpleMVVMExample.Customers
             get { return _customers ?? (_customers = new ObservableCollection<CustomerModel>()); }
             set
             {
-                if (value != null)
-                {
-                    _customers = value;
-                    OnPropertyChanged("Customers");
-                }
+                if (value == null) return;
+                _customers = value;
+                OnPropertyChanged("Customers");
             }
         }
 
@@ -66,11 +59,9 @@ namespace SimpleMVVMExample.Customers
             get { return _customerId; }
             set
             {
-                if (value != _customerId)
-                {
-                    _customerId = value;
-                    OnPropertyChanged("CustomerId");
-                }
+                if (value == _customerId) return;
+                _customerId = value;
+                OnPropertyChanged("CustomerId");
             }
         }
 
@@ -78,14 +69,10 @@ namespace SimpleMVVMExample.Customers
         {
             get
             {
-                if (_openDetailCustomerCommand == null)
-                {
-                    _openDetailCustomerCommand = new RelayCommand(
-                        param => ShowWindow(),
-                        param => (SelectedCustomer != null)
-                        );
-                }
-                return _openDetailCustomerCommand;
+                return _openDetailCustomerCommand ?? (_openDetailCustomerCommand = new RelayCommand(
+                           param => ShowWindow(),
+                           param => (SelectedCustomer != null)
+                       ));
             }
         }
 
@@ -93,13 +80,9 @@ namespace SimpleMVVMExample.Customers
         {
             get
             {
-                if (_createCustomerCommand == null)
-                {
-                    _createCustomerCommand = new RelayCommand(
-                        param => CreateCustomer()
-                    );
-                }
-                return _createCustomerCommand;
+                return _createCustomerCommand ?? (_createCustomerCommand = new RelayCommand(
+                           param => CreateCustomer()
+                       ));
             }
         }
 
@@ -107,14 +90,10 @@ namespace SimpleMVVMExample.Customers
         {
             get
             {
-                if (_deleteCustomerCommand == null)
-                {
-                    _deleteCustomerCommand = new RelayCommand(
-                        param => DeleteCustomer(),
-                        param => (SelectedCustomer != null)
-                    );
-                }
-                return _deleteCustomerCommand;
+                return _deleteCustomerCommand ?? (_deleteCustomerCommand = new RelayCommand(
+                           param => DeleteCustomer(),
+                           param => (SelectedCustomer != null)
+                       ));
             }
         }
 
@@ -122,25 +101,31 @@ namespace SimpleMVVMExample.Customers
         {
             get
             {
-                if (_deRegisterCustomerCommand == null)
-                {
-                    _deRegisterCustomerCommand = new RelayCommand(
-                        param => DeRegisterCustomer(),
-                        param => (SelectedCustomer != null)
-                    );
-                }
-                return _deRegisterCustomerCommand;
+                return _deRegisterCustomerCommand ?? (_deRegisterCustomerCommand = new RelayCommand(
+                           param => DeRegisterCustomer(),
+                           param => (SelectedCustomer != null)
+                       ));
+            }
+        }
+
+        public ICommand SearchCustomersCommand
+        {
+            get
+            {
+                return _searchCustomersCommand ?? (_searchCustomersCommand = new RelayCommand(
+                           param => getCustomers()
+                       ));
             }
         }
 
         #endregion
 
         #region Methods
-        
+
         private void DeRegisterCustomer()
         {
             if (SelectedCustomer == null) return;
-            SelectedCustomer.Active = false;
+            SelectedCustomer.BLNACTIVE = false;
             MessageBox.Show("Customer has been successfully deregistered.");
         }
 
@@ -181,6 +166,7 @@ namespace SimpleMVVMExample.Customers
             var detailForm = new DetailCustomerView(SelectedCustomer);
             detailForm.ShowDialog();
         }
+
         #endregion
     }
 }

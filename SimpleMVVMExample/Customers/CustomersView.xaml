@@ -11,7 +11,7 @@
     <DockPanel Margin="20" >
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <TextBlock Margin="0,8" DockPanel.Dock="Left" Text="Enter Customer ID" VerticalAlignment="Stretch" />
-            <Button Content="Search" DockPanel.Dock="Right" Width="75"></Button>
+            <Button Content="Search" DockPanel.Dock="Right" Width="75" Command="{Binding Path=SearchCustomersCommand}"></Button>
             <TextBox Margin="10,2" Width="Auto" VerticalAlignment="Stretch" />
         </DockPanel>
         <DockPanel DockPanel.Dock="Right">
@@ -29,12 +29,12 @@
 
         <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding CustomerId}"/>
-                <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding Forename}" />
-                <DataGridTextColumn Width="Auto" Header="Surname" Binding="{Binding Surname}"/>
-                <DataGridTextColumn Width="Auto" Header="Company" Binding="{Binding Company}"/>
-                <DataGridTextColumn Width="Auto" Header="Email" Binding="{Binding Email}"/>
-                <DataGridTextColumn Width="Auto" Header="Phone" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding INTCUSTOMERID}"/>
+                <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding STRFORENAME}" />
+                <DataGridTextColumn Width="Auto" Header="Surname" Binding="{Binding STRSURNAME}"/>
+                <DataGridTextColumn Width="Auto" Header="Company" Binding="{Binding STRCOMPANY}"/>
+                <DataGridTextColumn Width="Auto" Header="Email" Binding="{Binding STREMAIL}"/>
+                <DataGridTextColumn Width="Auto" Header="Phone" Binding="{Binding STRPHONE}"/>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
