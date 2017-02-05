@@ -8,14 +8,14 @@
     <UserControl.Resources>
     </UserControl.Resources>
 
-    <DockPanel Margin="20" >
+    <DockPanel Margin="10">
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <TextBlock Margin="0,8" DockPanel.Dock="Left" Text="Enter Customer ID" VerticalAlignment="Stretch" />
             <Button Content="Search" DockPanel.Dock="Right" Width="75" Command="{Binding Path=SearchCustomersCommand}"></Button>
             <TextBox Margin="10,2" Width="Auto" VerticalAlignment="Stretch" />
         </DockPanel>
         <DockPanel DockPanel.Dock="Right">
-            <GroupBox x:Name="grpActions" Header="Actions" Margin="0,0,0,136" Width="135" VerticalAlignment="Top">
+            <GroupBox x:Name="grpActions" Header="Actions" Width="135" VerticalAlignment="Top" Height="279">
                 <StackPanel>
                     <Button Content="Populate" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=PopulateCustomersCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="New" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=CreateCustomerCommand}" HorizontalAlignment="Stretch" />
@@ -33,7 +33,8 @@
                 <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding STRFORENAME}" />
                 <DataGridTextColumn Width="Auto" Header="Surname" Binding="{Binding STRSURNAME}"/>
                 <DataGridTextColumn Width="Auto" Header="Company" Binding="{Binding STRCOMPANY}"/>
-                <DataGridTextColumn Width="Auto" Header="Email" Binding="{Binding STREMAIL}"/>
+                <DataGridTextColumn Width="Auto" Header="Town" Binding="{Binding STRTOWN}"/>
+                <DataGridTextColumn Width="Auto" Header="Phone" Binding="{Binding STRPHONE}"/>
                 <DataGridTextColumn Width="Auto" Header="Phone" Binding="{Binding STRPHONE}"/>
             </DataGrid.Columns>
         </DataGrid>

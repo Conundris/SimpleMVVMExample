@@ -29,7 +29,7 @@
         <DataTemplate DataType="{x:Type TicketAnalysis:TicketAnalysisViewModel}">
             <TicketAnalysis:TicketAnalysisView/>
         </DataTemplate>
-            <ResourceDictionary x:Key="MaterialDesign">
+        <ResourceDictionary x:Key="MaterialDesign">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
