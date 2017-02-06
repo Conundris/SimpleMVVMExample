@@ -9,15 +9,14 @@
     </UserControl.Resources>
 
     <DockPanel Margin="10">
-        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True" Margin="0,0,0,4">
             <TextBlock Margin="0,8" DockPanel.Dock="Left" Text="Enter Customer ID" VerticalAlignment="Stretch" />
             <Button Content="Search" DockPanel.Dock="Right" Width="75" Command="{Binding Path=SearchCustomersCommand}"></Button>
             <TextBox Margin="10,2" Width="Auto" VerticalAlignment="Stretch" />
         </DockPanel>
         <DockPanel DockPanel.Dock="Right">
-            <GroupBox x:Name="grpActions" Header="Actions" Width="135" VerticalAlignment="Top" Height="279">
+            <GroupBox x:Name="grpActions" Header="Actions" Width="135" VerticalAlignment="Top" MaxHeight="279" Margin="0,0,0,4">
                 <StackPanel>
-                    <Button Content="Populate" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=PopulateCustomersCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="New" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=CreateCustomerCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="Edit" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=OpenDetailCustomerCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="Delete" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=DeleteCustomerCommand}" HorizontalAlignment="Stretch" />
@@ -27,14 +26,13 @@
             </GroupBox>
         </DockPanel>
 
-        <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch">
+        <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch" Margin="0,0,7,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding INTCUSTOMERID}"/>
                 <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding STRFORENAME}" />
                 <DataGridTextColumn Width="Auto" Header="Surname" Binding="{Binding STRSURNAME}"/>
                 <DataGridTextColumn Width="Auto" Header="Company" Binding="{Binding STRCOMPANY}"/>
                 <DataGridTextColumn Width="Auto" Header="Town" Binding="{Binding STRTOWN}"/>
-                <DataGridTextColumn Width="Auto" Header="Phone" Binding="{Binding STRPHONE}"/>
                 <DataGridTextColumn Width="Auto" Header="Phone" Binding="{Binding STRPHONE}"/>
             </DataGrid.Columns>
         </DataGrid>

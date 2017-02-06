@@ -110,6 +110,7 @@
       <DependentUpon>CustomersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DB\DC.cs" />
+    <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="Helper Classes\ObservableObject.cs" />
     <Compile Include="Home\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>

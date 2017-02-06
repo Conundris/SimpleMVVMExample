@@ -15,6 +15,7 @@ namespace SimpleMVVMExample.Customers
         private int _customerId;
         private ObservableCollection<CustomerModel> _customers = new ObservableCollection<CustomerModel>();
         private CustomerModel _selectedCustomer;
+        private ICommand _printCustomersCommand;
         private ICommand _createCustomerCommand;
         private ICommand _openDetailCustomerCommand;
         private ICommand _deleteCustomerCommand;
@@ -62,6 +63,15 @@ namespace SimpleMVVMExample.Customers
                 if (value == _customerId) return;
                 _customerId = value;
                 OnPropertyChanged("CustomerId");
+            }
+        }
+
+        public ICommand PrintCustomersCommand
+        {
+            get
+            {
+                return _printCustomersCommand ?? (_printCustomersCommand = new RelayCommand(
+                           param => PrintCustomers()));
             }
         }
 
@@ -121,6 +131,11 @@ namespace SimpleMVVMExample.Customers
         #endregion
 
         #region Methods
+
+        private void PrintCustomers()
+        {
+            throw new System.NotImplementedException();
+        }
 
         private void DeRegisterCustomer()
         {
