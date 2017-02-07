@@ -17,20 +17,20 @@
         <TextBox x:Name="txtSurname" Text="{Binding STRSURNAME, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,44,0,0"/>
 
         <Label x:Name="lblDoB" Content="Date of Birth" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblStreet" Content="Street" HorizontalAlignment="Left" Margin="14,138,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblStreet" Content="Street" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblCounty" Content="County" HorizontalAlignment="Left" Margin="218,172,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblCountry" Content="Country" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblCountry" Content="Country" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtCountry" Text="{Binding STRCOUNTRY, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,169,0,0"/>
         <TextBox x:Name="txtCounty" Text="{Binding STRCOUNTY, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,169,0,0"/>
         <TextBox x:Name="txtStreet" Text="{Binding STRSTREET, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,134,0,0"/>
-        <TextBox x:Name="txtStatus_Copy4" Text="{Binding STRTOWN, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,134,0,0"/>
+        <TextBox x:Name="txtTown" Text="{Binding STRTOWN, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,134,0,0"/>
         <Label x:Name="lblTown" Content="Town" HorizontalAlignment="Left" Margin="218,141,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="87,105,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dpDOB" HorizontalAlignment="Left" Margin="87,105,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="lblCompany" Content="Company" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,10,0,0"/>
         <TextBox x:Name="txtCompany" Text="{Binding STRCOMPANY, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,9,0,0"/>
         <Label x:Name="lblPhone" Content="Phone" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,44,0,0"/>
         <TextBox x:Name="txtPhone" Text="{Binding STRPHONE, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,44,0,0"/>
-        <CheckBox x:Name="chkActive" Content="Active" HorizontalAlignment="Left" Margin="14,204,0,0" VerticalAlignment="Top" IsChecked="{Binding Active, Mode=TwoWay}"/>
+        <CheckBox x:Name="chkActive" Content="Active" HorizontalAlignment="Left" Margin="14,204,0,0" VerticalAlignment="Top" IsChecked="{Binding Active, Mode=TwoWay}" IsEnabled="False"/>
 
     </Grid>
 </Window>

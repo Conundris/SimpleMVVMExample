@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Oracle.ManagedDataAccess.Client;
 
 namespace SimpleMVVMExample.Exceptions
 {
@@ -7,9 +8,20 @@ namespace SimpleMVVMExample.Exceptions
     {
         public CustomException() { }
 
-        public CustomException(string message) : base(message)
+        public CustomException(OracleException ex)
         {
-            MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            switch (ex.Number)
+            {
+                case 1:
+                    MessageBox.Show("Error attempting to insert duplicate data.");
+                    break;
+                case 12560:
+                    MessageBox.Show("The database is unavailable.");
+                    break;
+                default:
+                    MessageBox.Show("Database error: " + ex.Message.ToString());
+                    break;
+            }
         }
     }
 }

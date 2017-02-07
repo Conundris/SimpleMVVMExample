@@ -1,6 +1,7 @@
 ﻿using System.CodeDom;
 using System.Configuration;
 using System.Data.Common;
+using System.Windows.Forms.VisualStyles;
 using Oracle.ManagedDataAccess.Client;
 using SimpleMVVMExample.Exceptions;
 
@@ -22,12 +23,7 @@ namespace SimpleMVVMExample.DB
             }
             catch (OracleException ex)
             {
-                //12154 No Connection/ Connection couldn't be established.
-                if (ex.Number == 12154)
-                {
-                    throw new CustomException(
-                        "Connection couldn't be estahblished, please check your internet connection and try again.");
-                }
+                throw new CustomException(ex);
             }
             return connection;
         }
