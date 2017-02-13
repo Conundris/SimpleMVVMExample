@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace SimpleMVVMExample
 {
-    public abstract class ObservableObject : INotifyPropertyChanged
+    public abstract class ObservableObject : INotifyPropertyChanged, IChangeTracking
     {
         #region Debugging Aides
 
@@ -67,6 +67,13 @@ namespace SimpleMVVMExample
                 handler(this, e);
             }
         }
+
+        public void AcceptChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsChanged { get; }
 
         #endregion // INotifyPropertyChanged Members
     }

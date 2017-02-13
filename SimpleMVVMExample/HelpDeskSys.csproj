@@ -109,6 +109,7 @@
     <Compile Include="Customers\CustomersView.xaml.cs">
       <DependentUpon>CustomersView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Customers\DetailCustomerViewModel.cs" />
     <Compile Include="DB\DC.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="Helper Classes\ObservableObject.cs" />
@@ -146,6 +147,8 @@
     <Compile Include="Ticket\TicketViewModel.cs" />
     <Compile Include="IPageViewModel.cs" />
     <Compile Include="Utility\DBUtilites.cs" />
+    <Compile Include="WindowFactory\DetailCustomerViewProductionFactory.cs" />
+    <Compile Include="WindowFactory\IWindowFactory.cs" />
     <Page Include="Customers\DetailCustomerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -231,9 +234,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="WindowFactory\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

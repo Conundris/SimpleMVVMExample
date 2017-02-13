@@ -18,7 +18,8 @@ namespace SimpleMVVMExample.Customers
         public DetailCustomerView()
         {
             InitializeComponent();
-            DataContext = new CustomerModel();
+            _customerModel = new CustomerModel();
+            DataContext = _customerModel;
         }
 
         // For editing new Customer
@@ -28,34 +29,6 @@ namespace SimpleMVVMExample.Customers
             InitializeComponent();
             DataContext = customerModel;
         }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            if (_customerModel.INTCUSTOMERID == 0)
-            {
-                Insert();
-            }
-            else
-            {
-                Update();
-            }
-
-            MessageBox.Show(_customerModel != null
-                ? "Entry has successfully been created."
-                : "Entry has Successfully been updated.");
-            Close();
-        }
-
-        private void Update()
-        {
-            throw new NotImplementedException();
-
-            using (var cmd = DC.getOpenConnection().CreateCommand())
-            {
-
-            }
-        }
-
         private void Insert()
         {
             using (var cmd = DC.getOpenConnection().CreateCommand())
@@ -85,11 +58,6 @@ namespace SimpleMVVMExample.Customers
                     throw;
                 }
             }
-        }
-
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }

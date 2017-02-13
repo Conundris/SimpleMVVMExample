@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using SimpleMVVMExample.DB;
 using SimpleMVVMExample.Utility;
+using SimpleMVVMExample.WindowFactory;
 
 namespace SimpleMVVMExample.Customers
 {
@@ -13,6 +13,7 @@ namespace SimpleMVVMExample.Customers
         #region Fields
 
         private int _customerId;
+        private readonly IWindowFactory windowFactory;
         private ObservableCollection<CustomerModel> _customers = new ObservableCollection<CustomerModel>();
         private CustomerModel _selectedCustomer;
         private ICommand _printCustomersCommand;
@@ -26,6 +27,13 @@ namespace SimpleMVVMExample.Customers
 
         public CustomerViewModel()
         {
+            Customers = new ObservableCollection<CustomerModel>();
+            windowFactory = new DetailCustomerViewProductionFactory();
+        }
+
+        public CustomerViewModel(IWindowFactory windowFactory)
+        {
+            this.windowFactory = windowFactory;
             Customers = new ObservableCollection<CustomerModel>();
         }
 
@@ -80,7 +88,7 @@ namespace SimpleMVVMExample.Customers
             get
             {
                 return _openDetailCustomerCommand ?? (_openDetailCustomerCommand = new RelayCommand(
-                           param => ShowWindow(),
+                           param => CreateDetailWindow(),
                            param => (SelectedCustomer != null)
                        ));
             }
@@ -146,8 +154,7 @@ namespace SimpleMVVMExample.Customers
 
         private void CreateCustomer()
         {
-            var detailForm = new DetailCustomerView();
-            detailForm.ShowDialog();
+            windowFactory.CreateNewWindow(new CustomerModel());
         }
 
         private void DeleteCustomer()
@@ -174,12 +181,10 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
-        private void ShowWindow()
+        private void CreateDetailWindow()
         {
-            // Just as an exammple, here I just show a MessageBox
-            Debug.WriteLine(SelectedCustomer);
-            var detailForm = new DetailCustomerView(SelectedCustomer);
-            detailForm.ShowDialog();
+            // Create and display detail Window
+            windowFactory.CreateNewWindow(_selectedCustomer);
         }
 
         #endregion
