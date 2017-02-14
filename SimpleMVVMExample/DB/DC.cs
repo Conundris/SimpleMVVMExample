@@ -1,7 +1,6 @@
-﻿using System.CodeDom;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.Common;
-using System.Windows.Forms.VisualStyles;
+using System.Windows;
 using Oracle.ManagedDataAccess.Client;
 using SimpleMVVMExample.Exceptions;
 
@@ -9,23 +8,49 @@ namespace SimpleMVVMExample.DB
 {
     class DC
     {
-        public static DbConnection getOpenConnection()
+        public static DbConnection GetOpenConnection()
+        {
+            var connection = GetConnection();
+
+            if (CanConnect(connection))
+            {
+                connection.Open();
+                return connection;
+            }
+            else
+            {
+                MessageBox.Show("Connection to Database, couldn't be established.");
+                return connection;
+            }
+        }
+
+        private static DbConnection GetConnection()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["OracleDbContext"];
             var providerName = connectionString.ProviderName;
             var factory = DbProviderFactories.GetFactory(providerName);
             var connection = factory.CreateConnection();
             connection.ConnectionString = connectionString.ConnectionString;
+            return connection;
+        }
+
+        public static bool CanConnect(DbConnection conn)
+        {
 
             try
             {
-                connection.Open();
+                conn.Open();
             }
             catch (OracleException ex)
             {
-                throw new CustomException(ex);
+                new CustomException(ex);
             }
-            return connection;
+            finally
+            {
+                conn.Close();
+            }
+
+            return false;
         }
     }
 }

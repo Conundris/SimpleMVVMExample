@@ -1,10 +1,9 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Oracle.ManagedDataAccess.Client;
 
 namespace SimpleMVVMExample.Exceptions
 {
-    class CustomException : Exception
+    class CustomException
     {
         public CustomException() { }
 
@@ -19,7 +18,7 @@ namespace SimpleMVVMExample.Exceptions
                     MessageBox.Show("The database is unavailable.");
                     break;
                 default:
-                    MessageBox.Show("Database error: " + ex.Message.ToString());
+                    MessageBox.Show("Database error: " + ex.Message);
                     break;
             }
         }

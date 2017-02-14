@@ -167,8 +167,9 @@ namespace SimpleMVVMExample.Customers
 
         private void getCustomers()
         {
-            using (var cmd = DC.getOpenConnection().CreateCommand())
+            using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
+                if (cmd.Connection.State != ConnectionState.Open) return;
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT * FROM frmCustomerView";
                 var dr = cmd.ExecuteReader();

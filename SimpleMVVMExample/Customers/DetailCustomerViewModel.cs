@@ -31,7 +31,7 @@ namespace SimpleMVVMExample.Customers
             // Insert (Create new Customer)
             if (selectedCustomer.INTCUSTOMERID == 0)
             {
-                using (var cmd = DC.getOpenConnection().CreateCommand())
+                using (var cmd = DC.GetOpenConnection().CreateCommand())
                 {
                     cmd.CommandText =
                         "INSERT INTO tblCustomer (strSurname, strForename, strCompany, strPhone, DATDATEOFBIRTH, strStreet, strTown, strCountry, strCounty)" +
@@ -62,12 +62,22 @@ namespace SimpleMVVMExample.Customers
             }
             else // Update Customer
             {
-                using (var cmd = DC.getOpenConnection().CreateCommand())
+                using (var cmd = DC.GetOpenConnection().CreateCommand())
                 {
                     cmd.CommandText =
-                        "UPDATE tblCustomer (strSurname, strForename, strCompany, strPhone, DATDATEOFBIRTH, strStreet, strTown, strCountry, strCounty)" +
-                        " VALUES (:strSurname, :strForename, :strCompany, :strPhone, :DATDATEOFBIRTH, :strStreet, :strTown, :strCountry, :strCounty)";
+                        "UPDATE tblCustomer" +
+                        "SET strSurname = :strSurname" +
+                        "SET strForename = :strForename" +
+                        "SET strCompany = :strCompany" +
+                        "SET strPhone = :strPhone" +
+                        "SET DATDATEOFBIRTH = :DATDATEOFBIRTH" +
+                        "SET strStreet = :strStreet" +
+                        "SET strTown = :strTown" +
+                        "SET strCountry = :strCountry" +
+                        "SET strCounty = :strCounty" +
+                        "WHERE intCustomerID = :intCustomerID";
 
+                    cmd.Parameters.Add(new OracleParameter("intCustomerID", selectedCustomer.INTCUSTOMERID));
                     cmd.Parameters.Add(new OracleParameter("strSurname", selectedCustomer.STRSURNAME));
                     cmd.Parameters.Add(new OracleParameter("strForename", selectedCustomer.STRFORENAME));
                     cmd.Parameters.Add(new OracleParameter("strCompany", selectedCustomer.STRCOMPANY));

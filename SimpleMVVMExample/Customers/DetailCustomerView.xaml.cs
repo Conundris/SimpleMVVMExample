@@ -31,7 +31,7 @@ namespace SimpleMVVMExample.Customers
         }
         private void Insert()
         {
-            using (var cmd = DC.getOpenConnection().CreateCommand())
+            using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
                 cmd.CommandText =
                     "INSERT INTO tblCustomer (strSurname, strForename, strCompany, strPhone, DATDATEOFBIRTH, strStreet, strTown, strCountry, strCounty)" +
