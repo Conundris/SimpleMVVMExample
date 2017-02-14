@@ -1,28 +1,50 @@
 ﻿using System; 
 using System.Data;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using FormValidationExample.Infrastructure;
+using MvvmValidation;
 using Oracle.ManagedDataAccess.Client;
 using SimpleMVVMExample.DB;
+// ReSharper disable ExplicitCallerInfoArgument
 
 namespace SimpleMVVMExample.Customers
 {
-    class DetailCustomerViewModel
+    class DetailCustomerViewModel : ValidatableViewModelBase
     {
         private CustomerModel selectedCustomer;
-        private ICommand _saveAndCloseCustomerCommand;
+        private bool? isValid;
+        private string validationErrorsString;
 
         public DetailCustomerViewModel(CustomerModel selectedCustomer)
         {
             this.selectedCustomer = selectedCustomer;
+            CreateCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(SaveAndCloseCustomer);
+
+            ConfigureValidationRules();
+            Validator.ResultChanged += OnValidationResultChanged;
         }
 
-        public ICommand CreateCustomerCommand
+        public ICommand CreateCustomerCommand { get; set; }
+
+        public string ValidationErrorsString
         {
-            get
+            get { return validationErrorsString; }
+            private set
             {
-                return _saveAndCloseCustomerCommand ?? (_saveAndCloseCustomerCommand = new RelayCommand(
-                           param => SaveAndCloseCustomer()
-                       ));
+                validationErrorsString = value;
+                RaisePropertyChanged(nameof(ValidationErrorsString));
+            }
+        }
+
+        public bool? IsValid
+        {
+            get { return isValid; }
+            private set
+            {
+                isValid = value;
+                RaisePropertyChanged(nameof(IsValid));
             }
         }
 
@@ -101,6 +123,59 @@ namespace SimpleMVVMExample.Customers
                     }
                 }
             }
+        }
+
+        private void ConfigureValidationRules()
+        {
+            Validator.AddRequiredRule(() => selectedCustomer.STRFORENAME, "Forename is required");
+
+            Validator.AddRequiredRule(() => selectedCustomer.STRSURNAME, "Surname is required");
+
+            Validator.AddRule(nameof(selectedCustomer.STREMAIL),
+                () =>
+                {
+                    const string regexPattern =
+                        @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
+                    return RuleResult.Assert(Regex.IsMatch(selectedCustomer.STREMAIL, regexPattern),
+                        "Email must by a valid email address");
+                });
+
+
+            /*Validator.AddAsyncRule(nameof(selectedCustomer.),
+                async () =>
+                {
+                    var isAvailable = await UserRegistrationService.IsUserNameAvailable(UserName).ToTask();
+
+                    return RuleResult.Assert(isAvailable,
+                        string.Format("User Name {0} is taken. Please choose a different one.", UserName));
+                });*/
+
+
+            //Validator.AddChildValidatable(() => InterestSelectorViewModel);
+        }
+
+        private async void Validate()
+        {
+            await ValidateAsync();
+        }
+
+        private async Task ValidateAsync()
+        {
+            var result = await Validator.ValidateAllAsync();
+
+            UpdateValidationSummary(result);
+        }
+        private void OnValidationResultChanged(object sender, ValidationResultChangedEventArgs e)
+        {
+            if (IsValid.GetValueOrDefault(true)) return;
+            var validationResult = Validator.GetResult();
+
+            UpdateValidationSummary(validationResult);
+        }
+        private void UpdateValidationSummary(ValidationResult validationResult)
+        {
+            IsValid = validationResult.IsValid;
+            ValidationErrorsString = validationResult.ToString();
         }
     }
 }

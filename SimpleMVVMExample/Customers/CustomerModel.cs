@@ -1,15 +1,18 @@
 ﻿using System;
+using FormValidationExample.Infrastructure;
+
 // ReSharper disable InconsistentNaming
 
 namespace SimpleMVVMExample
 {
-    public class CustomerModel : ObservableObject
+    public class CustomerModel : ValidatableViewModelBase
     {
         #region Fields
 
         private int _customerId;
         private string _surname;
         private string _forename;
+        private string _email;
         private string _company;
         private string _street;
         private string _phone;
@@ -30,7 +33,8 @@ namespace SimpleMVVMExample
             {
                 if (value == _customerId) return;
                 _customerId = value;
-                OnPropertyChanged("INTCUSTOMERID");
+                RaisePropertyChanged(nameof(INTCUSTOMERID));
+                Validator.Validate(nameof(INTCUSTOMERID));
             }
         }
 
@@ -41,7 +45,8 @@ namespace SimpleMVVMExample
             {
                 if (value == _forename) return;
                 _forename = value;
-                OnPropertyChanged("STRFORENAME");
+                RaisePropertyChanged(nameof(STRFORENAME));
+                Validator.Validate(nameof(STRFORENAME));
             }
         }
         public string STRSURNAME
@@ -51,7 +56,20 @@ namespace SimpleMVVMExample
             {
                 if (value == _surname) return;
                 _surname = value;
-                OnPropertyChanged("STRSURNAME");
+                RaisePropertyChanged(nameof(STRSURNAME));
+                Validator.Validate(nameof(STRSURNAME));
+            }
+        }
+
+        public string STREMAIL
+        {
+            get { return _email; }
+            set
+            {
+                if (value == _email) return;
+                _email = value;
+                RaisePropertyChanged(nameof(STREMAIL));
+                Validator.Validate(nameof(STREMAIL));
             }
         }
 
@@ -62,7 +80,8 @@ namespace SimpleMVVMExample
             {
                 if (value == _company) return;
                 _company = value;
-                OnPropertyChanged("STRCOMPANY");
+                RaisePropertyChanged(nameof(STRCOMPANY));
+                Validator.Validate(nameof(STRCOMPANY));
             }
         }
 
@@ -73,7 +92,8 @@ namespace SimpleMVVMExample
             {
                 if (value == _street) return;
                 _street = value;
-                OnPropertyChanged("STRSTREET");
+                RaisePropertyChanged(nameof(STRSTREET));
+                Validator.Validate(nameof(STRSTREET));
             }
         }
 
@@ -84,7 +104,8 @@ namespace SimpleMVVMExample
             {
                 if (value == _phone) return;
                 _phone = value;
-                OnPropertyChanged("STRPHONE");
+                RaisePropertyChanged(nameof(STRPHONE));
+                Validator.Validate(nameof(STRPHONE));
             }
         }
 
@@ -95,7 +116,8 @@ namespace SimpleMVVMExample
             {
                 if (value == _dateOfBirth) return;
                 _dateOfBirth = value;
-                OnPropertyChanged("DATDATEOFBIRTH");
+                RaisePropertyChanged(nameof(DATDATEOFBIRTH));
+                Validator.Validate(nameof(DATDATEOFBIRTH));
             }
         }
 
@@ -106,7 +128,8 @@ namespace SimpleMVVMExample
             {
                 if (value == _town) return;
                 _town = value;
-                OnPropertyChanged("STRTOWN");
+                RaisePropertyChanged(nameof(STRTOWN));
+                Validator.Validate(nameof(STRTOWN));
             }
         }
 
@@ -117,7 +140,8 @@ namespace SimpleMVVMExample
             {
                 if (value == _county) return;
                 _county = value;
-                OnPropertyChanged("STRCOUNTY");
+                RaisePropertyChanged(nameof(STRCOUNTY));
+                Validator.Validate(nameof(STRCOUNTY));
             }
         }
 
@@ -128,7 +152,8 @@ namespace SimpleMVVMExample
             {
                 if (value == _country) return;
                 _country = value;
-                OnPropertyChanged("STRCOUNTRY");
+                RaisePropertyChanged(nameof(STRCOUNTRY));
+                Validator.Validate(nameof(STRCOUNTRY));
             }
         }
 
@@ -139,7 +164,8 @@ namespace SimpleMVVMExample
             {
                 if (value == _active) return;
                 _active = value;
-                OnPropertyChanged("BLNACTIVE");
+                RaisePropertyChanged(nameof(BLNACTIVE));
+                Validator.Validate(nameof(BLNACTIVE));
             }
         }
 

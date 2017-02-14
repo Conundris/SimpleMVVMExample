@@ -40,6 +40,7 @@ namespace SimpleMVVMExample.DB
             try
             {
                 conn.Open();
+                return true;
             }
             catch (OracleException ex)
             {
