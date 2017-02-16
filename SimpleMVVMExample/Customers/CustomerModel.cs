@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using FormValidationExample.Infrastructure;
+using MvvmValidation;
 
 // ReSharper disable InconsistentNaming
 
@@ -21,8 +24,17 @@ namespace SimpleMVVMExample
         private string _country;
         private DateTime _dateOfBirth;
         private bool _active;
+        private bool? isValid;
+        private string validationErrorsString;
 
         #endregion // Fields
+
+        public CustomerModel()
+        {
+            ConfigureValidationRules();
+            Validator.ResultChanged += OnValidationResultChanged;
+        }
+
 
         #region Properties
 
@@ -169,7 +181,79 @@ namespace SimpleMVVMExample
             }
         }
 
+        public string ValidationErrorsString
+        {
+            get { return validationErrorsString; }
+            private set
+            {
+                validationErrorsString = value;
+                RaisePropertyChanged(nameof(ValidationErrorsString));
+            }
+        }
+
+        public bool? IsValid
+        {
+            get { return isValid; }
+            private set
+            {
+                isValid = value;
+                RaisePropertyChanged(nameof(IsValid));
+            }
+        }
 
         #endregion // Properties
+        private void ConfigureValidationRules()
+        {
+            Validator.AddRequiredRule(() => STRFORENAME, "Forename is required");
+
+            Validator.AddRequiredRule(() => STRSURNAME, "Surname is required");
+
+            Validator.AddRule(nameof(STREMAIL),
+                () =>
+                {
+                    const string regexPattern =
+                        @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
+                    return RuleResult.Assert(Regex.IsMatch(STREMAIL, regexPattern),
+                        "Email must by a valid email address");
+                });
+
+
+            /*Validator.AddAsyncRule(nameof(selectedCustomer.),
+                async () =>
+                {
+                    var isAvailable = await UserRegistrationService.IsUserNameAvailable(UserName).ToTask();
+
+                    return RuleResult.Assert(isAvailable,
+                        string.Format("User Name {0} is taken. Please choose a different one.", UserName));
+                });*/
+
+
+            //Validator.AddChildValidatable(() => InterestSelectorViewModel);
+        }
+
+
+        private async void Validate()
+        {
+            await ValidateAsync();
+        }
+
+        private async Task ValidateAsync()
+        {
+            var result = await Validator.ValidateAllAsync();
+
+            UpdateValidationSummary(result);
+        }
+        private void OnValidationResultChanged(object sender, ValidationResultChangedEventArgs e)
+        {
+            if (IsValid.GetValueOrDefault(true)) return;
+            var validationResult = Validator.GetResult();
+
+            UpdateValidationSummary(validationResult);
+        }
+        private void UpdateValidationSummary(ValidationResult validationResult)
+        {
+            IsValid = validationResult.IsValid;
+            ValidationErrorsString = validationResult.ToString();
+        }
     }
 }

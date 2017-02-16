@@ -19,7 +19,6 @@
                 <StackPanel>
                     <Button Content="New" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=CreateCustomerCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="Edit" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=OpenDetailCustomerCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="Delete" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=DeleteCustomerCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="De-register" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=DeRegisterCustomerCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="Print" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=PrintCustomersCommand}" HorizontalAlignment="Stretch" Click="Button_Click" />
                 </StackPanel>

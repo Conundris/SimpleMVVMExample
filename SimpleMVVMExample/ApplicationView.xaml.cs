@@ -12,11 +12,6 @@ namespace SimpleMVVMExample
             InitializeComponent();
         }
 
-        private void Menu_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

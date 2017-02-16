@@ -136,6 +136,7 @@
     <Compile Include="Customers\DetailCustomerViewModel.cs" />
     <Compile Include="DB\DC.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
+    <Compile Include="Helper Classes\ICloseable.cs" />
     <Compile Include="Helper Classes\ObservableObject.cs" />
     <Compile Include="Helper Classes\ValidatableViewModelBase.cs" />
     <Compile Include="Home\HomeView.xaml.cs">

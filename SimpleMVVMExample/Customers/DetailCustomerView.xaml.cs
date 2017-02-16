@@ -1,16 +1,12 @@
-﻿using System;
-using System.Data;
-using System.Windows;
-using System.Windows.Controls;
-using Oracle.ManagedDataAccess.Client;
-using SimpleMVVMExample.DB;
+﻿using System.Windows;
+using SimpleMVVMExample.Helper_Classes;
 
 namespace SimpleMVVMExample.Customers
 {
     /// <summary>
     /// Interaction logic for DetailTicketView.xaml
     /// </summary>
-    public partial class DetailCustomerView : Window
+    public partial class DetailCustomerView : Window, ICloseable
     {
         private CustomerModel _customerModel;
 
@@ -19,7 +15,7 @@ namespace SimpleMVVMExample.Customers
         {
             InitializeComponent();
             _customerModel = new CustomerModel();
-            DataContext = _customerModel;
+            DataContext = new DetailCustomerViewModel(_customerModel);
         }
 
         // For editing new Customer
@@ -27,37 +23,7 @@ namespace SimpleMVVMExample.Customers
         {
             _customerModel = customerModel;
             InitializeComponent();
-            DataContext = customerModel;
-        }
-        private void Insert()
-        {
-            using (var cmd = DC.GetOpenConnection().CreateCommand())
-            {
-                cmd.CommandText =
-                    "INSERT INTO tblCustomer (strSurname, strForename, strCompany, strPhone, DATDATEOFBIRTH, strStreet, strTown, strCountry, strCounty)" +
-                    " VALUES (:strSurname, :strForename, :strCompany, :strPhone, :DATDATEOFBIRTH, :strStreet, :strTown, :strCountry, :strCounty)";
-
-                cmd.Parameters.Add(new OracleParameter("strSurname", txtSurname.Text));
-                cmd.Parameters.Add(new OracleParameter("strForename", txtSurname.Text));
-                cmd.Parameters.Add(new OracleParameter("strCompany", txtCompany.Text));
-                cmd.Parameters.Add(new OracleParameter("strPhone", txtPhone.Text));
-                cmd.Parameters.Add(new OracleParameter("DATDATEOFBIRTH", OracleDbType.Date, dpDOB.DisplayDate,
-                    ParameterDirection.Input));
-                cmd.Parameters.Add(new OracleParameter("strStreet", txtStreet.Text));
-                cmd.Parameters.Add(new OracleParameter("strTown", txtTown.Text));
-                cmd.Parameters.Add(new OracleParameter("strCountry", txtCountry.Text));
-                cmd.Parameters.Add(new OracleParameter("strCounty", txtCounty.Text));
-
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                }
-                catch (OracleException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    throw;
-                }
-            }
+            DataContext = new DetailCustomerViewModel(customerModel);
         }
     }
 }

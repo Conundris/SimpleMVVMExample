@@ -2,13 +2,14 @@
 using System.Data;
 using System.Windows;
 using System.Windows.Input;
+using FormValidationExample.Infrastructure;
 using SimpleMVVMExample.DB;
 using SimpleMVVMExample.Utility;
 using SimpleMVVMExample.WindowFactory;
 
 namespace SimpleMVVMExample.Customers
 {
-    public class CustomerViewModel : ObservableObject, IPageViewModel
+    public class CustomerViewModel : ValidatableViewModelBase, IPageViewModel
     {
         #region Fields
 
@@ -25,16 +26,13 @@ namespace SimpleMVVMExample.Customers
 
         #endregion
 
-        public CustomerViewModel()
-        {
-            Customers = new ObservableCollection<CustomerModel>();
-            windowFactory = new DetailCustomerViewProductionFactory();
-        }
+        public CustomerViewModel() : this(new DetailCustomerViewProductionFactory()) { }
 
         public CustomerViewModel(IWindowFactory windowFactory)
         {
             this.windowFactory = windowFactory;
             Customers = new ObservableCollection<CustomerModel>();
+            CreateCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(CreateCustomer);
         }
 
         #region Properties/Commands
@@ -94,15 +92,7 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
-        public ICommand CreateCustomerCommand
-        {
-            get
-            {
-                return _createCustomerCommand ?? (_createCustomerCommand = new RelayCommand(
-                           param => CreateCustomer()
-                       ));
-            }
-        }
+        public ICommand CreateCustomerCommand { get; set; }
 
         public ICommand DeleteCustomerCommand
         {

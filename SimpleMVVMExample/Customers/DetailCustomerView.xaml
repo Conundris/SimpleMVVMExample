@@ -1,4 +1,5 @@
 ﻿<Window x:Class="SimpleMVVMExample.Customers.DetailCustomerView"
+        x:Name="DetailCustomerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,27 +9,27 @@
         Title="Customer" Height="271.337" Width="615.187" ResizeMode="NoResize">
     <Grid Margin="0,0,-6,-1">
         <Label x:Name="lblTitle" Content="Forname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-        <TextBox x:Name="txtTitle" Text="{Binding STRFORENAME, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,9,0,0"/>
+        <TextBox x:Name="txtTitle" Text="{Binding SelectedCustomer.STRFORENAME, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,9,0,0"/>
         <Label x:Name="lblSurname" Content="Surname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,10,0,0"/>
-        <TextBox x:Name="txtSurname" Text="{Binding STRSURNAME, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,9,0,0"/>
+        <TextBox x:Name="txtSurname" Text="{Binding SelectedCustomer.STRSURNAME, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,9,0,0"/>
         <Label x:Name="lblDoB" Content="Date of Birth" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblStreet" Content="Street" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblCounty" Content="County" HorizontalAlignment="Left" Margin="218,172,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblCountry" Content="Country" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtCountry" Text="{Binding STRCOUNTRY, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,169,0,0"/>
-        <TextBox x:Name="txtCounty" Text="{Binding STRCOUNTY, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,169,0,0"/>
-        <TextBox x:Name="txtStreet" Text="{Binding STRSTREET, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,134,0,0"/>
-        <TextBox x:Name="txtTown" Text="{Binding STRTOWN, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,134,0,0"/>
+        <TextBox x:Name="txtCountry" Text="{Binding SelectedCustomer.STRCOUNTRY, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,169,0,0"/>
+        <TextBox x:Name="txtCounty" Text="{Binding SelectedCustomer.STRCOUNTY, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,169,0,0"/>
+        <TextBox x:Name="txtStreet" Text="{Binding SelectedCustomer.STRSTREET, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,134,0,0"/>
+        <TextBox x:Name="txtTown" Text="{Binding SelectedCustomer.STRTOWN, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,134,0,0"/>
         <Label x:Name="lblTown" Content="Town" HorizontalAlignment="Left" Margin="218,141,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dpDOB" DisplayDate="{Binding DATDATEOFBIRTH, Mode=TwoWay}" HorizontalAlignment="Left" Margin="87,78,0,0" VerticalAlignment="Top" Width="120"/>
+        <DatePicker x:Name="dpDOB" DisplayDate="{Binding SelectedCustomer.DATDATEOFBIRTH, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Margin="87,78,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="lblCompany" Content="Company" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0"/>
-        <TextBox x:Name="txtCompany" Text="{Binding STRCOMPANY, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,44,0,0"/>
+        <TextBox x:Name="txtCompany" Text="{Binding SelectedCustomer.STRCOMPANY, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="87,44,0,0"/>
         <Label x:Name="lblPhone" Content="Phone" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,44,0,0"/>
-        <TextBox x:Name="txtPhone" Text="{Binding STRPHONE, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,44,0,0"/>
-        <CheckBox x:Name="chkActive" Content="Active" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" IsChecked="{Binding Active, Mode=TwoWay}" IsEnabled="False"/>
+        <TextBox x:Name="txtPhone" Text="{Binding SelectedCustomer.STRPHONE, Mode=TwoWay, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="284,44,0,0"/>
+        <CheckBox x:Name="chkActive" Content="Active" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" IsChecked="{Binding SelectedCustomer.Active, Mode=TwoWay, ValidatesOnDataErrors=True}" IsEnabled="False"/>
         <GroupBox x:Name="grpActions" Header="Actions" Margin="422,10,9.8,0" VerticalAlignment="Top" Height="223">
             <StackPanel>
-                <Button x:Name="btnSaveAndClose" Content="Save &amp; Close" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=SaveAndCloseCustomerCommand}" HorizontalAlignment="Stretch" />
+                <Button x:Name="btnSaveAndClose" Content="Save &amp; Close" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=SaveAndCloseCustomerCommand}" CommandParameter="{Binding ElementName=DetailCustomerWindow}" HorizontalAlignment="Stretch" />
             </StackPanel>
         </GroupBox>
 
