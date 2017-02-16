@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
 using System.Windows.Input;
 using FormValidationExample.Infrastructure;
+using Oracle.ManagedDataAccess.Client;
 using SimpleMVVMExample.DB;
 using SimpleMVVMExample.Utility;
 using SimpleMVVMExample.WindowFactory;
@@ -14,15 +16,9 @@ namespace SimpleMVVMExample.Customers
         #region Fields
 
         private int _customerId;
-        private readonly IWindowFactory windowFactory;
+        private readonly IWindowFactory _windowFactory;
         private ObservableCollection<CustomerModel> _customers = new ObservableCollection<CustomerModel>();
         private CustomerModel _selectedCustomer;
-        private ICommand _printCustomersCommand;
-        private ICommand _createCustomerCommand;
-        private ICommand _openDetailCustomerCommand;
-        private ICommand _deleteCustomerCommand;
-        private ICommand _deRegisterCustomerCommand;
-        private ICommand _searchCustomersCommand;
 
         #endregion
 
@@ -30,9 +26,13 @@ namespace SimpleMVVMExample.Customers
 
         public CustomerViewModel(IWindowFactory windowFactory)
         {
-            this.windowFactory = windowFactory;
+            _windowFactory = windowFactory;
             Customers = new ObservableCollection<CustomerModel>();
             CreateCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(CreateCustomer);
+            PrintCustomersCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(PrintCustomers);
+            SearchCustomersCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(GetCustomers);
+            OpenDetailCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(CreateDetailWindow);
+            DeRegisterCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(DeRegisterCustomer);
         }
 
         #region Properties/Commands
@@ -72,59 +72,15 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
-        public ICommand PrintCustomersCommand
-        {
-            get
-            {
-                return _printCustomersCommand ?? (_printCustomersCommand = new RelayCommand(
-                           param => PrintCustomers()));
-            }
-        }
+        public ICommand PrintCustomersCommand { get; set; }
 
-        public ICommand OpenDetailCustomerCommand
-        {
-            get
-            {
-                return _openDetailCustomerCommand ?? (_openDetailCustomerCommand = new RelayCommand(
-                           param => CreateDetailWindow(),
-                           param => (SelectedCustomer != null)
-                       ));
-            }
-        }
+        public ICommand OpenDetailCustomerCommand { get; set; }
 
         public ICommand CreateCustomerCommand { get; set; }
 
-        public ICommand DeleteCustomerCommand
-        {
-            get
-            {
-                return _deleteCustomerCommand ?? (_deleteCustomerCommand = new RelayCommand(
-                           param => DeleteCustomer(),
-                           param => (SelectedCustomer != null)
-                       ));
-            }
-        }
+        public ICommand DeRegisterCustomerCommand { get; set; }
 
-        public ICommand DeRegisterCustomerCommand
-        {
-            get
-            {
-                return _deRegisterCustomerCommand ?? (_deRegisterCustomerCommand = new RelayCommand(
-                           param => DeRegisterCustomer(),
-                           param => (SelectedCustomer != null)
-                       ));
-            }
-        }
-
-        public ICommand SearchCustomersCommand
-        {
-            get
-            {
-                return _searchCustomersCommand ?? (_searchCustomersCommand = new RelayCommand(
-                           param => getCustomers()
-                       ));
-            }
-        }
+        public ICommand SearchCustomersCommand { get; set; }
 
         #endregion
 
@@ -138,24 +94,38 @@ namespace SimpleMVVMExample.Customers
         private void DeRegisterCustomer()
         {
             if (SelectedCustomer == null) return;
-            SelectedCustomer.BLNACTIVE = false;
-            MessageBox.Show("Customer has been successfully deregistered.");
+
+            using (var cmd = DC.GetOpenConnection().CreateCommand())
+            {
+                SelectedCustomer.BLNACTIVE = false;
+
+                cmd.CommandText = "UPDATE tblCustomer " +
+                                  "SET blnActive = '0' " +
+                                  "WHERE intCustomerID = :intCustomerID";
+
+                cmd.Parameters.Add(new OracleParameter("intCustomerID", OracleDbType.Int32, SelectedCustomer.INTCUSTOMERID, ParameterDirection.Input));
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OracleException e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+
+
+                MessageBox.Show("Customer has been successfully deregistered.");
+            }
         }
 
         private void CreateCustomer()
         {
-            windowFactory.CreateNewWindow(new CustomerModel());
+            _windowFactory.CreateNewWindow(new CustomerModel());
         }
 
-        private void DeleteCustomer()
-        {
-            if (SelectedCustomer == null) return;
-            Customers.Remove(SelectedCustomer);
-            SelectedCustomer = null;
-            MessageBox.Show("Successfully deleted Customer.");
-        }
-
-        private void getCustomers()
+        private void GetCustomers()
         {
             using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
@@ -172,10 +142,15 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
+        private void CreateNewCustomer()
+        {
+            
+        }
+
         private void CreateDetailWindow()
         {
             // Create and display detail Window
-            windowFactory.CreateNewWindow(_selectedCustomer);
+            _windowFactory.CreateNewWindow(_selectedCustomer);
         }
 
         #endregion
