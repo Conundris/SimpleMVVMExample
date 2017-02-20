@@ -103,8 +103,8 @@ namespace SimpleMVVMExample.Customers
                         throw;
                     }
                 }
-                window?.Close();
             }
+            window?.Close();
         }
     }
 }

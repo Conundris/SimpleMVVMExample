@@ -25,7 +25,7 @@
             </GroupBox>
         </DockPanel>
 
-        <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch" Margin="0,0,7,0">
+        <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Stretch" Margin="0,0,7,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding INTCUSTOMERID}"/>
                 <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding STRFORENAME}" />
@@ -34,6 +34,9 @@
                 <DataGridTextColumn Width="Auto" Header="Town" Binding="{Binding STRTOWN}"/>
                 <DataGridTextColumn Width="Auto" Header="Phone" Binding="{Binding STRPHONE}"/>
             </DataGrid.Columns>
+            <DataGrid.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenDetailCustomerCommand}" CommandParameter="{Binding ElementName=dgCustomers, Path=SelectedCustomer}" />
+            </DataGrid.InputBindings>
         </DataGrid>
     </DockPanel>
 </UserControl>

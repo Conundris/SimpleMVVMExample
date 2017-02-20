@@ -14,16 +14,6 @@ namespace SimpleMVVMExample
             InitializeComponent();
         }
 
-        private void dgTickets_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (dgCustomers.SelectedItem == null) return;
-            var selectedTicket = dgCustomers.SelectedItem as CustomerModel;
-
-            new DetailCustomerView(selectedTicket).ShowDialog();
-
-            //MessageBox.Show($"The Person you double clicked on is - ID: {selectedTicket.TicketId}, Title: {selectedTicket.TicketTitle}");
-        }
-
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             MessageBox.Show("Printing List of Customers.");

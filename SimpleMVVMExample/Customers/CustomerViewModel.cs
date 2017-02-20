@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using FormValidationExample.Infrastructure;
 using Oracle.ManagedDataAccess.Client;
@@ -19,6 +20,9 @@ namespace SimpleMVVMExample.Customers
         private readonly IWindowFactory _windowFactory;
         private ObservableCollection<CustomerModel> _customers = new ObservableCollection<CustomerModel>();
         private CustomerModel _selectedCustomer;
+        private ICommand _printCustomersCommand;
+        private ICommand _openDetailCustomerCommand;
+        private ICommand _deRegisterCustomerCommand;
 
         #endregion
 
@@ -29,10 +33,7 @@ namespace SimpleMVVMExample.Customers
             _windowFactory = windowFactory;
             Customers = new ObservableCollection<CustomerModel>();
             CreateCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(CreateCustomer);
-            PrintCustomersCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(PrintCustomers);
             SearchCustomersCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(GetCustomers);
-            OpenDetailCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(CreateDetailWindow);
-            DeRegisterCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(DeRegisterCustomer);
         }
 
         #region Properties/Commands
@@ -72,13 +73,40 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
-        public ICommand PrintCustomersCommand { get; set; }
+        public ICommand PrintCustomersCommand
+        {
+            get
+            {
+                return _printCustomersCommand ?? (_printCustomersCommand = new RelayCommand(
+                           param => PrintCustomers(),
+                           param => (SelectedCustomer != null)
+                ));
+            }
+        }
 
-        public ICommand OpenDetailCustomerCommand { get; set; }
+        public ICommand OpenDetailCustomerCommand
+        {
+            get
+            {
+                return _openDetailCustomerCommand ?? (_openDetailCustomerCommand = new RelayCommand(
+                           param => CreateDetailWindow(),
+                           param => (SelectedCustomer != null)
+                       ));
+            }
+        }
 
         public ICommand CreateCustomerCommand { get; set; }
 
-        public ICommand DeRegisterCustomerCommand { get; set; }
+        public ICommand DeRegisterCustomerCommand
+        {
+            get
+            {
+                return _deRegisterCustomerCommand ?? (_deRegisterCustomerCommand = new RelayCommand(
+                           param => DeRegisterCustomer(),
+                           param => (SelectedCustomer != null)
+                       ));
+            }
+        }
 
         public ICommand SearchCustomersCommand { get; set; }
 
@@ -88,6 +116,8 @@ namespace SimpleMVVMExample.Customers
 
         private void PrintCustomers()
         {
+            var pd = new PrintDialog();
+            pd.
             throw new System.NotImplementedException();
         }
 
