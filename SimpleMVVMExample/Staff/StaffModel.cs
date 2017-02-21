@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FormValidationExample.Infrastructure;
 using MvvmValidation;
 
@@ -10,13 +8,13 @@ namespace SimpleMVVMExample.Staff
     {
         #region Fields
 
-        private int _staffID;
-        private string _forename;
-        private string _surname;
-        private string _username;
-        private string _password;
-        private string _email;
-        private bool _active;
+        private int _intstaffid;
+        private string _strforename;
+        private string _strsurname;
+        private string _strusername;
+        private string _strpassword;
+        private string _stremail;
+        private bool _blnactive;
         private bool? isValid;
         private string validationErrorsString;  
 
@@ -30,93 +28,93 @@ namespace SimpleMVVMExample.Staff
 
         #region Properties
 
-        public int StaffID
+        public int INTSTAFFID
         {
-            get { return _staffID; }
+            get { return _intstaffid; }
             set
             {
-                if (value != _staffID)
+                if (value != _intstaffid)
                 {
-                    _staffID = value;
-                    OnPropertyChanged("StaffID");
+                    _intstaffid = value;
+                    OnPropertyChanged("INTSTAFFID");
                 }
             }
         }
 
-        public string Forename
+        public string STRFORENAME
         {
-            get { return _forename; }
+            get { return _strforename; }
             set
             {
-                if (value != _forename)
+                if (value != _strforename)
                 {
-                    _forename = value;
-                    OnPropertyChanged("Forename");
+                    _strforename = value;
+                    OnPropertyChanged("STRFORENAME");
                 }
             }
         }
 
-        public string Surname
+        public string STRSURNAME
         {
-            get { return _surname; }
+            get { return _strsurname; }
             set
             {
-                if (value != _surname)
+                if (value != _strsurname)
                 {
-                    _surname = value;
-                    OnPropertyChanged("Surname");
+                    _strsurname = value;
+                    OnPropertyChanged("STRSURNAME");
                 }
             }
         }
 
-        public string Username
+        public string STRUSERNAME
         {
-            get { return _username; }
+            get { return _strusername; }
             set
             {
-                if (value != _username)
+                if (value != _strusername)
                 {
-                    _username = value;
-                    OnPropertyChanged("Username");
+                    _strusername = value;
+                    OnPropertyChanged("STRUSERNAME");
                 }
             }
         }
 
-        public string Password
+        public string STRPASSWORD
         {
-            get { return _password; }
+            get { return _strpassword; }
             set
             {
-                if (value != _password)
+                if (value != _strpassword)
                 {
-                    _password = value;
-                    OnPropertyChanged("Password");
+                    _strpassword = value;
+                    OnPropertyChanged("STRPASSWORD");
                 }
             }
         }
 
-        public string Email
+        public string STREMAIL
         {
-            get { return _email; }
+            get { return _stremail; }
             set
             {
-                if (value != _email)
+                if (value != _stremail)
                 {
-                    _email = value;
-                    OnPropertyChanged("Email");
+                    _stremail = value;
+                    OnPropertyChanged("STREMAIL");
                 }
             }
         }
 
-        public bool Active
+        public bool BLNACTIVE
         {
-            get { return _active; }
+            get { return _blnactive; }
             set
             {
-                if (value != _active)
+                if (value != _blnactive)
                 {
-                    _active = value;
-                    OnPropertyChanged("Active");
+                    _blnactive = value;
+                    OnPropertyChanged("BLNACTIVE");
                 }
             }
         }
@@ -146,11 +144,11 @@ namespace SimpleMVVMExample.Staff
 
         private void ConfigureValidationRules()
         {
-            Validator.AddRequiredRule(() => Forename, "Forename is required");
-            Validator.AddRequiredRule(() => Surname, "Surname is required");
-            Validator.AddRequiredRule(() => Email, "Phonenumber is required");
-            Validator.AddRequiredRule(() => Password, "Date of birth is required");
-            Validator.AddRequiredRule(() => Username, "Date of birth is required");
+            Validator.AddRequiredRule(() => STRFORENAME, "Forename is required");
+            Validator.AddRequiredRule(() => STRSURNAME, "Surname is required");
+            Validator.AddRequiredRule(() => STREMAIL, "Phonenumber is required");
+            Validator.AddRequiredRule(() => STRPASSWORD, "Date of birth is required");
+            Validator.AddRequiredRule(() => STRUSERNAME, "Date of birth is required");
         }
 
         private async void Validate()

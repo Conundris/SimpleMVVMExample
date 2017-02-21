@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data;
+using Oracle.ManagedDataAccess.Client;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
@@ -49,11 +50,9 @@ namespace SimpleMVVMExample.Staff
             get { return _staffList ?? (_staffList = new ObservableCollection<StaffModel>()); }
             set
             {
-                if (value != null)
-                {
-                    _staffList = value;
-                    OnPropertyChanged("StaffList");
-                }
+                if (value == null) return;
+                _staffList = value;
+                OnPropertyChanged("StaffList");
             }
         }
 
@@ -123,14 +122,19 @@ namespace SimpleMVVMExample.Staff
             using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
                 if (cmd.Connection.State != ConnectionState.Open) return;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT * FROM frmCustomerView";
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "FRMSTAFFVIEW";
+                cmd.Parameters.Add(new OracleParameter("STRSEARCHSTRING", OracleDbType.Varchar2, ParameterDirection.Input));
+                cmd.Parameters.Add(new OracleParameter("CURSOR_", OracleDbType.RefCursor, ParameterDirection.Output));
+
                 var dr = cmd.ExecuteReader();
 
                 if (!dr.HasRows) return;
-                var dataReader = cmd.ExecuteReader();
+
                 var dataTable = new DataTable();
-                dataTable.Load(dataReader);
+                dataTable.Load(dr);
+
                 StaffList = new ObservableCollection<StaffModel>(dataTable.DataTableToList<StaffModel>());
             }
         }

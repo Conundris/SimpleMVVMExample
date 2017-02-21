@@ -26,10 +26,10 @@
 
         <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding StaffList}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding StaffID}"/>
-                <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding Forename}" />
-                <DataGridTextColumn Width="Auto" Header="Surname" Binding="{Binding Surname}"/>
-                <DataGridTextColumn Width="Auto" Header="Email" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding INTSTAFFID}"/>
+                <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding STRFORENAME}" />
+                <DataGridTextColumn Width="Auto" Header="Surname" Binding="{Binding STRSURNAME}"/>
+                <DataGridTextColumn Width="Auto" Header="Email" Binding="{Binding STREMAIL}"/>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
