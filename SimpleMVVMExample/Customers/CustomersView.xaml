@@ -10,7 +10,7 @@
 
     <DockPanel Margin="10">
         <DockPanel DockPanel.Dock="Top" LastChildFill="True" Margin="0,0,0,4">
-            <TextBlock Margin="0,8" DockPanel.Dock="Left" Text="Enter Customer ID" VerticalAlignment="Stretch" />
+            <TextBlock Margin="0,8" DockPanel.Dock="Left" Text="Search" VerticalAlignment="Stretch" />
             <Button Content="Search" DockPanel.Dock="Right" Width="75" Command="{Binding Path=SearchCustomersCommand}"></Button>
             <TextBox Margin="10,2" Width="Auto" VerticalAlignment="Stretch" />
         </DockPanel>

@@ -117,7 +117,6 @@ namespace SimpleMVVMExample.Customers
         private void PrintCustomers()
         {
             var pd = new PrintDialog();
-            pd.
             throw new System.NotImplementedException();
         }
 

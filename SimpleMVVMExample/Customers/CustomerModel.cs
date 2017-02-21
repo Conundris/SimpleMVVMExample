@@ -33,6 +33,7 @@ namespace SimpleMVVMExample
         {
             ConfigureValidationRules();
             Validator.ResultChanged += OnValidationResultChanged;
+            DATDATEOFBIRTH = DateTime.Now;
         }
 
 
@@ -205,8 +206,10 @@ namespace SimpleMVVMExample
         private void ConfigureValidationRules()
         {
             Validator.AddRequiredRule(() => STRFORENAME, "Forename is required");
-
             Validator.AddRequiredRule(() => STRSURNAME, "Surname is required");
+            Validator.AddRequiredRule(() => STRPHONE, "Phonenumber is required");
+            Validator.AddRequiredRule(() => DATDATEOFBIRTH, "Date of birth is required");
+            
 
             Validator.AddRule(nameof(STREMAIL),
                 () =>
@@ -218,6 +221,8 @@ namespace SimpleMVVMExample
                 });
 
 
+            Validator.AddRule(nameof(DATDATEOFBIRTH),
+                () => RuleResult.Assert(IsDateValid(DATDATEOFBIRTH), "The chosen date is in the future. Please choose a date of birth in the past."));
             /*Validator.AddAsyncRule(nameof(selectedCustomer.),
                 async () =>
                 {
@@ -231,7 +236,11 @@ namespace SimpleMVVMExample
             //Validator.AddChildValidatable(() => InterestSelectorViewModel);
         }
 
-
+        private static bool IsDateValid(DateTime datdateofbirth)
+        {
+            return datdateofbirth <= DateTime.Now;
+        }
+        
         private async void Validate()
         {
             await ValidateAsync();

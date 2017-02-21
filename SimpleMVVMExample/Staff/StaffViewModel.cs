@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.Data;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using SimpleMVVMExample.DB;
+using SimpleMVVMExample.Utility;
 
 namespace SimpleMVVMExample.Staff
 {
@@ -12,16 +15,17 @@ namespace SimpleMVVMExample.Staff
         private int _staffId;
         private ObservableCollection<StaffModel> _staffList = new ObservableCollection<StaffModel>();
         private StaffModel _selectedItem;
-        private ICommand _populateStaffCommand;
         private ICommand _saveStaffCommand;
         private ICommand _openDetailStaffCommand;
         private ICommand _deactivateStaffCommand;
+        
 
         #endregion
 
         public StaffViewModel()
         {
             StaffList = new ObservableCollection<StaffModel>();
+            SearchStaffCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(getStaff);
         }
 
         #region Properties/Commands
@@ -66,28 +70,16 @@ namespace SimpleMVVMExample.Staff
             }
         }
 
-        public ICommand PopulateStaffCommand
-        {
-            get
-            {
-                return _populateStaffCommand ?? (_populateStaffCommand = new RelayCommand(
-                           param => InitializeCurrentStaff()
-                       ));
-            }
-        }
+        public ICommand SearchStaffCommand { get; set; }
 
         public ICommand OpenDetailStaffCommand
         {
             get
             {
-                if (_openDetailStaffCommand == null)
-                {
-                    _openDetailStaffCommand = new RelayCommand(
-                        param => ShowWindow(),
-                        param => (SelectedItem != null)
-                        );
-                }
-                return _openDetailStaffCommand;
+                return _openDetailStaffCommand ?? (_openDetailStaffCommand = new RelayCommand(
+                           param => ShowWindow(),
+                           param => (SelectedItem != null)
+                       ));
             }
         }
 
@@ -95,13 +87,9 @@ namespace SimpleMVVMExample.Staff
         {
             get
             {
-                if (_saveStaffCommand == null)
-                {
-                    _saveStaffCommand = new RelayCommand(
-                        param => SaveStaff()
-                    );
-                }
-                return _saveStaffCommand;
+                return _saveStaffCommand ?? (_saveStaffCommand = new RelayCommand(
+                           param => SaveStaff()
+                       ));
             }
         }
 
@@ -110,7 +98,8 @@ namespace SimpleMVVMExample.Staff
             get
             {
                 return _deactivateStaffCommand ?? (_deactivateStaffCommand = new RelayCommand(
-                           param => DeactivateStaff()
+                           param => DeactivateStaff(),
+                           param => (SelectedItem != null)
                        ));
             }
         }
@@ -129,27 +118,21 @@ namespace SimpleMVVMExample.Staff
             MessageBox.Show("Successfully deactivated Staff.");
         }
 
-        private void InitializeCurrentStaff()
+        public void getStaff()
         {
-            for (var i = 0; i < 5; i++)
+            using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
-                StaffList.Add(InitializeStaff(i));
-            }
-        }
+                if (cmd.Connection.State != ConnectionState.Open) return;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT * FROM frmCustomerView";
+                var dr = cmd.ExecuteReader();
 
-        private StaffModel InitializeStaff(int i)
-        {
-            var theObject = new StaffModel
-            {
-                StaffID = StaffId,
-                Forename = "Test" + i ,
-                Surname = "Person" + i,
-                Email = "test@test.ch",
-                Username = "TestUser" + i,
-                Password = "1234" + i,
-                Active = true
-            };
-            return theObject;
+                if (!dr.HasRows) return;
+                var dataReader = cmd.ExecuteReader();
+                var dataTable = new DataTable();
+                dataTable.Load(dataReader);
+                StaffList = new ObservableCollection<StaffModel>(dataTable.DataTableToList<StaffModel>());
+            }
         }
 
         private void ShowWindow()
