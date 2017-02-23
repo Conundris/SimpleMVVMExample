@@ -26,7 +26,7 @@ namespace SimpleMVVMExample.Staff
         public StaffViewModel()
         {
             StaffList = new ObservableCollection<StaffModel>();
-            SearchStaffCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(getStaff);
+            SearchStaffCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(GetStaff);
         }
 
         #region Properties/Commands
@@ -117,7 +117,7 @@ namespace SimpleMVVMExample.Staff
             MessageBox.Show("Successfully deactivated Staff.");
         }
 
-        public void getStaff()
+        public void GetStaff()
         {
             using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
