@@ -24,13 +24,16 @@
             </GroupBox>
         </DockPanel>
 
-        <DataGrid Name="dgCustomers" AutoGenerateColumns="False" ItemsSource="{Binding StaffList}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" IsReadOnly="True" MouseDoubleClick="dgTickets_MouseDoubleClick" HorizontalAlignment="Stretch">
+        <DataGrid Name="dgStaff" AutoGenerateColumns="False" ItemsSource="{Binding StaffList}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Stretch">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding INTSTAFFID}"/>
                 <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding STRFORENAME}" />
                 <DataGridTextColumn Width="Auto" Header="Surname" Binding="{Binding STRSURNAME}"/>
                 <DataGridTextColumn Width="Auto" Header="Email" Binding="{Binding STREMAIL}"/>
             </DataGrid.Columns>
+            <DataGrid.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenDetailStaffCommand}" CommandParameter="{Binding ElementName=dgStaff, Path=SelectedItem}" />
+            </DataGrid.InputBindings>
         </DataGrid>
     </DockPanel>
 </UserControl>

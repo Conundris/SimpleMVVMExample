@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data;
 using Oracle.ManagedDataAccess.Client;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using SimpleMVVMExample.DB;
 using SimpleMVVMExample.Utility;
+using SimpleMVVMExample.WindowFactory;
 
 namespace SimpleMVVMExample.Staff
 {
@@ -14,19 +14,22 @@ namespace SimpleMVVMExample.Staff
         #region Fields
 
         private int _staffId;
+        private readonly IWindowFactory _windowFactory;
         private ObservableCollection<StaffModel> _staffList = new ObservableCollection<StaffModel>();
         private StaffModel _selectedItem;
-        private ICommand _saveStaffCommand;
         private ICommand _openDetailStaffCommand;
         private ICommand _deactivateStaffCommand;
-        
+
 
         #endregion
 
-        public StaffViewModel()
+        public StaffViewModel() : this(new DetailStaffViewProductionFactory()) { }
+
+        public StaffViewModel(IWindowFactory windowFactory)
         {
+            _windowFactory = windowFactory;
             StaffList = new ObservableCollection<StaffModel>();
-            SearchStaffCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(getStaff);
+            SearchStaffCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(GetStaff);
         }
 
         #region Properties/Commands
@@ -82,16 +85,6 @@ namespace SimpleMVVMExample.Staff
             }
         }
 
-        public ICommand SaveStaffCommand
-        {
-            get
-            {
-                return _saveStaffCommand ?? (_saveStaffCommand = new RelayCommand(
-                           param => SaveStaff()
-                       ));
-            }
-        }
-
         public ICommand DeactivateStaffCommand
         {
             get
@@ -107,17 +100,12 @@ namespace SimpleMVVMExample.Staff
 
         #region Methods
 
-        private void SaveStaff()
-        {
-            MessageBox.Show("Successfully Saved Staff.");
-        }
-
         private void DeactivateStaff()
         {
             MessageBox.Show("Successfully deactivated Staff.");
         }
 
-        public void getStaff()
+        public void GetStaff()
         {
             using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
@@ -141,10 +129,7 @@ namespace SimpleMVVMExample.Staff
 
         private void ShowWindow()
         {
-            // Just as an exammple, here I just show a MessageBox
-            Debug.WriteLine(SelectedItem);
-            var detailForm = new DetailStaffView(SelectedItem);
-            detailForm.ShowDialog();
+            _windowFactory.CreateNewWindow(_selectedItem);
         }
         #endregion
     }

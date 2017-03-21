@@ -64,7 +64,7 @@ namespace SimpleMVVMExample
                 if (value != _ticketId)
                 {
                     _ticketId = value;
-                    OnPropertyChanged("TicketId");
+                    OnPropertyChanged("INTTICKETID");
                 }
             }
         }
@@ -87,9 +87,9 @@ namespace SimpleMVVMExample
             // but for now we'll just return a new object
             var p = new TicketModel
             {
-                TicketId = TicketId,
-                TicketTitle = "Test Product",
-                TicketDescription = 10
+                INTTICKETID = TicketId,
+                STRTICKETTITLE = "Test Product",
+                STRTICKETDESCRIPTION = 10
             };
         }
 
@@ -115,8 +115,8 @@ namespace SimpleMVVMExample
         {
             var theObject = new TicketModel
             {
-                TicketId = i,
-                TicketTitle = "The object " + i
+                INTTICKETID = i,
+                STRTICKETTITLE = "The object " + i
             };
             return theObject;
         }

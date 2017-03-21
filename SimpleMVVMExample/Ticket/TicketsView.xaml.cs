@@ -20,7 +20,7 @@ namespace SimpleMVVMExample
 
             new DetailTicketView(selectedTicket).ShowDialog();
 
-            //MessageBox.Show($"The Person you double clicked on is - ID: {selectedTicket.TicketId}, Title: {selectedTicket.TicketTitle}");
+            //MessageBox.Show($"The Person you double clicked on is - ID: {selectedTicket.INTTICKETID}, Title: {selectedTicket.STRTICKETTITLE}");
         }
     }
 }

@@ -165,6 +165,7 @@
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Home\HomeViewModel.cs" />
+    <Compile Include="Staff\DetailStaffViewModel.cs" />
     <Compile Include="Staff\DetailStaffView.xaml.cs">
       <DependentUpon>DetailStaffView.xaml</DependentUpon>
     </Compile>
@@ -177,10 +178,10 @@
       <DependentUpon>TicketAnalysisView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TicketAnalysis\TicketAnalysisViewModel.cs" />
+    <Compile Include="Ticket\DetailTicketViewModel.cs" />
     <Compile Include="Ticket\DetailTicketView.xaml.cs">
       <DependentUpon>DetailTicketView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ticket\DetailTicketViewModel.cs" />
     <Compile Include="Ticket\PaymentView.xaml.cs">
       <DependentUpon>PaymentView.xaml</DependentUpon>
     </Compile>
@@ -197,6 +198,7 @@
     <Compile Include="Utility\DBUtilites.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="WindowFactory\DetailStaffViewProductionFactory.cs" />
     <Compile Include="WindowFactory\DetailCustomerViewProductionFactory.cs" />
     <Compile Include="WindowFactory\IWindowFactory.cs" />
     <Page Include="Customers\DetailCustomerView.xaml">

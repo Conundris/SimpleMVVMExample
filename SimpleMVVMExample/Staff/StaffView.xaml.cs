@@ -12,13 +12,5 @@ namespace SimpleMVVMExample.Staff
         {
             InitializeComponent();
         }
-
-        private void dgTickets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (dgCustomers.SelectedItem == null) return;
-            var selectedStaff = dgCustomers.SelectedItem as StaffModel;
-
-            new DetailStaffView(selectedStaff).ShowDialog();
-        }
     }
 }
