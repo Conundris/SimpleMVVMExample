@@ -34,13 +34,14 @@ namespace SimpleMVVMExample.Customers
             Customers = new ObservableCollection<CustomerModel>();
             CreateCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(CreateCustomer);
             SearchCustomersCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(GetCustomers);
+            Get100Customers();
         }
 
         #region Properties/Commands
 
         public CustomerModel SelectedCustomer
         {
-            get { return _selectedCustomer; }
+            get => _selectedCustomer;
             set
             {
                 if (value == _selectedCustomer || value == null) return;
@@ -51,7 +52,7 @@ namespace SimpleMVVMExample.Customers
 
         public ObservableCollection<CustomerModel> Customers
         {
-            get { return _customers ?? (_customers = new ObservableCollection<CustomerModel>()); }
+            get => _customers ?? (_customers = new ObservableCollection<CustomerModel>());
             set
             {
                 if (value == null) return;
@@ -64,7 +65,7 @@ namespace SimpleMVVMExample.Customers
 
         public int CustomerId
         {
-            get { return _customerId; }
+            get => _customerId;
             set
             {
                 if (value == _customerId) return;
@@ -149,9 +150,12 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
-        private void CreateCustomer()
+        private async void CreateCustomer()
         {
-            _windowFactory.CreateNewWindow(new CustomerModel());
+            // Create and wait for Window to close.
+            var complete = await _windowFactory.CreateNewWindow(new CustomerModel());
+            // Refresh Datagrid with new Data
+            GetCustomers();
         }
 
         private void GetCustomers()
@@ -167,19 +171,33 @@ namespace SimpleMVVMExample.Customers
                 var dataReader = cmd.ExecuteReader();
                 var dataTable = new DataTable();
                 dataTable.Load(dataReader);
+                Customers.Clear();
                 Customers = new ObservableCollection<CustomerModel>(dataTable.DataTableToList<CustomerModel>());
             }
         }
 
-        private void CreateNewCustomer()
+        private void Get100Customers()
         {
-            
-        }
+            using (var cmd = DC.GetOpenConnection().CreateCommand())
+            {
+                if (cmd.Connection.State != ConnectionState.Open) return;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT * FROM frmCustomerView WHERE ROWNUM <= 100 ORDER BY INTCUSTOMERID DESC";
+                var dr = cmd.ExecuteReader();
 
-        private void CreateDetailWindow()
+                if (!dr.HasRows) return;
+                var dataReader = cmd.ExecuteReader();
+                var dataTable = new DataTable();
+                dataTable.Load(dataReader);
+                Customers = new ObservableCollection<CustomerModel>(dataTable.DataTableToList<CustomerModel>());
+            }
+        }
+        private async void CreateDetailWindow()
         {
-            // Create and display detail Window
-            _windowFactory.CreateNewWindow(_selectedCustomer);
+            // Create and wait for Window to close.
+            var complete = await _windowFactory.CreateNewWindow(_selectedCustomer);
+            // Refresh Datagrid with new Data
+            GetCustomers();
         }
 
         #endregion

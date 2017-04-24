@@ -1,4 +1,9 @@
-﻿using SimpleMVVMExample.Customers;
+﻿using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Navigation;
+using AsyncShowDialog;
+using MaterialDesignThemes.Wpf;
+using SimpleMVVMExample.Customers;
 
 namespace SimpleMVVMExample.WindowFactory
 {
@@ -6,15 +11,17 @@ namespace SimpleMVVMExample.WindowFactory
     {
         #region Implementation of INewWindowFactory
 
-        public void CreateNewWindow(object selectedItem)
+        public async Task<bool?> CreateNewWindow(object selectedItem)
         {
             var window = new DetailCustomerView
             {
-                DataContext = new DetailCustomerViewModel((CustomerModel) selectedItem)
+                DataContext = new DetailCustomerViewModel((CustomerModel) selectedItem),
             };
-            window.Show();
-        }
 
+            var result = await window.ShowDialogAsync();
+
+            return result;
+        }
         #endregion
     }
 }

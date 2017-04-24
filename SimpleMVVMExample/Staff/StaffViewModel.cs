@@ -30,6 +30,7 @@ namespace SimpleMVVMExample.Staff
             _windowFactory = windowFactory;
             StaffList = new ObservableCollection<StaffModel>();
             SearchStaffCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(GetStaff);
+            Get100Staff();
         }
 
         #region Properties/Commands
@@ -123,6 +124,23 @@ namespace SimpleMVVMExample.Staff
                 var dataTable = new DataTable();
                 dataTable.Load(dr);
 
+                StaffList = new ObservableCollection<StaffModel>(dataTable.DataTableToList<StaffModel>());
+            }
+        }
+
+        private void Get100Staff()
+        {
+            using (var cmd = DC.GetOpenConnection().CreateCommand())
+            {
+                if (cmd.Connection.State != ConnectionState.Open) return;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT * FROM TBLSTAFF WHERE ROWNUM <= 100 ORDER BY INTSTAFFID DESC";
+                var dr = cmd.ExecuteReader();
+
+                if (!dr.HasRows) return;
+                var dataReader = cmd.ExecuteReader();
+                var dataTable = new DataTable();
+                dataTable.Load(dataReader);
                 StaffList = new ObservableCollection<StaffModel>(dataTable.DataTableToList<StaffModel>());
             }
         }

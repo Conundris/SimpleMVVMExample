@@ -41,7 +41,7 @@ namespace SimpleMVVMExample
 
         public int INTCUSTOMERID
         {
-            get { return _customerId; }
+            get => _customerId;
             set
             {
                 if (value == _customerId) return;
@@ -53,7 +53,7 @@ namespace SimpleMVVMExample
 
         public string STRFORENAME
         {
-            get { return _forename; }
+            get => _forename;
             set
             {
                 if (value == _forename) return;
@@ -64,7 +64,7 @@ namespace SimpleMVVMExample
         }
         public string STRSURNAME
         {
-            get { return _surname; }
+            get => _surname;
             set
             {
                 if (value == _surname) return;
@@ -76,7 +76,7 @@ namespace SimpleMVVMExample
 
         public string STREMAIL
         {
-            get { return _email; }
+            get => _email;
             set
             {
                 if (value == _email) return;
@@ -88,7 +88,7 @@ namespace SimpleMVVMExample
 
         public string STRCOMPANY
         {
-            get { return _company; }
+            get => _company;
             set
             {
                 if (value == _company) return;
@@ -100,7 +100,7 @@ namespace SimpleMVVMExample
 
         public string STRSTREET
         {
-            get { return _street; }
+            get => _street;
             set
             {
                 if (value == _street) return;
@@ -112,7 +112,7 @@ namespace SimpleMVVMExample
 
         public string STRPHONE
         {
-            get { return _phone; }
+            get => _phone;
             set
             {
                 if (value == _phone) return;
@@ -124,7 +124,7 @@ namespace SimpleMVVMExample
 
         public DateTime DATDATEOFBIRTH
         {
-            get { return _dateOfBirth; }
+            get => _dateOfBirth;
             set
             {
                 if (value == _dateOfBirth) return;
@@ -136,7 +136,7 @@ namespace SimpleMVVMExample
 
         public string STRTOWN
         {
-            get { return _town; }
+            get => _town;
             set
             {
                 if (value == _town) return;
@@ -148,7 +148,7 @@ namespace SimpleMVVMExample
 
         public string STRCOUNTY
         {
-            get { return _county; }
+            get => _county;
             set
             {
                 if (value == _county) return;
@@ -160,7 +160,7 @@ namespace SimpleMVVMExample
 
         public string STRCOUNTRY
         {
-            get { return _country; }
+            get => _country;
             set
             {
                 if (value == _country) return;
@@ -172,7 +172,7 @@ namespace SimpleMVVMExample
 
         public bool BLNACTIVE
         {
-            get { return _active; }
+            get => _active;
             set
             {
                 if (value == _active) return;
@@ -184,7 +184,7 @@ namespace SimpleMVVMExample
 
         public string ValidationErrorsString
         {
-            get { return validationErrorsString; }
+            get => validationErrorsString;
             private set
             {
                 validationErrorsString = value;
@@ -194,7 +194,7 @@ namespace SimpleMVVMExample
 
         public bool? IsValid
         {
-            get { return isValid; }
+            get => isValid;
             private set
             {
                 isValid = value;

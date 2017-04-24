@@ -17,12 +17,13 @@ namespace SimpleMVVMExample.Customers
         {
             _selectedCustomer = selectedCustomer;
             SaveAndCloseCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand<ICloseable>(SaveAndCloseCustomer);
+            
         }
 
         public ICommand SaveAndCloseCustomerCommand { get; set; }
         public CustomerModel SelectedCustomer
         {
-            get { return _selectedCustomer; }
+            get => _selectedCustomer;
             set
             {
                 if (value == _selectedCustomer || value == null) return;
@@ -89,6 +90,8 @@ namespace SimpleMVVMExample.Customers
 
         private void CreateCustomer()
         {
+            Console.Out.WriteLine(_selectedCustomer.IsValid);
+
             using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
                 cmd.CommandText =

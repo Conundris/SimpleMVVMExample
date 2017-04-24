@@ -1,4 +1,6 @@
-﻿using SimpleMVVMExample.Staff;
+﻿using System.Threading.Tasks;
+using AsyncShowDialog;
+using SimpleMVVMExample.Staff;
 
 namespace SimpleMVVMExample.WindowFactory
 {
@@ -6,13 +8,14 @@ namespace SimpleMVVMExample.WindowFactory
     {
         #region Implementation of INewWindowFactory
 
-        public void CreateNewWindow(object selectedItem)
+        public async Task<bool?> CreateNewWindow(object selectedItem)
         {
             var window = new DetailStaffView
             {
                 DataContext = new DetailStaffViewModel((StaffModel) selectedItem)
             };
-            window.Show();
+
+            return await window.ShowDialogAsync();
         }
 
         #endregion

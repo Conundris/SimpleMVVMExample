@@ -81,18 +81,6 @@ namespace SimpleMVVMExample
 
         #region Methods
 
-        private void GetTicket()
-        {
-            // Usually you'd get your Product from your datastore,
-            // but for now we'll just return a new object
-            var p = new TicketModel
-            {
-                INTTICKETID = TicketId,
-                STRTICKETTITLE = "Test Product",
-                STRTICKETDESCRIPTION = 10
-            };
-        }
-
         private void SaveTicket()
         {
             // You would implement your Product save here
@@ -116,7 +104,7 @@ namespace SimpleMVVMExample
             var theObject = new TicketModel
             {
                 INTTICKETID = i,
-                STRTICKETTITLE = "The object " + i
+                STRTITLE = "The object " + i
             };
             return theObject;
         }

@@ -1,7 +1,9 @@
-﻿namespace SimpleMVVMExample.WindowFactory
+﻿using System.Threading.Tasks;
+
+namespace SimpleMVVMExample.WindowFactory
 {
     public interface IWindowFactory
     {
-        void CreateNewWindow(object selectedItem);
+        Task<bool?> CreateNewWindow(object selectedItem);
     }
 }

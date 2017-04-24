@@ -196,6 +196,7 @@
     <Compile Include="Ticket\TicketViewModel.cs" />
     <Compile Include="IPageViewModel.cs" />
     <Compile Include="Utility\DBUtilites.cs" />
+    <Compile Include="Utility\WindowUtilites.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="WindowFactory\DetailStaffViewProductionFactory.cs" />

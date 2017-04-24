@@ -11,7 +11,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="Simple MVVM Example with Navigation" Height="400" Width="750" MinHeight="450" MinWidth="600">
+        Title="HelpDeskSys" Height="400" Width="750" MinHeight="450" MinWidth="600">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type local:HomeViewModel}">
