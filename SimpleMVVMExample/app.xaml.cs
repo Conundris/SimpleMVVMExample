@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using SimpleMVVMExample.Automapper;
 
 namespace SimpleMVVMExample
 {
@@ -11,8 +10,6 @@ namespace SimpleMVVMExample
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
-            AutoMapperConfig.RegisterMappings();
 
             var app = new ApplicationView();
             var context = new ApplicationViewModel();
