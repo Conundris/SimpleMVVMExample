@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using FormValidationExample.Infrastructure;
 using Oracle.ManagedDataAccess.Client;
 using SimpleMVVMExample.DB;
 using SimpleMVVMExample.Utility;
 using SimpleMVVMExample.WindowFactory;
+using PrintDialog = System.Windows.Controls.PrintDialog;
 
 namespace SimpleMVVMExample.Customers
 {
@@ -22,7 +22,6 @@ namespace SimpleMVVMExample.Customers
         private CustomerModel _selectedCustomer;
         private ICommand _printCustomersCommand;
         private ICommand _openDetailCustomerCommand;
-        private ICommand _deRegisterCustomerCommand;
 
         #endregion
 
@@ -41,7 +40,7 @@ namespace SimpleMVVMExample.Customers
 
         public CustomerModel SelectedCustomer
         {
-            get => _selectedCustomer;
+            get { return _selectedCustomer; }
             set
             {
                 if (value == _selectedCustomer || value == null) return;
@@ -52,7 +51,7 @@ namespace SimpleMVVMExample.Customers
 
         public ObservableCollection<CustomerModel> Customers
         {
-            get => _customers ?? (_customers = new ObservableCollection<CustomerModel>());
+            get { return _customers ?? (_customers = new ObservableCollection<CustomerModel>()); }
             set
             {
                 if (value == null) return;
@@ -65,7 +64,7 @@ namespace SimpleMVVMExample.Customers
 
         public int CustomerId
         {
-            get => _customerId;
+            get { return _customerId; }
             set
             {
                 if (value == _customerId) return;
@@ -98,17 +97,6 @@ namespace SimpleMVVMExample.Customers
 
         public ICommand CreateCustomerCommand { get; set; }
 
-        public ICommand DeRegisterCustomerCommand
-        {
-            get
-            {
-                return _deRegisterCustomerCommand ?? (_deRegisterCustomerCommand = new RelayCommand(
-                           param => DeRegisterCustomer(),
-                           param => (SelectedCustomer != null)
-                       ));
-            }
-        }
-
         public ICommand SearchCustomersCommand { get; set; }
 
         #endregion
@@ -125,28 +113,35 @@ namespace SimpleMVVMExample.Customers
         {
             if (SelectedCustomer == null) return;
 
-            using (var cmd = DC.GetOpenConnection().CreateCommand())
+            var dialogResult = MessageBox.Show("Are you sure that you want to deregister this Customer?", "Deactivate Customer", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                SelectedCustomer.BLNACTIVE = false;
-
-                cmd.CommandText = "UPDATE tblCustomer " +
-                                  "SET blnActive = '0' " +
-                                  "WHERE intCustomerID = :intCustomerID";
-
-                cmd.Parameters.Add(new OracleParameter("intCustomerID", OracleDbType.Int32, SelectedCustomer.INTCUSTOMERID, ParameterDirection.Input));
-
-                try
+                using (var cmd = DC.GetOpenConnection().CreateCommand())
                 {
-                    cmd.ExecuteNonQuery();
-                }
-                catch (OracleException e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                    SelectedCustomer.BLNACTIVE = '0';
 
+                    cmd.CommandText = "UPDATE tblCustomer " +
+                                      "SET blnActive = '0' " +
+                                      "WHERE intCustomerID = :intCustomerID";
 
-                MessageBox.Show("Customer has been successfully deregistered.");
+                    cmd.Parameters.Add(new OracleParameter("intCustomerID", OracleDbType.Int32, SelectedCustomer.INTCUSTOMERID, ParameterDirection.Input));
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (OracleException e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
+
+                    MessageBox.Show("Customer has been successfully deregistered.");
+                }
+            }
+            else
+            {
+                return;
             }
         }
 
@@ -163,15 +158,19 @@ namespace SimpleMVVMExample.Customers
             using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
                 if (cmd.Connection.State != ConnectionState.Open) return;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT * FROM frmCustomerView";
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SPCUSTOMERVIEW";
+                cmd.Parameters.Add(new OracleParameter("STRSEARCHSTRING", OracleDbType.Varchar2, ParameterDirection.Input));
+                cmd.Parameters.Add(new OracleParameter("CURSOR_", OracleDbType.RefCursor, ParameterDirection.Output));
+
                 var dr = cmd.ExecuteReader();
 
                 if (!dr.HasRows) return;
-                var dataReader = cmd.ExecuteReader();
+
                 var dataTable = new DataTable();
-                dataTable.Load(dataReader);
-                Customers.Clear();
+                dataTable.Load(dr);
+
                 Customers = new ObservableCollection<CustomerModel>(dataTable.DataTableToList<CustomerModel>());
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using FormValidationExample.Infrastructure;
 using MvvmValidation;
 
@@ -11,10 +12,8 @@ namespace SimpleMVVMExample.Staff
         private int _intstaffid;
         private string _strforename;
         private string _strsurname;
-        private string _strusername;
-        private string _strpassword;
         private string _stremail;
-        private bool _blnactive;
+        private char _blnactive;
         private bool? isValid;
         private string validationErrorsString;  
 
@@ -37,6 +36,7 @@ namespace SimpleMVVMExample.Staff
                 {
                     _intstaffid = value;
                     OnPropertyChanged("INTSTAFFID");
+                    Validator.Validate(nameof(INTSTAFFID));
                 }
             }
         }
@@ -50,6 +50,7 @@ namespace SimpleMVVMExample.Staff
                 {
                     _strforename = value;
                     OnPropertyChanged("STRFORENAME");
+                    Validator.Validate(nameof(STRFORENAME));
                 }
             }
         }
@@ -63,32 +64,7 @@ namespace SimpleMVVMExample.Staff
                 {
                     _strsurname = value;
                     OnPropertyChanged("STRSURNAME");
-                }
-            }
-        }
-
-        public string STRUSERNAME
-        {
-            get { return _strusername; }
-            set
-            {
-                if (value != _strusername)
-                {
-                    _strusername = value;
-                    OnPropertyChanged("STRUSERNAME");
-                }
-            }
-        }
-
-        public string STRPASSWORD
-        {
-            get { return _strpassword; }
-            set
-            {
-                if (value != _strpassword)
-                {
-                    _strpassword = value;
-                    OnPropertyChanged("STRPASSWORD");
+                    Validator.Validate(nameof(STRSURNAME));
                 }
             }
         }
@@ -102,11 +78,12 @@ namespace SimpleMVVMExample.Staff
                 {
                     _stremail = value;
                     OnPropertyChanged("STREMAIL");
+                    Validator.Validate(nameof(STREMAIL));
                 }
             }
         }
 
-        public bool BLNACTIVE
+        public char BLNACTIVE
         {
             get { return _blnactive; }
             set
@@ -146,17 +123,24 @@ namespace SimpleMVVMExample.Staff
         {
             Validator.AddRequiredRule(() => STRFORENAME, "Forename is required");
             Validator.AddRequiredRule(() => STRSURNAME, "Surname is required");
-            Validator.AddRequiredRule(() => STREMAIL, "Phonenumber is required");
-            Validator.AddRequiredRule(() => STRPASSWORD, "Date of birth is required");
-            Validator.AddRequiredRule(() => STRUSERNAME, "Date of birth is required");
+            Validator.AddRequiredRule(() => STREMAIL, "Email is required");
+
+            Validator.AddRule(nameof(STREMAIL),
+                () =>
+                {
+                    const string regexPattern =
+                        @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+                    return RuleResult.Assert(Regex.IsMatch(STREMAIL, regexPattern, RegexOptions.IgnoreCase),
+                        "Email must by a valid email address");
+                });
         }
 
-        private async void Validate()
+        public async void Validate()
         {
             await ValidateAsync();
         }
 
-        private async Task ValidateAsync()
+        public async Task ValidateAsync()
         {
             var result = await Validator.ValidateAllAsync();
 
@@ -164,15 +148,23 @@ namespace SimpleMVVMExample.Staff
         }
         private void OnValidationResultChanged(object sender, ValidationResultChangedEventArgs e)
         {
-            if (IsValid.GetValueOrDefault(true)) return;
-            var validationResult = Validator.GetResult();
+            if (!IsValid.GetValueOrDefault(true))
+            {
+                var validationResult = Validator.GetResult();
 
-            UpdateValidationSummary(validationResult);
+                UpdateValidationSummary(validationResult);
+            }
         }
-        private void UpdateValidationSummary(MvvmValidation.ValidationResult validationResult)
+
+        private void UpdateValidationSummary(ValidationResult validationResult)
         {
             IsValid = validationResult.IsValid;
             ValidationErrorsString = validationResult.ToString();
+        }
+
+        public override string ToString()
+        {
+            return $"{_strsurname} {_strforename}";
         }
     }
 }

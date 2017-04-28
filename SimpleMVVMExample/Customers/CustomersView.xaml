@@ -19,8 +19,7 @@
                 <StackPanel>
                     <Button Content="New" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=CreateCustomerCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="Edit" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=OpenDetailCustomerCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="De-register" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=DeRegisterCustomerCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="Print" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=PrintCustomersCommand}" HorizontalAlignment="Stretch" Click="Button_Click" />
+                    <Button Content="Print" DockPanel.Dock="Top" Margin="6,2" HorizontalAlignment="Stretch" Click="Button_Click" />
                 </StackPanel>
             </GroupBox>
         </DockPanel>
@@ -35,8 +34,9 @@
                 <DataGridTextColumn Width="Auto" Header="Phone" Binding="{Binding STRPHONE}"/>
             </DataGrid.Columns>
             <DataGrid.InputBindings>
-                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenDetailCustomerCommand}" CommandParameter="{Binding ElementName=dgCustomers, Path=SelectedCustomer}" />
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenDetailCustomerCommand}" CommandParameter="{Binding ElementName=dgCustomers, Path=SelectedItem}" />
             </DataGrid.InputBindings>
         </DataGrid>
+
     </DockPanel>
 </UserControl>

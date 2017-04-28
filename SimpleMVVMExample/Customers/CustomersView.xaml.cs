@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using DetailCustomerView = SimpleMVVMExample.Customers.DetailCustomerView;
 
 namespace SimpleMVVMExample
 {
@@ -14,9 +13,17 @@ namespace SimpleMVVMExample
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Printing List of Customers.");
+            var Printdlg = new PrintDialog();
+            if (Printdlg.ShowDialog().GetValueOrDefault())
+            {
+                Size pageSize = new Size(Printdlg.PrintableAreaWidth, Printdlg.PrintableAreaHeight);
+                // sizing of the element.
+                dgCustomers.Measure(pageSize);
+                dgCustomers.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
+                Printdlg.PrintVisual(dgCustomers, "Customers");
+            }
         }
     }
 }

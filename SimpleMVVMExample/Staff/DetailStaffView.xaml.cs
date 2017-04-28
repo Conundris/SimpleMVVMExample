@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using SimpleMVVMExample.Helper_Classes;
 
 namespace SimpleMVVMExample.Staff
 {
     /// <summary>
     /// Interaction logic for DetailStaffView.xaml
     /// </summary>
-    public partial class DetailStaffView : Window
+    public partial class DetailStaffView : Window, ICloseable
     {
         private StaffModel _staffModel;
 
@@ -33,19 +22,6 @@ namespace SimpleMVVMExample.Staff
             _staffModel = staffModel;
             InitializeComponent();
             DataContext = staffModel;
-        }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(_staffModel != null
-                ? "Entry has successfully been created."
-                : "Entry has Successfully been updated.");
-            this.Close();
-        }
-
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

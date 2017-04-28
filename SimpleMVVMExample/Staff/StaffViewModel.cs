@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data;
 using Oracle.ManagedDataAccess.Client;
-using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using SimpleMVVMExample.DB;
 using SimpleMVVMExample.Utility;
@@ -18,7 +18,7 @@ namespace SimpleMVVMExample.Staff
         private ObservableCollection<StaffModel> _staffList = new ObservableCollection<StaffModel>();
         private StaffModel _selectedItem;
         private ICommand _openDetailStaffCommand;
-        private ICommand _deactivateStaffCommand;
+        private ICommand _createStaffCommand;
 
 
         #endregion
@@ -75,6 +75,16 @@ namespace SimpleMVVMExample.Staff
 
         public ICommand SearchStaffCommand { get; set; }
 
+        public ICommand CreateStaffCommand
+        {
+            get
+            {
+                return _createStaffCommand ?? (_createStaffCommand = new RelayCommand(
+                           param => CreateStaff()
+                       ));
+            }
+        }
+
         public ICommand OpenDetailStaffCommand
         {
             get
@@ -86,24 +96,28 @@ namespace SimpleMVVMExample.Staff
             }
         }
 
-        public ICommand DeactivateStaffCommand
-        {
-            get
-            {
-                return _deactivateStaffCommand ?? (_deactivateStaffCommand = new RelayCommand(
-                           param => DeactivateStaff(),
-                           param => (SelectedItem != null)
-                       ));
-            }
-        }
-
         #endregion
 
         #region Methods
 
         private void DeactivateStaff()
         {
-            MessageBox.Show("Successfully deactivated Staff.");
+            var dialogResult = MessageBox.Show("Are you sure that you want to deactivate this Staff?", "Deactivate Staff", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                using (var cmd = DC.GetOpenConnection().CreateCommand())
+                {
+                    if (cmd.Connection.State != ConnectionState.Open) return;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "UPDATE TBLSTAFF BLNACTIVE = '0' WHERE INTSTAFFID = " + _selectedItem.INTSTAFFID;
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Staff has been successfully deactivated.");
+                }
+            }
+            else
+            {
+                return;
+            }
         }
 
         public void GetStaff()
@@ -149,6 +163,15 @@ namespace SimpleMVVMExample.Staff
         {
             _windowFactory.CreateNewWindow(_selectedItem);
         }
+
+        private async void CreateStaff()
+        {
+            // Create and wait for Window to close.
+            var complete = await _windowFactory.CreateNewWindow(new StaffModel());
+            // Refresh Datagrid with new Data
+            GetStaff();
+        }
+
         #endregion
     }
 }

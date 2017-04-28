@@ -4,8 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SimpleMVVMExample.Staff"
+             xmlns:converter="clr-namespace:SimpleMVVMExample.Converter"
              mc:Ignorable="d" MinWidth="473.109" MinHeight="300" HorizontalAlignment="Stretch" Width="Auto">
+
     <UserControl.Resources>
+        <converter:ActiveConverter x:Key="ActiveConverter"/>
     </UserControl.Resources>
 
     <DockPanel Margin="10">
@@ -19,12 +22,12 @@
                 <StackPanel>
                     <Button Content="New" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=CreateStaffCommand}" HorizontalAlignment="Stretch" />
                     <Button Content="Edit" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=OpenDetailStaffCommand}" HorizontalAlignment="Stretch" />
-                    <Button Content="Deactivate" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=DeactivateStaffCommand}" HorizontalAlignment="Stretch" />
+                    <Button Content="Print" DockPanel.Dock="Top" Margin="6,2" HorizontalAlignment="Stretch" Click="PrintButton_Click" />
                 </StackPanel>
             </GroupBox>
         </DockPanel>
 
-        <DataGrid Name="dgStaff" AutoGenerateColumns="False" ItemsSource="{Binding StaffList}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Stretch">
+        <DataGrid Name="dgStaff" AutoGenerateColumns="False" ItemsSource="{Binding StaffList}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Stretch" Margin="0,0,7,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding INTSTAFFID}"/>
                 <DataGridTextColumn Width="Auto" Header="Forname" Binding="{Binding STRFORENAME}" />

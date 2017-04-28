@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.Data;
 using System.Windows;
 using System.Windows.Input;
-using SimpleMVVMExample.Ticket;
+using Oracle.ManagedDataAccess.Client;
+using SimpleMVVMExample.DB;
+using SimpleMVVMExample.Utility;
+using SimpleMVVMExample.WindowFactory;
 
 namespace SimpleMVVMExample
 {
@@ -10,9 +13,13 @@ namespace SimpleMVVMExample
     {
         #region Fields
 
-        private int _ticketId;
+
         private ObservableCollection<TicketModel> _tickets = new ObservableCollection<TicketModel>();
-        private TicketModel _selectedItem;
+
+        private int _ticketId;
+        private readonly IWindowFactory _windowFactory;
+
+        private TicketModel _selectedTicket;
         private ICommand _populateTicketsCommand;
         private ICommand _saveTicketCommand;
         private ICommand _openDetailTicketCommand;
@@ -20,24 +27,29 @@ namespace SimpleMVVMExample
 
         #endregion
 
-        public TicketViewModel()
+        public TicketViewModel() : this(new DetailTicketViewProductionFactory()) { }
+
+        public TicketViewModel(IWindowFactory windowFactory)
         {
+            _windowFactory = windowFactory;
             Tickets = new ObservableCollection<TicketModel>();
+            CreateTicketCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(CreateTicket);
+            Get100Tickets();
         }
 
         #region Properties/Commands
 
-        public TicketModel SelectedItem
+        public TicketModel SelectedTicket
         {
             get
             {
-                return _selectedItem;
+                return _selectedTicket;
             }
             set
             {
-                if (value == _selectedItem || value == null) return;
-                _selectedItem = value;
-                OnPropertyChanged("SelectedItem");
+                if (value == _selectedTicket || value == null) return;
+                _selectedTicket = value;
+                OnPropertyChanged("SelectedTicket");
             }
         }
 
@@ -69,9 +81,9 @@ namespace SimpleMVVMExample
             }
         }
 
-        public ICommand PopulateTicketsCommand => _populateTicketsCommand ?? (_populateTicketsCommand = new RelayCommand(param => InitializeCurrentTickets()));
+        public ICommand CreateTicketCommand { get; set; }
 
-        public ICommand OpenDetailTicketCommand => _openDetailTicketCommand ?? (_openDetailTicketCommand = new RelayCommand(param => ShowWindow(), param => (SelectedItem != null)));
+        public ICommand OpenDetailTicketCommand => _openDetailTicketCommand ?? (_openDetailTicketCommand = new RelayCommand(param => ShowWindow(), param => (SelectedTicket != null)));
 
         public ICommand SaveTicketCommand => _saveTicketCommand ?? (_saveTicketCommand = new RelayCommand(param => SaveTicket()));
 
@@ -91,30 +103,73 @@ namespace SimpleMVVMExample
             MessageBox.Show("Successfully deleted Ticket.");
         }
 
-        private void InitializeCurrentTickets()
+        private async void CreateTicket()
         {
-            for (var i = 0; i < 5; i++)
+            // Create and wait for Window to close.
+            var complete = await _windowFactory.CreateNewWindow(new TicketModel());
+            // Refresh Datagrid with new Data
+            GetTickets();
+        }
+
+        private void GetTickets()
+        {
+            using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
-                Tickets.Add(InitializeTicket(i));
+                if (cmd.Connection.State != ConnectionState.Open) return;
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SPTICKETVIEW";
+                cmd.Parameters.Add(new OracleParameter("STRSEARCHSTRING", OracleDbType.Varchar2, ParameterDirection.Input));
+                cmd.Parameters.Add(new OracleParameter("CURSOR_", OracleDbType.RefCursor, ParameterDirection.Output));
+
+                var dr = cmd.ExecuteReader();
+
+                if (!dr.HasRows) return;
+
+                var dataTable = new DataTable();
+                dataTable.Load(dr);
+
+                Tickets = new ObservableCollection<TicketModel>(dataTable.DataTableToList<TicketModel>());
             }
         }
 
-        private TicketModel InitializeTicket(int i)
+        private void Get100Tickets()
         {
-            var theObject = new TicketModel
+            using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
-                INTTICKETID = i,
-                STRTITLE = "The object " + i
-            };
-            return theObject;
+                if (cmd.Connection.State != ConnectionState.Open) return;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"SELECT 
+                                        TBLTICKET.*, 
+                                        TBLCUSTOMER.STRFORENAME || ' ' || TBLCUSTOMER.STRSURNAME AS STRREQUESTBY, 
+                                        TBLSTAFF.STRFORENAME || ' ' || TBLSTAFF.STRSURNAME AS STRASSIGNEDTO 
+                                    FROM 
+                                        TBLTICKET         
+                                        INNER JOIN TBLCUSTOMER
+                                           ON TBLCUSTOMER.INTCUSTOMERID = TBLTICKET.INTREQUESTBY
+                                        LEFT JOIN TBLSTAFF
+                                           ON TBLSTAFF.INTSTAFFID = TBLTICKET.INTASSIGNEDTO 
+                                    WHERE 
+                                        ROWNUM <= 100 
+                                    ORDER BY 
+                                        TBLTICKET.INTTICKETID DESC";
+                var dr = cmd.ExecuteReader();
+
+                if (!dr.HasRows) return;
+                var dataReader = cmd.ExecuteReader();
+                var dataTable = new DataTable();
+                dataTable.Load(dataReader);
+
+                Tickets = new ObservableCollection<TicketModel>(dataTable.DataTableToList<TicketModel>());
+            }
         }
 
-        private void ShowWindow()
+        private async void ShowWindow()
         {
-            // Just as an exammple, here I just show a MessageBox
-            Debug.WriteLine(SelectedItem);
-            var detailForm = new DetailTicketView(SelectedItem);
-            detailForm.ShowDialog();
+            // Create and wait for Window to close.
+            var complete = await _windowFactory.CreateNewWindow(_selectedTicket);
+            // Refresh Datagrid with new Data
+            GetTickets();
         }
         #endregion
     }

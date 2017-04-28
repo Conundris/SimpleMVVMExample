@@ -23,7 +23,7 @@ namespace SimpleMVVMExample
         private string _county;
         private string _country;
         private DateTime _dateOfBirth;
-        private bool _active;
+        private char _active;
         private bool? isValid;
         private string validationErrorsString;
 
@@ -41,7 +41,7 @@ namespace SimpleMVVMExample
 
         public int INTCUSTOMERID
         {
-            get => _customerId;
+            get { return _customerId; }
             set
             {
                 if (value == _customerId) return;
@@ -53,7 +53,7 @@ namespace SimpleMVVMExample
 
         public string STRFORENAME
         {
-            get => _forename;
+            get { return _forename; }
             set
             {
                 if (value == _forename) return;
@@ -64,7 +64,7 @@ namespace SimpleMVVMExample
         }
         public string STRSURNAME
         {
-            get => _surname;
+            get { return _surname; }
             set
             {
                 if (value == _surname) return;
@@ -76,7 +76,7 @@ namespace SimpleMVVMExample
 
         public string STREMAIL
         {
-            get => _email;
+            get { return _email; }
             set
             {
                 if (value == _email) return;
@@ -88,7 +88,7 @@ namespace SimpleMVVMExample
 
         public string STRCOMPANY
         {
-            get => _company;
+            get { return _company; }
             set
             {
                 if (value == _company) return;
@@ -100,7 +100,7 @@ namespace SimpleMVVMExample
 
         public string STRSTREET
         {
-            get => _street;
+            get { return _street; }
             set
             {
                 if (value == _street) return;
@@ -112,7 +112,7 @@ namespace SimpleMVVMExample
 
         public string STRPHONE
         {
-            get => _phone;
+            get { return _phone; }
             set
             {
                 if (value == _phone) return;
@@ -124,7 +124,7 @@ namespace SimpleMVVMExample
 
         public DateTime DATDATEOFBIRTH
         {
-            get => _dateOfBirth;
+            get { return _dateOfBirth; }
             set
             {
                 if (value == _dateOfBirth) return;
@@ -136,7 +136,7 @@ namespace SimpleMVVMExample
 
         public string STRTOWN
         {
-            get => _town;
+            get { return _town; }
             set
             {
                 if (value == _town) return;
@@ -148,7 +148,7 @@ namespace SimpleMVVMExample
 
         public string STRCOUNTY
         {
-            get => _county;
+            get { return _county; }
             set
             {
                 if (value == _county) return;
@@ -160,7 +160,7 @@ namespace SimpleMVVMExample
 
         public string STRCOUNTRY
         {
-            get => _country;
+            get { return _country; }
             set
             {
                 if (value == _country) return;
@@ -170,9 +170,9 @@ namespace SimpleMVVMExample
             }
         }
 
-        public bool BLNACTIVE
+        public char BLNACTIVE
         {
-            get => _active;
+            get { return _active; }
             set
             {
                 if (value == _active) return;
@@ -184,7 +184,7 @@ namespace SimpleMVVMExample
 
         public string ValidationErrorsString
         {
-            get => validationErrorsString;
+            get { return validationErrorsString; }
             private set
             {
                 validationErrorsString = value;
@@ -194,7 +194,7 @@ namespace SimpleMVVMExample
 
         public bool? IsValid
         {
-            get => isValid;
+            get { return isValid; }
             private set
             {
                 isValid = value;
@@ -209,44 +209,32 @@ namespace SimpleMVVMExample
             Validator.AddRequiredRule(() => STRSURNAME, "Surname is required");
             Validator.AddRequiredRule(() => STRPHONE, "Phonenumber is required");
             Validator.AddRequiredRule(() => DATDATEOFBIRTH, "Date of birth is required");
-            
-
-            Validator.AddRule(nameof(STREMAIL),
-                () =>
-                {
-                    const string regexPattern =
-                        @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
-                    return RuleResult.Assert(Regex.IsMatch(STREMAIL, regexPattern),
-                        "Email must by a valid email address");
-                });
 
 
             Validator.AddRule(nameof(DATDATEOFBIRTH),
                 () => RuleResult.Assert(IsDateValid(DATDATEOFBIRTH), "The chosen date is in the future. Please choose a date of birth in the past."));
-            /*Validator.AddAsyncRule(nameof(selectedCustomer.),
-                async () =>
+
+            Validator.AddRule(nameof(STRPHONE),
+                () =>
                 {
-                    var isAvailable = await UserRegistrationService.IsUserNameAvailable(UserName).ToTask();
-
-                    return RuleResult.Assert(isAvailable,
-                        string.Format("User Name {0} is taken. Please choose a different one.", UserName));
-                });*/
-
-
-            //Validator.AddChildValidatable(() => InterestSelectorViewModel);
+                    const string regexPattern =
+                        @"^\d+$";
+                    return RuleResult.Assert(Regex.IsMatch(STRPHONE, regexPattern),
+                        "Phone Number can only contain Numbers.");
+                });
         }
 
         private static bool IsDateValid(DateTime datdateofbirth)
         {
             return datdateofbirth <= DateTime.Now;
         }
-        
+
         private async void Validate()
         {
             await ValidateAsync();
         }
 
-        private async Task ValidateAsync()
+        public async Task ValidateAsync()
         {
             var result = await Validator.ValidateAllAsync();
 
@@ -254,15 +242,23 @@ namespace SimpleMVVMExample
         }
         private void OnValidationResultChanged(object sender, ValidationResultChangedEventArgs e)
         {
-            if (IsValid.GetValueOrDefault(true)) return;
-            var validationResult = Validator.GetResult();
+            if (!IsValid.GetValueOrDefault(true))
+            {
+                var validationResult = Validator.GetResult();
 
-            UpdateValidationSummary(validationResult);
+                UpdateValidationSummary(validationResult);
+            }
         }
         private void UpdateValidationSummary(ValidationResult validationResult)
         {
             IsValid = validationResult.IsValid;
             ValidationErrorsString = validationResult.ToString();
+        }
+
+
+        public override string ToString()
+        {
+            return $"{_surname} {_forename}";
         }
     }
 }

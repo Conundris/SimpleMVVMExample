@@ -147,6 +147,7 @@
     </ApplicationDefinition>
     <Compile Include="ApplicationViewModel.cs" />
     <Compile Include="Automapper\AutoMapperConfig.cs" />
+    <Compile Include="Converter\ActiveConverter.cs" />
     <Compile Include="Customers\CustomerModel.cs" />
     <Compile Include="Customers\CustomerViewModel.cs" />
     <Compile Include="Customers\DetailCustomerView.xaml.cs">
@@ -187,6 +188,7 @@
     </Compile>
     <Compile Include="Ticket\TicketModel.cs" />
     <Compile Include="Helper Classes\RelayCommand.cs" />
+    <Compile Include="Ticket\TicketNoteModel.cs" />
     <Compile Include="Ticket\TicketNoteView.xaml.cs">
       <DependentUpon>TicketNoteView.xaml</DependentUpon>
     </Compile>
@@ -201,7 +203,9 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="WindowFactory\DetailStaffViewProductionFactory.cs" />
     <Compile Include="WindowFactory\DetailCustomerViewProductionFactory.cs" />
+    <Compile Include="WindowFactory\DetailTicketViewProductionFactory.cs" />
     <Compile Include="WindowFactory\IWindowFactory.cs" />
+    <Compile Include="WindowFactory\PaymentViewProductionFactory.cs" />
     <Page Include="Customers\DetailCustomerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

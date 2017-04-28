@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Windows.Forms;
 using System.Windows.Input;
 using FormValidationExample.Infrastructure;
 using Oracle.ManagedDataAccess.Client;
@@ -17,10 +18,17 @@ namespace SimpleMVVMExample.Staff
         public DetailStaffViewModel(StaffModel selectedStaff)
         {
             _selectedStaff = selectedStaff;
-            SaveAndCloseCustomerCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand<ICloseable>(SaveAndCloseCustomer);
+            SaveAndCloseStaffCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand<ICloseable>(SaveAndCloseCustomer);
+            DeactivateStaffCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand<ICloseable>(DeactivateStaff);
+
+            if (_selectedStaff.INTSTAFFID != 0)
+            {
+                _selectedStaff.Validate();
+            }
         }
 
-        public ICommand SaveAndCloseCustomerCommand { get; set; }
+        public ICommand SaveAndCloseStaffCommand { get; set; }
+        public ICommand DeactivateStaffCommand { get; set; }
         public StaffModel SelectedStaff
         {
             get { return _selectedStaff; }
@@ -32,18 +40,27 @@ namespace SimpleMVVMExample.Staff
             }
         }
 
-        private void SaveAndCloseCustomer(ICloseable window)
+        private async void SaveAndCloseCustomer(ICloseable window)
         {
-            // Insert (Create new Customer)
-            if (_selectedStaff.INTSTAFFID == 0)
+            await _selectedStaff.ValidateAsync();
+
+            if (_selectedStaff.IsValid != null && _selectedStaff.IsValid.Value)
             {
-                CreateCustomer();
+                // Insert (Create new Customer)
+                if (_selectedStaff.INTSTAFFID == 0)
+                {
+                    CreateCustomer();
+                }
+                else // Update Customer
+                {
+                    UpdateCustomer();
+                }
+                window?.Close();
             }
-            else // Update Customer
+            else
             {
-                UpdateCustomer();
+                MessageBox.Show(_selectedStaff.ValidationErrorsString);
             }
-            window?.Close();
         }
 
         private void UpdateCustomer()
@@ -54,15 +71,11 @@ namespace SimpleMVVMExample.Staff
                     "UPDATE TBLSTAFF " +
                     "SET STRFORENAME = :strForename, " +
                     "STRSURNAME = :strSurname, " +
-                    "STRUSERNAME = :strUsername, " +
-                    "STRPASSWORD = :strPassword, " +
                     "STREMAIL = :strEmail " +
                     "WHERE INTSTAFFID = :intStaffID";
 
                 cmd.Parameters.Add(new OracleParameter("strSurname", _selectedStaff.STRSURNAME));
                 cmd.Parameters.Add(new OracleParameter("strForename", _selectedStaff.STRFORENAME));
-                cmd.Parameters.Add(new OracleParameter("strUsername", _selectedStaff.STRUSERNAME));
-                cmd.Parameters.Add(new OracleParameter("strPassword", _selectedStaff.STRPASSWORD));
                 cmd.Parameters.Add(new OracleParameter("strEmail", _selectedStaff.STREMAIL));
                 cmd.Parameters.Add(new OracleParameter("intStaffID", OracleDbType.Int32, _selectedStaff.INTSTAFFID,
                     ParameterDirection.Input));
@@ -84,13 +97,11 @@ namespace SimpleMVVMExample.Staff
             using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
                 cmd.CommandText =
-                    "INSERT INTO tblCustomer (strSurname, strForename, strUsername, strPassword, strEmail)" +
-                    " VALUES (:strSurname, :strForename, :strUsername, :strPassword, :strEmail)";
+                    "INSERT INTO tblCustomer (strSurname, strForename, strEmail)" +
+                    " VALUES (:strSurname, :strForename, :strEmail)";
 
                 cmd.Parameters.Add(new OracleParameter("strSurname", _selectedStaff.STRSURNAME));
                 cmd.Parameters.Add(new OracleParameter("strForename", _selectedStaff.STRFORENAME));
-                cmd.Parameters.Add(new OracleParameter("strUsername", _selectedStaff.STRUSERNAME));
-                cmd.Parameters.Add(new OracleParameter("strPassword", _selectedStaff.STRPASSWORD));
                 cmd.Parameters.Add(new OracleParameter("strEmail", _selectedStaff.STREMAIL));
                 cmd.Parameters.Add(new OracleParameter("intStaffID", OracleDbType.Int32, _selectedStaff.INTSTAFFID,
                     ParameterDirection.Input));
@@ -104,6 +115,26 @@ namespace SimpleMVVMExample.Staff
                     Console.WriteLine(ex.Message);
                     throw;
                 }
+            }
+        }
+        private void DeactivateStaff(ICloseable window)
+        {
+            var dialogResult = MessageBox.Show("Are you sure that you want to deactivate this Staff?", "Deactivate Staff", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                using (var cmd = DC.GetOpenConnection().CreateCommand())
+                {
+                    if (cmd.Connection.State != ConnectionState.Open) return;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "UPDATE TBLSTAFF BLNACTIVE = '0' WHERE INTSTAFFID = " + _selectedStaff.INTSTAFFID;
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Staff has been successfully deactivated.");
+                    window?.Close();
+                }
+            }
+            else
+            {
+                return;
             }
         }
     }

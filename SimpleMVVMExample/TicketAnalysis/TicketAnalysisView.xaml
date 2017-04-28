@@ -7,30 +7,19 @@
              mc:Ignorable="d" 
              MinWidth="473.109" MinHeight="300">
     <DockPanel Margin="20" >
-        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-            <Label x:Name="lbldatFrom" Content="Date from" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-            <DatePicker HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" Width="85"/>
-            <Label x:Name="lbldatTo" Content="Date to" HorizontalAlignment="Left" Margin="30,11,0,0" VerticalAlignment="Top"/>
-            <DatePicker HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="85"/>
-        </DockPanel>
         <DockPanel DockPanel.Dock="Right">
             <GroupBox x:Name="grpActions" Header="Actions" Margin="0,0,0,136" Width="125" VerticalAlignment="Top">
                 <StackPanel>
-                    <Button x:Name="btnRunAnalysis" Content="Run" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=PopulateTicketsCommand}" HorizontalAlignment="Stretch" Click="btnRunAnalysis_Click" />
-                    <Button x:Name="btnPrint" Content="Print" DockPanel.Dock="Top" Margin="10,2" Command="{Binding Path=OpenDetailTicketCommand}" HorizontalAlignment="Stretch" Click="btnPrint_Click" />
+                    <Button x:Name="btnRunAnalysis" Content="Run" DockPanel.Dock="Top" Margin="10,2" HorizontalAlignment="Stretch" Click="btnRunAnalysis_Click" />
+                    <Button x:Name="btnPrint" Content="Print" DockPanel.Dock="Top" Margin="10,2" HorizontalAlignment="Stretch" Click="btnPrint_Click" />
                 </StackPanel>
             </GroupBox>
         </DockPanel>
-        <DataGrid x:Name="dgTicketAnalysis" AutoGenerateColumns="False" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Stretch">
+        <DataGrid x:Name="dgTicketAnalysis" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Type"/>
-                <DataGridTextColumn Header="Value"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Path=Type}"/>
+                <DataGridTextColumn Header="Value" Binding="{Binding Path=Value}"/>
             </DataGrid.Columns>
         </DataGrid>
-
-
-
-
-
     </DockPanel>
 </UserControl>

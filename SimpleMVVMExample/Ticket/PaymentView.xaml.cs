@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Oracle.ManagedDataAccess.Client;
+using SimpleMVVMExample.DB;
 
 namespace SimpleMVVMExample.Ticket
 {
@@ -19,20 +10,30 @@ namespace SimpleMVVMExample.Ticket
     /// </summary>
     public partial class PaymentView : Window
     {
-        public PaymentView()
+        private int ticketID;
+
+        public PaymentView(int ticketID)
         {
             InitializeComponent();
+            this.ticketID = ticketID;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Payment has been successfully created.");
-            Close();
-        }
+            if (txtAmount.Text != "")
+            {
+                using (var cmd = DC.GetOpenConnection().CreateCommand())
+                {
+                    if (cmd.Connection.State != ConnectionState.Open) return;
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "UPDATE TBLTICKET SET DECAMOUNT = " + txtAmount.Text + " WHERE INTTICKETID = " + ticketID;
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            this.Close();
         }
     }
 }

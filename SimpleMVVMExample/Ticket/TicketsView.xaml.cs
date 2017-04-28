@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using SimpleMVVMExample.Ticket;
 
 namespace SimpleMVVMExample
@@ -13,14 +14,17 @@ namespace SimpleMVVMExample
             InitializeComponent();
         }
 
-        private void dgTickets_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void btnPrintTicket_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (dgTickets.SelectedItem == null) return;
-            var selectedTicket = dgTickets.SelectedItem as TicketModel;
-
-            new DetailTicketView(selectedTicket).ShowDialog();
-
-            //MessageBox.Show($"The Person you double clicked on is - ID: {selectedTicket.INTTICKETID}, Title: {selectedTicket.STRTICKETTITLE}");
+            var Printdlg = new PrintDialog();
+            if (Printdlg.ShowDialog().GetValueOrDefault())
+            {
+                Size pageSize = new Size(Printdlg.PrintableAreaWidth, Printdlg.PrintableAreaHeight);
+                // sizing of the element.
+                dgTickets.Measure(pageSize);
+                dgTickets.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
+                Printdlg.PrintVisual(dgTickets, "Tickets");
+            }
         }
     }
 }

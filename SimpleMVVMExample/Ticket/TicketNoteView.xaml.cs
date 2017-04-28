@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using SimpleMVVMExample.DB;
 
 namespace SimpleMVVMExample.Ticket
 {
@@ -19,19 +10,29 @@ namespace SimpleMVVMExample.Ticket
     /// </summary>
     public partial class TicketNoteView : Window
     {
-        public TicketNoteView()
+        private int ticketID;
+
+        public TicketNoteView(int ticketID)
         {
             InitializeComponent();
+            this.ticketID = ticketID;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Ticket note has been succesfully created.");
-            Close();
-        }
+            if (txtDescription.Text != "")
+            {
+                using (var cmd = DC.GetOpenConnection().CreateCommand())
+                {
+                    if (cmd.Connection.State != ConnectionState.Open) return;
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "INSERT INTO TBLTICKETNOTE (INTTICKETID, STRNOTE) VALUES (" + ticketID + ", '" + DateTime.Now.ToString("yyyy MMMM dd") + ": " + txtDescription.Text + "')";
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Ticket note has been succesfully created.");
+                }
+            }
             Close();
         }
     }
