@@ -146,7 +146,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApplicationViewModel.cs" />
-    <Compile Include="Automapper\AutoMapperConfig.cs" />
     <Compile Include="Converter\ActiveConverter.cs" />
     <Compile Include="Customers\CustomerModel.cs" />
     <Compile Include="Customers\CustomerViewModel.cs" />

@@ -173,6 +173,8 @@ namespace SimpleMVVMExample
 
         #endregion // Properties
 
+        #region Methods
+
         public async void Validate()
         {
             await ValidateAsync();
@@ -206,6 +208,9 @@ namespace SimpleMVVMExample
             Validator.AddRequiredRule(() => STRDESCRIPTION, "Description is required");
             Validator.AddRequiredRule(() => INTREQUESTBY, "Email is required");
         }
+
+        #endregion
+
     }
 }
 

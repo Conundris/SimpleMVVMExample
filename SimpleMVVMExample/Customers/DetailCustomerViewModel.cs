@@ -136,7 +136,7 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
-
+        // Query to deregister selectedCustomer
         private void DeRegisterCustomer(ICloseable window)
         {
             if (_selectedCustomer == null) return;

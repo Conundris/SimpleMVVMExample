@@ -28,7 +28,7 @@ namespace SimpleMVVMExample
         private string validationErrorsString;
 
         #endregion // Fields
-
+        // CStr
         public CustomerModel()
         {
             ConfigureValidationRules();
@@ -203,6 +203,10 @@ namespace SimpleMVVMExample
         }
 
         #endregion // Properties
+
+        #region Methods
+
+        // Configure all Validation Rules for the Model
         private void ConfigureValidationRules()
         {
             Validator.AddRequiredRule(() => STRFORENAME, "Forename is required");
@@ -240,6 +244,7 @@ namespace SimpleMVVMExample
 
             UpdateValidationSummary(result);
         }
+        // If Validation Result changes
         private void OnValidationResultChanged(object sender, ValidationResultChangedEventArgs e)
         {
             if (!IsValid.GetValueOrDefault(true))
@@ -255,7 +260,9 @@ namespace SimpleMVVMExample
             ValidationErrorsString = validationResult.ToString();
         }
 
+        #endregion
 
+        // Overriden for Usage in Ticket View
         public override string ToString()
         {
             return $"{_surname} {_forename}";

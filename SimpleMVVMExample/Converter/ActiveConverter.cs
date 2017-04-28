@@ -4,6 +4,7 @@ using System.Windows.Data;
 
 namespace SimpleMVVMExample.Converter
 {
+    // Converts char from OracleDB to Boolean
     class ActiveConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

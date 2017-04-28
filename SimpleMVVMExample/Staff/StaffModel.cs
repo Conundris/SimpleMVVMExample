@@ -119,6 +119,7 @@ namespace SimpleMVVMExample.Staff
 
         #endregion // Properties
 
+        #region Methods
         private void ConfigureValidationRules()
         {
             Validator.AddRequiredRule(() => STRFORENAME, "Forename is required");
@@ -166,5 +167,9 @@ namespace SimpleMVVMExample.Staff
         {
             return $"{_strsurname} {_strforename}";
         }
+
+
+        #endregion
+
     }
 }

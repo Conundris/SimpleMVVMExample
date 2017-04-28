@@ -7,12 +7,6 @@ namespace SimpleMVVMExample
 {
     public class HomeViewModel : ObservableObject, IPageViewModel
     {
-        public string Name
-        {
-            get
-            {
-                return "Home Page";
-            }
-        }
+        public string Name => "Home Page";
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data;
 using Oracle.ManagedDataAccess.Client;
-using System.Windows.Forms;
 using System.Windows.Input;
 using SimpleMVVMExample.DB;
 using SimpleMVVMExample.Utility;
@@ -99,26 +98,6 @@ namespace SimpleMVVMExample.Staff
         #endregion
 
         #region Methods
-
-        private void DeactivateStaff()
-        {
-            var dialogResult = MessageBox.Show("Are you sure that you want to deactivate this Staff?", "Deactivate Staff", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                using (var cmd = DC.GetOpenConnection().CreateCommand())
-                {
-                    if (cmd.Connection.State != ConnectionState.Open) return;
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "UPDATE TBLSTAFF BLNACTIVE = '0' WHERE INTSTAFFID = " + _selectedItem.INTSTAFFID;
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Staff has been successfully deactivated.");
-                }
-            }
-            else
-            {
-                return;
-            }
-        }
 
         public void GetStaff()
         {

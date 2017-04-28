@@ -92,11 +92,6 @@ namespace SimpleMVVMExample.Ticket
             }
         }
 
-        private void btnPrintTicket_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Printing Ticket.");
-        }
-
         private void DetailTicketWindow_Loaded(object sender, RoutedEventArgs e)
         {
             RefreshNotes();

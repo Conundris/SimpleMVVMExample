@@ -40,7 +40,6 @@
                 <Button Content="De-register" DockPanel.Dock="Top" Margin="6,2" Command="{Binding Path=DeRegisterCustomerCommand}" HorizontalAlignment="Stretch" />
             </StackPanel>
         </GroupBox>
-        <!--<CheckBox x:Name="chkValid" Content="CheckBox" HorizontalAlignment="Left" Margin="96,218,0,0" VerticalAlignment="Top" Visibility="Collapsed" IsChecked="{Binding SelectedCustomer.IsValid, Mode=TwoWay, ValidatesOnDataErrors=True}" IsEnabled="False"/>-->
 
 
     </Grid>

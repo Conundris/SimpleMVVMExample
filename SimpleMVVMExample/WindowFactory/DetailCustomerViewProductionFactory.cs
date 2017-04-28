@@ -1,8 +1,5 @@
 ﻿using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Navigation;
 using AsyncShowDialog;
-using MaterialDesignThemes.Wpf;
 using SimpleMVVMExample.Customers;
 
 namespace SimpleMVVMExample.WindowFactory

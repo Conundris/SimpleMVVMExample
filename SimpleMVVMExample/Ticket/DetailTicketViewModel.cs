@@ -16,9 +16,14 @@ namespace SimpleMVVMExample.Ticket
 {
     class DetailTicketViewModel : ValidatableViewModelBase
     {
+        #region fields
+
         private TicketModel _selectedTicket;
         private ObservableCollection<CustomerModel> _customers = new ObservableCollection<CustomerModel>();
         private ObservableCollection<StaffModel> _staff = new ObservableCollection<StaffModel>();
+
+        #endregion
+
 
         public DetailTicketViewModel(TicketModel selectedTicket)
         {
@@ -28,6 +33,8 @@ namespace SimpleMVVMExample.Ticket
             getActiveCustomers();
             getActiveStaff();
         }
+
+        #region Properties
 
         public ICommand SaveAndCloseTicketCommand { get; set; }
         public ICommand CloseTicketCommand { get; set; }
@@ -92,6 +99,10 @@ namespace SimpleMVVMExample.Ticket
             }
         }
 
+        #endregion
+
+        #region Methods
+
         private void UpdateCustomer()
         {
             using (var cmd = DC.GetOpenConnection().CreateCommand())
@@ -112,7 +123,7 @@ namespace SimpleMVVMExample.Ticket
                 // If Assigned To is null, we give DBNull as a parameter
                 cmd.Parameters.Add(_selectedTicket.INTASSIGNEDTO == 0
                     ? new OracleParameter("intAssignedTo", DBNull.Value)
-                    : new OracleParameter("intAssignedTo", OracleDbType.Int32, (int) _selectedTicket.INTASSIGNEDTO, ParameterDirection.Input));
+                    : new OracleParameter("intAssignedTo", OracleDbType.Int32, (int)_selectedTicket.INTASSIGNEDTO, ParameterDirection.Input));
                 cmd.Parameters.Add(new OracleParameter("intRequestedBy", OracleDbType.Int32, _selectedTicket.INTREQUESTBY, ParameterDirection.Input));
                 cmd.Parameters.Add(new OracleParameter("strStatus", _selectedTicket.STRSTATUS));
                 cmd.Parameters.Add(new OracleParameter("intTicketID", OracleDbType.Int32, _selectedTicket.INTTICKETID,
@@ -237,5 +248,7 @@ namespace SimpleMVVMExample.Ticket
                 Staff = new ObservableCollection<StaffModel>(dataTable.DataTableToList<StaffModel>());
             }
         }
+
+        #endregion
     }
 }

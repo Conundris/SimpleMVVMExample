@@ -21,6 +21,7 @@ namespace SimpleMVVMExample.TicketAnalysis
             InitializeComponent();
         }
 
+        // Executes Ticket Analysis generation.
         private void btnRunAnalysis_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Generating Ticket Analysis");
@@ -28,6 +29,7 @@ namespace SimpleMVVMExample.TicketAnalysis
             GetAnalysisData();
         }
 
+        // Query for Analysis Data
         private void GetAnalysisData()
         {
             dgTicketAnalysis.Items.Clear();
@@ -66,6 +68,7 @@ FROM
     TBLTICKET";
 
                 DbDataReader reader = cmd.ExecuteReader();
+                // Populate DataGrid
                 while (reader.Read())
                 {
                     analysis.Add(new TicketAnalysisModel
@@ -100,6 +103,7 @@ FROM
             dgTicketAnalysis.ItemsSource = analysis;
         }
 
+        // Printing DataGrid
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
             var Printdlg = new PrintDialog();

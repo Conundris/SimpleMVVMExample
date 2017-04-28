@@ -20,7 +20,6 @@ namespace SimpleMVVMExample.Customers
         private readonly IWindowFactory _windowFactory;
         private ObservableCollection<CustomerModel> _customers = new ObservableCollection<CustomerModel>();
         private CustomerModel _selectedCustomer;
-        private ICommand _printCustomersCommand;
         private ICommand _openDetailCustomerCommand;
 
         #endregion
@@ -73,17 +72,6 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
-        public ICommand PrintCustomersCommand
-        {
-            get
-            {
-                return _printCustomersCommand ?? (_printCustomersCommand = new RelayCommand(
-                           param => PrintCustomers(),
-                           param => (SelectedCustomer != null)
-                ));
-            }
-        }
-
         public ICommand OpenDetailCustomerCommand
         {
             get
@@ -103,48 +91,7 @@ namespace SimpleMVVMExample.Customers
 
         #region Methods
 
-        private void PrintCustomers()
-        {
-            var pd = new PrintDialog();
-            throw new System.NotImplementedException();
-        }
-
-        private void DeRegisterCustomer()
-        {
-            if (SelectedCustomer == null) return;
-
-            var dialogResult = MessageBox.Show("Are you sure that you want to deregister this Customer?", "Deactivate Customer", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                using (var cmd = DC.GetOpenConnection().CreateCommand())
-                {
-                    SelectedCustomer.BLNACTIVE = '0';
-
-                    cmd.CommandText = "UPDATE tblCustomer " +
-                                      "SET blnActive = '0' " +
-                                      "WHERE intCustomerID = :intCustomerID";
-
-                    cmd.Parameters.Add(new OracleParameter("intCustomerID", OracleDbType.Int32, SelectedCustomer.INTCUSTOMERID, ParameterDirection.Input));
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch (OracleException e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
-                    }
-
-                    MessageBox.Show("Customer has been successfully deregistered.");
-                }
-            }
-            else
-            {
-                return;
-            }
-        }
-
+        // Open new DetailCustomerView with an empty CustomerModel
         private async void CreateCustomer()
         {
             // Create and wait for Window to close.
@@ -153,6 +100,7 @@ namespace SimpleMVVMExample.Customers
             GetCustomers();
         }
 
+        // Get ALL Customers
         private void GetCustomers()
         {
             using (var cmd = DC.GetOpenConnection().CreateCommand())
@@ -175,6 +123,7 @@ namespace SimpleMVVMExample.Customers
             }
         }
 
+        // Load newest 100 Customers, Gets called at Startup
         private void Get100Customers()
         {
             using (var cmd = DC.GetOpenConnection().CreateCommand())
@@ -191,6 +140,7 @@ namespace SimpleMVVMExample.Customers
                 Customers = new ObservableCollection<CustomerModel>(dataTable.DataTableToList<CustomerModel>());
             }
         }
+        // Creates new DetailCustomerView with selected Customer in the Listview
         private async void CreateDetailWindow()
         {
             // Create and wait for Window to close.

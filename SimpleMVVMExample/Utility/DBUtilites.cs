@@ -16,10 +16,12 @@ namespace SimpleMVVMExample.Utility
                 {
                     var obj = new T();
 
+                    // Loop through all Items
                     foreach (var prop in obj.GetType().GetProperties())
                     {
                         try
                         {
+                            // Transfer Item to c# Type
                             var propertyInfo = obj.GetType().GetProperty(prop.Name);
                             propertyInfo.SetValue(obj, Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType), null);
                         }
