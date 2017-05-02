@@ -206,7 +206,7 @@ namespace SimpleMVVMExample
         {
             Validator.AddRequiredRule(() => STRTITLE, "Title is required");
             Validator.AddRequiredRule(() => STRDESCRIPTION, "Description is required");
-            Validator.AddRequiredRule(() => INTREQUESTBY, "Email is required");
+            Validator.AddRequiredRule(() => INTREQUESTBY, "Created By is required");
         }
 
         #endregion

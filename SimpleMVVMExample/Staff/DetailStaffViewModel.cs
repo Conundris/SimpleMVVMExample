@@ -71,11 +71,15 @@ namespace SimpleMVVMExample.Staff
                     "UPDATE TBLSTAFF " +
                     "SET STRFORENAME = :strForename, " +
                     "STRSURNAME = :strSurname, " +
+                    "STRUSERNAME = :strUsername, " +
+                    "STRPASSWORD = :strPassword, " +
                     "STREMAIL = :strEmail " +
                     "WHERE INTSTAFFID = :intStaffID";
 
                 cmd.Parameters.Add(new OracleParameter("strSurname", _selectedStaff.STRSURNAME));
                 cmd.Parameters.Add(new OracleParameter("strForename", _selectedStaff.STRFORENAME));
+                cmd.Parameters.Add(new OracleParameter("strUsername", "Value"));
+                cmd.Parameters.Add(new OracleParameter("strPassword", "Value"));
                 cmd.Parameters.Add(new OracleParameter("strEmail", _selectedStaff.STREMAIL));
                 cmd.Parameters.Add(new OracleParameter("intStaffID", OracleDbType.Int32, _selectedStaff.INTSTAFFID,
                     ParameterDirection.Input));
@@ -97,14 +101,14 @@ namespace SimpleMVVMExample.Staff
             using (var cmd = DC.GetOpenConnection().CreateCommand())
             {
                 cmd.CommandText =
-                    "INSERT INTO tblCustomer (strSurname, strForename, strEmail)" +
-                    " VALUES (:strSurname, :strForename, :strEmail)";
+                    "INSERT INTO TBLSTAFF (strSurname, strForename, strUsername, strPassword, strEmail)" +
+                    " VALUES (:strSurname, :strForename, :strUsername, :strPassword, :strEmail)";
 
-                cmd.Parameters.Add(new OracleParameter("strSurname", _selectedStaff.STRSURNAME));
-                cmd.Parameters.Add(new OracleParameter("strForename", _selectedStaff.STRFORENAME));
-                cmd.Parameters.Add(new OracleParameter("strEmail", _selectedStaff.STREMAIL));
-                cmd.Parameters.Add(new OracleParameter("intStaffID", OracleDbType.Int32, _selectedStaff.INTSTAFFID,
-                    ParameterDirection.Input));
+                cmd.Parameters.Add(new OracleParameter("strSurname", OracleDbType.Varchar2, _selectedStaff.STRSURNAME, ParameterDirection.Input));
+                cmd.Parameters.Add(new OracleParameter("strForename", OracleDbType.Varchar2, _selectedStaff.STRFORENAME, ParameterDirection.Input));
+                cmd.Parameters.Add(new OracleParameter("strUsername", "Value"));
+                cmd.Parameters.Add(new OracleParameter("strPassword", "Value"));
+                cmd.Parameters.Add(new OracleParameter("strEmail", OracleDbType.Varchar2 , _selectedStaff.STREMAIL, ParameterDirection.Input));
 
                 try
                 {

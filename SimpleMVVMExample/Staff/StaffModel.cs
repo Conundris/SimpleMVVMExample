@@ -12,6 +12,8 @@ namespace SimpleMVVMExample.Staff
         private int _intstaffid;
         private string _strforename;
         private string _strsurname;
+        private string _strusername;
+        private string _strpassword;
         private string _stremail;
         private char _blnactive;
         private bool? isValid;
@@ -69,6 +71,31 @@ namespace SimpleMVVMExample.Staff
             }
         }
 
+        public string STRUSERNAME
+        {
+            get { return _strusername; }
+            set
+            {
+                if (value != _strusername)
+                {
+                    _strusername = value;
+                    OnPropertyChanged("STRUSERNAME");
+                }
+            }
+        }
+
+        public string STRPASSWORD
+        {
+            get { return _strpassword; }
+            set
+            {
+                if (value != _strpassword)
+                {
+                    _strpassword = value;
+                    OnPropertyChanged("STRPASSWORD");
+                }
+            }
+        }
         public string STREMAIL
         {
             get { return _stremail; }

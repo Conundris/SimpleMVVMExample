@@ -51,7 +51,7 @@ namespace SimpleMVVMExample.TicketAnalysis
       FROM (SELECT INTREQUESTBY, Count(*) AS order_count
             FROM TBLTICKET
             GROUP BY TBLTICKET.INTREQUESTBY) query2) query3
-    WHERE query1.order_count = query3.highest_count) AS MOSTREQUESTS,
+    WHERE query1.order_count = query3.highest_count AND rownum = 1) AS MOSTREQUESTS,
     (SELECT query1.STRASSIGNEDTO
     FROM (SELECT TBLSTAFF.STRFORENAME || ' ' || TBLSTAFF.STRSURNAME AS STRASSIGNEDTO, Count(*) AS order_count
           FROM TBLTICKET
@@ -63,9 +63,9 @@ namespace SimpleMVVMExample.TicketAnalysis
           FROM (SELECT INTASSIGNEDTO, Count(*) AS order_count
                 FROM TBLTICKET
                 GROUP BY TBLTICKET.INTASSIGNEDTO) query2) query3
-    WHERE query1.order_count = query3.highest_count)
+    WHERE query1.order_count = query3.highest_count AND rownum = 1)
 FROM 
-    TBLTICKET";
+    TBLTICKET WHERE rownum = 1";
 
                 DbDataReader reader = cmd.ExecuteReader();
                 // Populate DataGrid
